@@ -23,13 +23,16 @@ public class EntityCharlie extends EntityChicken {
 			List<EntityLivingBase> l = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(posX-0.5, posY-0.5, posZ-0.5, posX+1, posY+1, posZ+1));
 			if(l.size()>0) {
 				EntityLivingBase thing = l.get(new Random().nextInt(l.size()));
-				if(thing!=this) {
+				if(thing!=this&&(Math.random()<0.01||!(thing instanceof EntityCharlie))) {
 					thing.attackEntityFrom(TheAndrewMod.deathByCharlie, 20f);
+					this.setRotation((float)Math.atan2(posZ-thing.posZ, posX-thing.posX), rotationPitch);
 				}
 			}
 		}
-		else if(Math.random()<0.01) {
-			if(!eatPlant(posX,posY,posZ)) if(!eatPlant(posX+1,posY,posZ)) if(!eatPlant(posX,posZ,posZ+1)) if(!eatPlant(posX-1, posY, posZ)) eatPlant(posX, posY, posZ-1);
+		else if(Math.random()<0.1) {
+			boolean dontEat=false;
+			if(!eatPlant(posX,posY,posZ)) if(!eatPlant(posX+1,posY,posZ)) if(!eatPlant(posX,posZ,posZ+1)) if(!eatPlant(posX-1, posY, posZ)) if(!eatPlant(posX, posY, posZ-1)) dontEat=true;
+			if(!dontEat) {this.setRotation(this.rotationYaw, 90);}
 		}
 	}
 	public boolean eatPlant(double posX, double posY, double posZ) {
