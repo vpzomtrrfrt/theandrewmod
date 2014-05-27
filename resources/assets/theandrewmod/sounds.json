@@ -1,0 +1,19 @@
+{
+	"mob.thomas.say": {
+		"category": "hostile",
+		sounds: [
+			"mob/thomas/says1",
+			"mob/thomas/says2",
+			"mob/thomas/says4",
+			"mob/thomas/says5"
+		]
+	},
+	"mob.jack.say": {
+		"category": "hostile",
+		sounds: ["mob/jack/hiss"]
+	},
+	"mob.charlie.scarp": {
+		"category": "hostile",
+		sounds: ["mob/charlie/scarp2"]
+	}
+}

@@ -1,0 +1,16 @@
+[
+{
+  "modid": "theandrewmod",
+  "name": "The Andrew Mod",
+  "description": "A mod where anything can happen because it's so random.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authors": ["VpzomTrrfrt"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
