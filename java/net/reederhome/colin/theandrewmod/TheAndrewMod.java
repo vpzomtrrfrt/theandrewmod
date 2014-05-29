@@ -78,6 +78,8 @@ public class TheAndrewMod {
 	static int teidThomas;
 	static int teidJack;
 	
+	public static int avid = 24;
+	
 	@SidedProxy(serverSide="net.reederhome.colin.theandrewmod.CommonProxy", clientSide="net.reederhome.colin.theandrewmod.client.ClientProxy")
 	static CommonProxy proxy;
 	
@@ -155,9 +157,7 @@ public class TheAndrewMod {
 		GameRegistry.addRecipe(new ItemStack(glassBottleChestplate), "b b", "bbb", "bbb", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(glassBottleLeggings), "bbb", "b b", "b b", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(glassBottleBoots), "   ", "b b", "b b", 'b', Items.glass_bottle);
-		int avid = 24;
 		VillagerRegistry.instance().registerVillagerId(avid);
-		VillagerRegistry.instance().registerVillagerSkin(avid, new ResourceLocation(MODID+":/textures/models/andrew.png"));
 		VillagerRegistry.instance().registerVillageTradeHandler(avid, new TradeHandlerAndrew());
 	}
 	

@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.reederhome.colin.theandrewmod.CommonProxy;
 import net.reederhome.colin.theandrewmod.EntityCharlie;
 import net.reederhome.colin.theandrewmod.EntityJack;
@@ -15,9 +16,12 @@ import net.reederhome.colin.theandrewmod.RenderJack;
 import net.reederhome.colin.theandrewmod.RenderSideSlab;
 import net.reederhome.colin.theandrewmod.RenderThomas;
 import net.reederhome.colin.theandrewmod.RenderTrevor;
+import net.reederhome.colin.theandrewmod.TheAndrewMod;
 import net.reederhome.colin.theandrewmod.TileEntitySideSlab;
+import net.reederhome.colin.theandrewmod.TradeHandlerAndrew;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.VillagerRegistry;
 
 public class ClientProxy extends CommonProxy {
 
@@ -30,5 +34,6 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityThrownCactus.class, new RenderThrownCactus());
 		RenderingRegistry.registerEntityRenderingHandler(EntityCharlie.class, new RenderCharlie());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySideSlab.class, new RenderSideSlab());
+		VillagerRegistry.instance().registerVillagerSkin(TheAndrewMod.avid, new ResourceLocation(TheAndrewMod.MODID+":/textures/models/andrew.png"));
 	}
 }
