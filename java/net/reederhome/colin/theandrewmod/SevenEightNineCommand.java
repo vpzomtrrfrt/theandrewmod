@@ -43,7 +43,7 @@ public class SevenEightNineCommand implements ICommand {
 
 	@Override
 	public boolean canCommandSenderUseCommand(ICommandSender var1) {
-		return true;
+		return var1.canCommandSenderUseCommand(3, getCommandName());
 	}
 
 	@Override
