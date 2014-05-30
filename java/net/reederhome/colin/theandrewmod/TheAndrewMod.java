@@ -169,6 +169,7 @@ public class TheAndrewMod {
 		VillagerRegistry.instance().registerVillageTradeHandler(avid, new TradeHandlerAndrew());
 		BiomeDictionary.registerBiomeType(biomeDessert, BiomeDictionary.Type.WASTELAND);
 		BiomeManager.addSpawnBiome(biomeDessert);
+		GameRegistry.registerWorldGenerator(new WorldGeneratorAndrew(), 16);
 	}
 	
 	private int registerPotion() {
