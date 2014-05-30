@@ -39,6 +39,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -68,6 +69,7 @@ public class TheAndrewMod {
 	static Block jumpPad = new BlockJumpPad();
 	static Block dyedCactus = new BlockDyedCactus();
 	static Block invasivePlant = new BlockInvasivePlant();
+	static Block cactusOre = new BlockCactusOre();
 	static Potion cancerPotion;
 	static Item potatoLiver;
 	static Item plasticUtensils;
@@ -139,6 +141,8 @@ public class TheAndrewMod {
 		deathByPotatoLiver.setDamageAllowedInCreativeMode();
 		jumpPad.setBlockTextureName(MODID+":jumpPad");
 		invasivePlant.setBlockTextureName(MODID+":invasivePlant");
+		GameRegistry.registerBlock(cactusOre, "cactusOre");
+		cactusOre.setBlockTextureName(MODID+":oreCactus");
 		System.out.println("Hello?");
 		int cpi = registerPotion();
 		System.out.println("cpi="+cpi);

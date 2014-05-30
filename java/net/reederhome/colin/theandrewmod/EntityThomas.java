@@ -29,6 +29,7 @@ public class EntityThomas extends EntityCreature implements IRangedAttackMob {
 		super(par1World);
 		this.tasks.addTask(0, new EntityAIMoveRandomly(this));
 		this.tasks.addTask(1, new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F));
+		this.tasks.addTask(2, new EntityAIRideHorses(this));
 		this.targetTasks.addTask(0, new EntityAINearestAttackableTarget(this, EntityJack.class, 2, true));
 		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityTrevor.class, 2, false));
 		this.setCurrentItemOrArmor(0, new ItemStack(Items.lava_bucket));

@@ -17,6 +17,7 @@ item.glassBottleBoots.name=Glass Bottle Boots
 tile.jumpPad.name=Jump Pad
 tile.dyedCactus.name=Cactus
 tile.invasivePlant.name=Invasive Plant
+tile.cactusOre.name=Cactus Ore
 potion.cancerPotion=Cancer
 entity.Thomas.name=Thomas
 entity.Jack.name=Jack

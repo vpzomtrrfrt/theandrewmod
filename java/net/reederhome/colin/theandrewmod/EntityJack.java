@@ -28,6 +28,7 @@ public class EntityJack extends EntityCreature implements IRangedAttackMob {
 		super(par1World);
 		this.tasks.addTask(0, new EntityAIMoveRandomly(this));
 		this.tasks.addTask(1, new EntityAIArrowAttack(this, 0.4D, 0, 60, 15.0F));
+		this.tasks.addTask(2, new EntityAIRideCharlie(this));
 		this.targetTasks.addTask(0, new EntityAINearestAttackableTarget(this, EntityThomas.class, 2, true));
 		this.setCurrentItemOrArmor(0, new ItemStack(Blocks.gravel));
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0);

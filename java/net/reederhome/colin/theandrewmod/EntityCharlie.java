@@ -3,12 +3,13 @@ package net.reederhome.colin.theandrewmod;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
@@ -34,6 +35,17 @@ public class EntityCharlie extends EntityChicken {
 			if(!eatPlant(posX,posY,posZ)) if(!eatPlant(posX+1,posY,posZ)) if(!eatPlant(posX,posZ,posZ+1)) if(!eatPlant(posX-1, posY, posZ)) if(!eatPlant(posX, posY, posZ-1)) dontEat=true;
 			if(!dontEat) {this.setRotation(this.rotationYaw, 90);}
 		}
+	}
+	public boolean interact(EntityPlayer p) {
+		ItemStack stack = p.getHeldItem();
+		if(stack!=null&&stack.getItem().equals(new ItemStack(TheAndrewMod.invasivePlant).getItem())) {
+			Entity thing = this;
+			while(thing.riddenByEntity!=null) {
+				thing=thing.riddenByEntity;
+			}
+			p.mountEntity(thing);
+		}
+		return false;
 	}
 	public boolean eatPlant(double posX, double posY, double posZ) {
 		if(worldObj.getBlock((int)posX, (int)posY, (int)posZ).equals(TheAndrewMod.invasivePlant)) {
