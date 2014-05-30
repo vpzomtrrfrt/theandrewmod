@@ -26,7 +26,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
@@ -52,7 +55,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.2.1";
+	public static final String VERSION = "1.3.0alpha";
 	static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
 	static DamageSource deathBy789 = new DamageSource("theandrewmod.deathBy789");
 	static DamageSource deathByPotatoLiver = new DamageSource("theandrewmod.deathByPotatoLiver");
@@ -77,6 +80,7 @@ public class TheAndrewMod {
 	static Item glassBottleBoots = new ItemGlassBottleArmor(0,3).setUnlocalizedName("glassBottleBoots");
 	static int teidThomas;
 	static int teidJack;
+	static BiomeGenBase biomeDessert = new BiomeGenDessert(24);
 	
 	public static int avid = 24;
 	
@@ -159,6 +163,8 @@ public class TheAndrewMod {
 		GameRegistry.addRecipe(new ItemStack(glassBottleBoots), "   ", "b b", "b b", 'b', Items.glass_bottle);
 		VillagerRegistry.instance().registerVillagerId(avid);
 		VillagerRegistry.instance().registerVillageTradeHandler(avid, new TradeHandlerAndrew());
+		BiomeDictionary.registerBiomeType(biomeDessert, BiomeDictionary.Type.WASTELAND);
+		BiomeManager.addSpawnBiome(biomeDessert);
 	}
 	
 	private int registerPotion() {
