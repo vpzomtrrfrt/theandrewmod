@@ -1,8 +1,10 @@
-package net.reederhome.colin.theandrewmod;
+package net.reederhome.colin.theandrewmod.client;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+import net.reederhome.colin.theandrewmod.ModelSideSlab;
+import net.reederhome.colin.theandrewmod.TileEntitySideSlab;
 
 import org.lwjgl.opengl.GL11;
 

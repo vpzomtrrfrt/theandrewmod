@@ -1,9 +1,11 @@
-package net.reederhome.colin.theandrewmod;
+package net.reederhome.colin.theandrewmod.client;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
+import net.reederhome.colin.theandrewmod.EntityThomas;
+import net.reederhome.colin.theandrewmod.TheAndrewMod;
 
 public class RenderThomas extends RenderBiped {
 

@@ -12,21 +12,19 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.entity.item.EntityMinecart;
+import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemMinecart;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.WeightedRandomChestContent;
-import net.minecraft.village.MerchantRecipe;
-import net.minecraft.village.MerchantRecipeList;
-import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
@@ -39,7 +37,6 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -50,13 +47,12 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
-import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
 
 @Mod(modid = TheAndrewMod.MODID, version = TheAndrewMod.VERSION, name = "The Andrew Mod")
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.3.0";
+	public static final String VERSION = "1.4.0pre";
 	static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
 	static DamageSource deathBy789 = new DamageSource("theandrewmod.deathBy789");
 	static DamageSource deathByPotatoLiver = new DamageSource("theandrewmod.deathByPotatoLiver");
@@ -247,9 +243,19 @@ public class TheAndrewMod {
 	@SubscribeEvent
 	public void onEntityInteract(EntityInteractEvent event) {
 		ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
-		if(stack!=null&&stack.getItem().equals(plasticUtensils)) {
-			stack.stackSize--;
-			event.target.attackEntityFrom(new EntityDamageSource("theandrewmod.deathByPotatoLiver.player", event.entityPlayer), 100f);
+		if(!event.target.worldObj.isRemote) {
+			if(stack!=null) {
+				if(stack.getItem().equals(plasticUtensils)) {
+					stack.stackSize--;
+					event.target.attackEntityFrom(new EntityDamageSource("theandrewmod.deathByPotatoLiver.player", event.entityPlayer), 100f);
+				}
+				else if((stack.getItem() instanceof ItemMinecart)&&(event.target instanceof EntityBat)&&event.target.riddenByEntity==null) {
+					stack.stackSize--;
+					EntityMinecart cart = EntityMinecart.createMinecart(event.target.worldObj, event.target.posX, event.target.posY, event.target.posZ, ((ItemMinecart)stack.getItem()).minecartType);
+					event.entity.worldObj.spawnEntityInWorld(cart);
+					cart.mountEntity(event.target);
+				}
+			}
 		}
 	}
 	

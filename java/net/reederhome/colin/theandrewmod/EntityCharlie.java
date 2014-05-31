@@ -6,9 +6,12 @@ import java.util.Random;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -17,6 +20,7 @@ public class EntityCharlie extends EntityChicken {
 
 	public EntityCharlie(World p_i1682_1_) {
 		super(p_i1682_1_);
+		this.getDataWatcher().addObject(16, 3);
 	}
 	public void onUpdate() {
 		super.onUpdate();
@@ -45,6 +49,10 @@ public class EntityCharlie extends EntityChicken {
 			}
 			p.mountEntity(thing);
 		}
+		if(stack!=null&&stack.getItem().equals(Items.dye)) {
+			if(!p.capabilities.isCreativeMode) stack.stackSize--;
+			this.getDataWatcher().updateObject(16, stack.getItemDamage());
+		}
 		return false;
 	}
 	public boolean eatPlant(double posX, double posY, double posZ) {
@@ -62,6 +70,20 @@ public class EntityCharlie extends EntityChicken {
 		return TheAndrewMod.MODID+":mob.charlie.scarp";
 	}
 	public void onDeath(DamageSource source) {
+		super.onDeath(source);
+		if(this.worldObj.isRemote) return;
 		System.out.println(source.damageType);
+		EntityItem item = this.dropItem(Items.command_block_minecart, 1);
+		item.setEntityItemStack(new ItemStack(Items.dye, new Random().nextInt(4), this.getDataWatcher().getWatchableObjectInt(16)));
+	}
+	public void writeEntityToNBT(NBTTagCompound tag) {
+		super.writeEntityToNBT(tag);
+		tag.setInteger("Color", this.getDataWatcher().getWatchableObjectInt(16));
+	}
+	public void readEntityFromNBT(NBTTagCompound tag) {
+		super.readEntityFromNBT(tag);
+		if(tag.hasKey("Color")) {
+			this.getDataWatcher().updateObject(16, tag.getInteger("Color"));
+		}
 	}
 }
