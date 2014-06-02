@@ -13,7 +13,7 @@ public class WorldGeneratorAndrew implements IWorldGenerator {
 			IChunkProvider arg4, IChunkProvider arg5) {
 		int i = arg1*16;
 		int j = arg2*16;
-		for(int k = 0; k < 16; k++) {
+		for(int k = 0; k < 16; k+=2) {
 			int fbx = i+r.nextInt(16);
 			int fby = r.nextInt(64);
 			int fbz = j+r.nextInt(16);

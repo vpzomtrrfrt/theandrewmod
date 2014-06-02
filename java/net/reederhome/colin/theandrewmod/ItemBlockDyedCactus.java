@@ -2,6 +2,7 @@ package net.reederhome.colin.theandrewmod;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlockWithMetadata;
+import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
@@ -16,7 +17,7 @@ public class ItemBlockDyedCactus extends ItemBlockWithMetadata {
 		return meta;
 	}
 	public String getUnlocalizedName(ItemStack stack) {
-		return getUnlocalizedName()+"."+stack.getItemDamage();
+		return "tile.dyedCactus."+ItemDye.field_150923_a[stack.getItemDamage()];
 	}
 	public IIcon getIconFromDamage(int meta) {
 		return TheAndrewMod.dyedCactus.getIcon(1, meta);

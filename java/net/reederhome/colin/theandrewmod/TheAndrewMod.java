@@ -166,6 +166,9 @@ public class TheAndrewMod {
 		BiomeDictionary.registerBiomeType(biomeDessert, BiomeDictionary.Type.WASTELAND);
 		BiomeManager.addSpawnBiome(biomeDessert);
 		GameRegistry.registerWorldGenerator(new WorldGeneratorAndrew(), 8);
+		for(int d = 0; d < 16; d++) {
+			GameRegistry.addSmelting(new ItemStack(dyedCactus, 1, d), new ItemStack(Items.dye, 1, d), 17);
+		}
 	}
 	
 	private int registerPotion() {
