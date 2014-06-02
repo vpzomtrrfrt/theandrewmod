@@ -14,6 +14,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.passive.EntityBat;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -52,7 +53,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.4.0";
+	public static final String VERSION = "1.5.0pre";
 	static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
 	static DamageSource deathBy789 = new DamageSource("theandrewmod.deathBy789");
 	static DamageSource deathByPotatoLiver = new DamageSource("theandrewmod.deathByPotatoLiver");
@@ -257,6 +258,12 @@ public class TheAndrewMod {
 					EntityMinecart cart = EntityMinecart.createMinecart(event.target.worldObj, event.target.posX, event.target.posY, event.target.posZ, ((ItemMinecart)stack.getItem()).minecartType);
 					event.entity.worldObj.spawnEntityInWorld(cart);
 					cart.mountEntity(event.target);
+				}
+				else if(stack.getItem().equals(new ItemStack(Blocks.cactus).getItem())&&(event.target instanceof EntityCow)) {
+					stack.stackSize--;
+					if(Math.random()<0.005) {
+						event.target.dropItem(Items.saddle, (int)(Math.abs(new Random().nextGaussian())*16));
+					}
 				}
 			}
 		}
