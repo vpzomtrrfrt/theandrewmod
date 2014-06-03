@@ -24,6 +24,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemMinecart;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
@@ -49,6 +50,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
@@ -57,7 +59,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.5.0pre";
+	public static final String VERSION = "1.5.0";
 	static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
 	static DamageSource deathBy789 = new DamageSource("theandrewmod.deathBy789");
 	static DamageSource deathByPotatoLiver = new DamageSource("theandrewmod.deathByPotatoLiver");
@@ -153,7 +155,7 @@ public class TheAndrewMod {
 		cancerPotion = new CancerPotion(cpi, false, Color.black.getRGB());
 		GameRegistry.addRecipe(new ItemStack(sideSlab), "s", "s", "s", 's', Blocks.stone_slab);
 		GameRegistry.addShapelessRecipe(new ItemStack(potatoLiver), Items.bone, Items.potato, Items.wooden_sword);
-		GameRegistry.addShapelessRecipe(new ItemStack(butterDust), Items.gold_nugget, Items.milk_bucket, plasticUtensils, invasivePlant);
+		GameRegistry.addShapelessRecipe(new ItemStack(butterDust, 4), Items.gold_nugget, Items.milk_bucket, plasticUtensils, invasivePlant);
 		GameRegistry.addRecipe(new ItemStack(blastingDevice), "ttt", "ttt", "stt", 't', Blocks.tnt, 's', Blocks.lever);
 		GameRegistry.addRecipe(new ItemStack(cactusGun), "cbc", "coc", "c  ", 'c', Blocks.cactus, 'b', Items.bow, 'o', Blocks.obsidian);
 		cactusEnchantment = new CactusEnchantment(24);
@@ -248,6 +250,7 @@ public class TheAndrewMod {
 		if(event.item.getEntityItem().getItem().equals(potatoLiver)&&!(event.entityPlayer!=null&&event.item.func_145798_i()==event.entityPlayer.getCommandSenderName())) {
 			System.out.println("potatoLiver pickup");
 			event.entityLiving.attackEntityFrom(TheAndrewMod.deathByPotatoLiver, 100f);
+			event.setCanceled(true);
 		}
 	}
 	
@@ -337,6 +340,17 @@ public class TheAndrewMod {
 			item.stackSize--;
 			event.entity.worldObj.setBlock(event.x, event.y, event.z, dyedCactus, item.getItemDamage(), 3);
 			event.entity.worldObj.playSound(event.x, event.y, event.z, "mob.villager.death", 1f, 1f, true);
+		}
+	}
+	
+	@SubscribeEvent
+	public void onPlayerCraft(ItemCraftedEvent ev) {
+		if(ev.crafting.getItem().equals(butterDust)) {
+			if(Math.random()<0.9) {
+				if(!ev.player.inventory.addItemStackToInventory(new ItemStack(plasticUtensils, 1))) {
+					ev.player.dropItem(plasticUtensils, 1);
+				}
+			}
 		}
 	}
 }
