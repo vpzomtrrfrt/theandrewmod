@@ -35,6 +35,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -43,12 +44,15 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.eventhandler.EventBus;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
@@ -215,6 +219,7 @@ public class TheAndrewMod {
 	public void init(FMLInitializationEvent event) {
 		proxy.registerRenderers();
 		MinecraftForge.EVENT_BUS.register(this);
+		FMLCommonHandler.instance().bus().register(this);
 	}
 	
 	@EventHandler
@@ -345,7 +350,9 @@ public class TheAndrewMod {
 	
 	@SubscribeEvent
 	public void onPlayerCraft(ItemCraftedEvent ev) {
+		System.out.println(ev.player.getCommandSenderName()+" crafted something");
 		if(ev.crafting.getItem().equals(butterDust)) {
+			//System.out.println("butter dust crafted");
 			if(Math.random()<0.9) {
 				if(!ev.player.inventory.addItemStackToInventory(new ItemStack(plasticUtensils, 1))) {
 					ev.player.dropItem(plasticUtensils, 1);
