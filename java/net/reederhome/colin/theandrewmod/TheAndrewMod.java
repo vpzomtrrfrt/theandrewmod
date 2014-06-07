@@ -3,8 +3,6 @@ package net.reederhome.colin.theandrewmod;
 import java.awt.Color;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -14,20 +12,18 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntityCow;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemMinecart;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.WeightedRandomChestContent;
@@ -35,7 +31,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.ChestGenHooks;
-import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -48,11 +43,9 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.eventhandler.EventBus;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
@@ -258,6 +251,7 @@ public class TheAndrewMod {
 			System.out.println("potatoLiver pickup");
 			event.entityLiving.attackEntityFrom(TheAndrewMod.deathByPotatoLiver, 100f);
 			event.setCanceled(true);
+			event.item.setDead();
 		}
 	}
 	
@@ -269,6 +263,9 @@ public class TheAndrewMod {
 				if(stack.getItem().equals(plasticUtensils)) {
 					stack.stackSize--;
 					event.target.attackEntityFrom(new EntityDamageSource("theandrewmod.deathByPotatoLiver.player", event.entityPlayer), 100f);
+					if(event.target instanceof EntityPlayer) {
+						((EntityPlayer) event.target).addStat(AchievementsAndrew.plasticVictim, 1);
+					}
 				}
 				else if((stack.getItem() instanceof ItemMinecart)&&(event.target instanceof EntityBat)&&event.target.riddenByEntity==null) {
 					stack.stackSize--;

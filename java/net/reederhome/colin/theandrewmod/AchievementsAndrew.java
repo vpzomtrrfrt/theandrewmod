@@ -15,6 +15,7 @@ public class AchievementsAndrew {
 	static Achievement cactusGun;
 	static Achievement glassBottleArmor;
 	static Achievement potatoLiver;
+	static Achievement plasticVictim;
 	static AchievementPage page;
 	public static void setup() {
 		dyeCactus = new Achievement("achievement.theandrewmod.dyeCactus", "dyeCactus", 0, 0, new ItemStack(Items.dye, 1, 5), null).registerStat();
@@ -25,7 +26,8 @@ public class AchievementsAndrew {
 		cactusGun = new Achievement("achievement.theandrewmod.cactusGun", "cactusGun", -4, -1, TheAndrewMod.cactusGun, null).registerStat();
 		glassBottleArmor = new Achievement("achievement.theandrewmod.glassBottleArmor", "glassBottleArmor", -4, 1, TheAndrewMod.glassBottleChestplate, null).registerStat();
 		potatoLiver = new Achievement("achievement.theandrewmod.potatoLiver", "potatoLiver", 0, 5, TheAndrewMod.potatoLiver, null).registerStat();
-		page = new AchievementPage(TheAndrewMod.NAME, dyeCactus, invasivePlant, shearThem, butterDust, jumpPad, cactusGun, glassBottleArmor, potatoLiver);
+		plasticVictim = new Achievement("achievement.theandrewmod.plasticVictim", "plasticVictim", 1, 5, TheAndrewMod.plasticUtensils, null);
+		page = new AchievementPage(TheAndrewMod.NAME, dyeCactus, invasivePlant, shearThem, butterDust, jumpPad, cactusGun, glassBottleArmor, potatoLiver, plasticVictim);
 		AchievementPage.registerAchievementPage(page);
 	}
 }
