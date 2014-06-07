@@ -30,7 +30,9 @@ public class ItemButterDust extends ItemFood {
 		EntityItem tr = new EntityItemButterDust(world);
 		tr.setEntityItemStack(itemstack);
 		tr.setLocationAndAngles(location.posX, location.posY, location.posZ, location.rotationPitch, location.rotationYaw);
-		tr.setVelocity(location.motionX, location.motionY, location.motionZ);
+		tr.motionX=location.motionX;
+		tr.motionY=location.motionY;
+		tr.motionZ=location.motionZ;
 		tr.delayBeforeCanPickup=((EntityItem)location).delayBeforeCanPickup;
 		return tr;
 	}
