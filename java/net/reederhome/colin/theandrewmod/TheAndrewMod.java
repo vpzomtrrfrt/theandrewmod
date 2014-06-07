@@ -59,11 +59,12 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 
-@Mod(modid = TheAndrewMod.MODID, version = TheAndrewMod.VERSION, name = "The Andrew Mod")
+@Mod(modid = TheAndrewMod.MODID, version = TheAndrewMod.VERSION, name = TheAndrewMod.NAME)
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.5.0";
+	public static final String VERSION = "1.6.0pre";
+	public static final String NAME = "The Andrew Mod";
 	static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
 	static DamageSource deathBy789 = new DamageSource("theandrewmod.deathBy789");
 	static DamageSource deathByPotatoLiver = new DamageSource("theandrewmod.deathByPotatoLiver");
@@ -183,6 +184,7 @@ public class TheAndrewMod {
 		for(int d = 0; d < 16; d++) {
 			GameRegistry.addSmelting(new ItemStack(dyedCactus, 1, d), new ItemStack(Items.dye, 1, d), 17);
 		}
+		AchievementsAndrew.setup();
 	}
 	
 	private int registerPotion() {
@@ -345,6 +347,7 @@ public class TheAndrewMod {
 			item.stackSize--;
 			event.entity.worldObj.setBlock(event.x, event.y, event.z, dyedCactus, item.getItemDamage(), 3);
 			event.entity.worldObj.playSound(event.x, event.y, event.z, "mob.villager.death", 1f, 1f, true);
+			event.entityPlayer.addStat(AchievementsAndrew.dyeCactus, 1);
 		}
 	}
 	
@@ -353,6 +356,7 @@ public class TheAndrewMod {
 		System.out.println(ev.player.getCommandSenderName()+" crafted something");
 		if(ev.crafting.getItem().equals(butterDust)) {
 			//System.out.println("butter dust crafted");
+			ev.player.addStat(AchievementsAndrew.butterDust, 1);
 			if(Math.random()<0.9) {
 				if(!ev.player.inventory.addItemStackToInventory(new ItemStack(plasticUtensils, 1))) {
 					ev.player.dropItem(plasticUtensils, 1);

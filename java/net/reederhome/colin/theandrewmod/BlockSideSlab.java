@@ -6,6 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -40,6 +41,7 @@ public class BlockSideSlab extends Block implements ITileEntityProvider {
 		if(player.getHeldItem().getUnlocalizedName().equals(this.getUnlocalizedName())) {
 			world.setBlock(x, y, z, TheAndrewMod.jumpPad);
 			TheAndrewMod.jumpPad.onBlockPlacedBy(world, x, y, z, player, new ItemStack(TheAndrewMod.jumpPad));
+			player.addStat(AchievementsAndrew.jumpPad, 1);
 			return true;
 		}
 		return false;

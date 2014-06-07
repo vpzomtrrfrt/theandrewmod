@@ -18,6 +18,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.stats.Achievement;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -103,6 +104,7 @@ public class EntityJack extends EntityCreature implements IRangedAttackMob {
 				}
 			}
 			s.damageItem(1, p);
+			p.addStat(AchievementsAndrew.shearThem, 1);
 			return true;
 		}
 		else if(isChild()&&s!=null&s.getItem().equals(Items.dye)) {
