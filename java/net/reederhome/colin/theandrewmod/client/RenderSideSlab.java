@@ -16,7 +16,7 @@ public class RenderSideSlab extends TileEntitySpecialRenderer {
 	public void renderTileEntityAt(TileEntity var1, double var2, double var4,
 			double var6, float var8) {
 		if(var1 instanceof TileEntitySideSlab) {
-			TileEntitySideSlab tess = (TileEntitySideSlab) var1;
+			/*TileEntitySideSlab tess = (TileEntitySideSlab) var1;
 			GL11.glPushMatrix();
 			GL11.glBegin(GL11.GL_TRIANGLES);
 			//bindTexture(new ResourceLocation(TheAndrewMod.MODID+":/textures/blocks/stone_slab_top"));
@@ -27,7 +27,7 @@ public class RenderSideSlab extends TileEntitySpecialRenderer {
 			//if(dir==0) {
 				model.render(null, (float)var2, (float)var4, (float)var6, (float)var2+1, (float)var4+1, (float)var6+1);
 			//}
-			GL11.glPopMatrix();
+			GL11.glPopMatrix();*/
 		}
 	}
 

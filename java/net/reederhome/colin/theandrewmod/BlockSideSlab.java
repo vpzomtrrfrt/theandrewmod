@@ -41,7 +41,6 @@ public class BlockSideSlab extends Block implements ITileEntityProvider {
 		if(player.getHeldItem().getUnlocalizedName().equals(this.getUnlocalizedName())) {
 			world.setBlock(x, y, z, TheAndrewMod.jumpPad);
 			TheAndrewMod.jumpPad.onBlockPlacedBy(world, x, y, z, player, new ItemStack(TheAndrewMod.jumpPad));
-			player.addStat(AchievementsAndrew.jumpPad, 1);
 			return true;
 		}
 		return false;

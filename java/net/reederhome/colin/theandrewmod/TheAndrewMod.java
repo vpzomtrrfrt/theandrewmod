@@ -266,6 +266,7 @@ public class TheAndrewMod {
 					if(event.target instanceof EntityPlayer) {
 						((EntityPlayer) event.target).addStat(AchievementsAndrew.plasticVictim, 1);
 					}
+					event.entityPlayer.addStat(AchievementsAndrew.plasticUser, 1);
 				}
 				else if((stack.getItem() instanceof ItemMinecart)&&(event.target instanceof EntityBat)&&event.target.riddenByEntity==null) {
 					stack.stackSize--;
@@ -337,6 +338,7 @@ public class TheAndrewMod {
 							player.dropItem(Items.potionitem, 1);
 						}
 						event.setCanceled(true);
+						player.addStat(AchievementsAndrew.glassBottleArmorFill, 1);
 					}
 				}
 			}
@@ -381,9 +383,6 @@ public class TheAndrewMod {
 		}
 		else if(ev.crafting.getItem().equals(cactusGun)) {
 			ev.player.addStat(AchievementsAndrew.cactusGun, 1);
-		}
-		else if(ev.crafting.getItem() instanceof ItemGlassBottleArmor) {
-			ev.player.addStat(AchievementsAndrew.glassBottleArmor, 1);
 		}
 		else if(ev.crafting.getItem().equals(potatoLiver)) {
 			ev.player.addStat(AchievementsAndrew.potatoLiver, 1);

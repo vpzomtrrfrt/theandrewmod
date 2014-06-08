@@ -4,7 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -23,6 +25,9 @@ public class BlockJumpPad extends Block implements ITileEntityProvider {
 	public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
 		TileEntityJumpPad tejp = (TileEntityJumpPad) w.getTileEntity(x, y, z);
 		tejp.owner=p_149689_5_.getCommandSenderName();
+		if(p_149689_5_ instanceof EntityPlayer) {
+			((EntityPlayer) p_149689_5_).addStat(AchievementsAndrew.jumpPad, 1);
+		}
 	}
 	
 }
