@@ -311,7 +311,7 @@ public class TheAndrewMod {
 			for(int i = 1; i < 5; i++) {
 				ItemStack stack = event.entityLiving.getEquipmentInSlot(i);
 				if(stack!=null&&stack.getItem().getClass().equals(ItemGlassBottleArmor.class)) {
-					System.out.println("good job - "+stack.getItemDamage());
+					//System.out.println("good job - "+stack.getItemDamage());
 					if(stack.getItem().getMaxDamage()-stack.getItemDamage()<event.ammount+2) {
 						event.entityLiving.attackEntityFrom(deathByGlass, 100f);
 						event.setCanceled(true);
@@ -319,6 +319,25 @@ public class TheAndrewMod {
 				}
 				else if(stack!=null){
 					System.out.println(stack.getItem().getClass());
+				}
+			}
+		}
+		if(event.source.equals(DamageSource.drown)) {
+			if(event.entityLiving instanceof EntityPlayer) {
+				boolean hasGBA=false;
+				ItemStack stack = event.entityLiving.getEquipmentInSlot(4);
+				if(stack!=null&&stack.getItem() instanceof ItemGlassBottleArmor) {
+					hasGBA=true;
+				}
+				if(hasGBA) {
+					EntityPlayer player = (EntityPlayer)event.entityLiving;
+					if(player.inventory.hasItem(Items.glass_bottle)) {
+						player.inventory.consumeInventoryItem(Items.glass_bottle);
+						if(!player.inventory.addItemStackToInventory(new ItemStack(Items.potionitem))) {
+							player.dropItem(Items.potionitem, 1);
+						}
+						event.setCanceled(true);
+					}
 				}
 			}
 		}
