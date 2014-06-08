@@ -1,12 +1,14 @@
 package net.reederhome.colin.theandrewmod;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCactus;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -20,7 +22,6 @@ public class BlockDyedCactus extends BlockCactus {
 	protected BlockDyedCactus() {
 		super();
 		this.setBlockName("dyed_cactus");
-		this.setCreativeTab(null);
 	}
 	public IIcon getIcon(int side, int meta) {
 		int sidei = side == 1 ? 0 : (side == 0 ? 2 : 1);
@@ -90,6 +91,13 @@ public class BlockDyedCactus extends BlockCactus {
                 	this.onNeighborBlockChange(p_149674_1_, p_149674_2_, p_149674_3_ + 1, p_149674_4_, this);
                 }
             }
+        }
+    }
+	public void getSubBlocks(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_)
+    {
+        for (int var4 = 0; var4 < 16; ++var4)
+        {
+            p_149666_3_.add(new ItemStack(p_149666_1_, 1, var4));
         }
     }
 }
