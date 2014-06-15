@@ -21,6 +21,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemMinecart;
+import net.minecraft.item.ItemReed;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -71,6 +72,7 @@ public class TheAndrewMod {
 	static Block dyedCactus = new BlockDyedCactus();
 	static Block invasivePlant = new BlockInvasivePlant();
 	static Block cactusOre = new BlockCactusOre();
+	static Block redstoneCake = new BlockRedstoneCake();
 	static Potion cancerPotion;
 	static Item potatoLiver;
 	static Item plasticUtensils;
@@ -81,6 +83,7 @@ public class TheAndrewMod {
 	static Item glassBottleChestplate = new ItemGlassBottleArmor(0,1).setUnlocalizedName("glassBottleChestplate");
 	static Item glassBottleLeggings = new ItemGlassBottleArmor(0,2).setUnlocalizedName("glassBottleLeggings");
 	static Item glassBottleBoots = new ItemGlassBottleArmor(0,3).setUnlocalizedName("glassBottleBoots");
+	static Item itemRedstoneCake = new ItemReed(redstoneCake).setTextureName("cake").setCreativeTab(CreativeTabs.tabRedstone).setUnlocalizedName("redstoneCake");
 	static int teidThomas;
 	static int teidJack;
 	static BiomeGenBase biomeDessert = new BiomeGenDessert(24);
@@ -98,6 +101,7 @@ public class TheAndrewMod {
 		GameRegistry.registerBlock(jumpPad, "jumpPad");
 		GameRegistry.registerBlock(dyedCactus, ItemBlockDyedCactus.class, "dyedCactus");
 		GameRegistry.registerBlock(invasivePlant, "invasivePlant");
+		GameRegistry.registerBlock(redstoneCake, "redstoneCake");
 		teidThomas = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(EntityThomas.class, "Thomas", teidThomas, Color.black.getRGB(), Color.cyan.getRGB());
 		EntityRegistry.registerModEntity(EntityThomas.class, "Thomas", teidThomas, MODID, 128, 1, true);
@@ -147,6 +151,7 @@ public class TheAndrewMod {
 		invasivePlant.setBlockTextureName(MODID+":invasivePlant");
 		GameRegistry.registerBlock(cactusOre, "cactusOre");
 		cactusOre.setBlockTextureName(MODID+":oreCactus");
+		GameRegistry.registerItem(itemRedstoneCake, "itemRedstoneCake");
 		System.out.println("Hello?");
 		int cpi = registerPotion();
 		System.out.println("cpi="+cpi);
@@ -169,6 +174,7 @@ public class TheAndrewMod {
 		GameRegistry.addRecipe(new ItemStack(glassBottleChestplate), "b b", "bbb", "bbb", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(glassBottleLeggings), "bbb", "b b", "b b", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(glassBottleBoots), "   ", "b b", "b b", 'b', Items.glass_bottle);
+		GameRegistry.addShapelessRecipe(new ItemStack(itemRedstoneCake), Items.cake, Items.redstone, Blocks.stone_stairs, Blocks.stone_pressure_plate, Blocks.wooden_button);
 		VillagerRegistry.instance().registerVillagerId(avid);
 		VillagerRegistry.instance().registerVillageTradeHandler(avid, new TradeHandlerAndrew());
 		BiomeDictionary.registerBiomeType(biomeDessert, BiomeDictionary.Type.WASTELAND);
