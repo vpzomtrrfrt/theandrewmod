@@ -23,6 +23,7 @@ public class ItemCactusGun extends Item {
 			if(!world.isRemote) {
 				world.spawnEntityInWorld(new EntityThrownCactus(world, player));
 			}
+			player.addStat(AchievementsAndrew.cactusGun, 1);
 		}
 		return stack;
 	}

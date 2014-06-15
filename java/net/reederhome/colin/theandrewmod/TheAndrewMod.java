@@ -381,9 +381,6 @@ public class TheAndrewMod {
 				}
 			}
 		}
-		else if(ev.crafting.getItem().equals(cactusGun)) {
-			ev.player.addStat(AchievementsAndrew.cactusGun, 1);
-		}
 		else if(ev.crafting.getItem().equals(potatoLiver)) {
 			ev.player.addStat(AchievementsAndrew.potatoLiver, 1);
 		}

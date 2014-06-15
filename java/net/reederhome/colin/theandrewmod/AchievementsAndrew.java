@@ -3,6 +3,8 @@ package net.reederhome.colin.theandrewmod;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.stats.StatBase;
+import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.common.AchievementPage;
 
 public class AchievementsAndrew {
