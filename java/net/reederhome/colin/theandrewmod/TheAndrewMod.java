@@ -40,6 +40,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -57,7 +58,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.6.0";
+	public static final String VERSION = "1.7.0pre";
 	public static final String NAME = "The Andrew Mod";
 	static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
 	static DamageSource deathBy789 = new DamageSource("theandrewmod.deathBy789");
@@ -84,6 +85,8 @@ public class TheAndrewMod {
 	static Item glassBottleLeggings = new ItemGlassBottleArmor(0,2).setUnlocalizedName("glassBottleLeggings");
 	static Item glassBottleBoots = new ItemGlassBottleArmor(0,3).setUnlocalizedName("glassBottleBoots");
 	static Item itemRedstoneCake = new ItemReed(redstoneCake).setTextureName("cake").setCreativeTab(CreativeTabs.tabRedstone).setUnlocalizedName("redstoneCake");
+	static Item itemWallumCooking = new ItemWallumCooking();
+	static Item itemWallum = new Item().setUnlocalizedName("wallum");
 	static int teidThomas;
 	static int teidJack;
 	static BiomeGenBase biomeDessert = new BiomeGenDessert(24);
@@ -170,10 +173,14 @@ public class TheAndrewMod {
 		glassBottleChestplate.setTextureName(MODID+":glassBottleChestplate");
 		glassBottleLeggings.setTextureName(MODID+":glassBottleLeggings");
 		glassBottleBoots.setTextureName(MODID+":glassBottleBoots");
+		GameRegistry.registerItem(itemWallumCooking, "wallumCooking");
+		GameRegistry.registerItem(itemWallum, "wallum");
 		GameRegistry.addRecipe(new ItemStack(glassBottleHelmet), "bbb", "b b", "   ", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(glassBottleChestplate), "b b", "bbb", "bbb", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(glassBottleLeggings), "bbb", "b b", "b b", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(glassBottleBoots), "   ", "b b", "b b", 'b', Items.glass_bottle);
+		GameRegistry.addRecipe(new RecipesWallumCooking());
+		GameRegistry.addRecipe(new ShapedOreRecipe(itemWallum, "w", "s", "i", 'i', "ingotIron", 's', "stickWood", 'w', "plankWood"));
 		GameRegistry.addShapelessRecipe(new ItemStack(itemRedstoneCake), Items.cake, Items.redstone, Blocks.stone_stairs, Blocks.stone_pressure_plate, Blocks.wooden_button);
 		VillagerRegistry.instance().registerVillagerId(avid);
 		VillagerRegistry.instance().registerVillageTradeHandler(avid, new TradeHandlerAndrew());
