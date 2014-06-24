@@ -13,18 +13,24 @@ public class RecipesWallumCooking implements IRecipe {
 	public ItemStack getCraftingResult(InventoryCrafting arg0) {
 		float numWallums = 0;
 		int fuel = 0;
+		String name = null;
 		for(int x = 0; x < arg0.getSizeInventory(); x++) {
 			ItemStack sis = arg0.getStackInSlot(x);
 			if(sis!=null) {
 				if(sis.getItem().equals(TheAndrewMod.itemWallumCooking)) {
 					numWallums++;
 					fuel+=sis.getMaxDamage()-sis.getItemDamage();
+					if(sis.hasDisplayName()) name = sis.getDisplayName();
 				}
 				else if(sis.getItem().equals(TheAndrewMod.itemWallum)) {
-					numWallums+=0.9;
+					numWallums+=0.8;
+					if(sis.hasDisplayName()) name = sis.getDisplayName();
 				}
 				else if(sis.getItem().equals(Items.stone_sword)) {
-					numWallums+=0.1;
+					numWallums+=0.09;
+				}
+				else if(sis.getItem().equals(Items.iron_ingot)) {
+					numWallums+=0.11;
 				}
 				else {
 					if(TileEntityFurnace.isItemFuel(sis)) {
@@ -37,7 +43,9 @@ public class RecipesWallumCooking implements IRecipe {
 			}
 		}
 		if(numWallums==1) {
-			return new ItemStack(TheAndrewMod.itemWallumCooking, 1, TheAndrewMod.itemWallumCooking.getMaxDamage()-fuel);
+			ItemStack tr = new ItemStack(TheAndrewMod.itemWallumCooking, 1, TheAndrewMod.itemWallumCooking.getMaxDamage()-fuel);
+			if(name!=null) tr.setStackDisplayName(name);
+			return tr;
 		}
 		return null;
 	}

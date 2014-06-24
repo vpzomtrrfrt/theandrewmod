@@ -18,8 +18,10 @@ public class ItemWallumCooking extends Item {
 	public ItemWallumCooking() {
 		super();
 		setUnlocalizedName("wallumCooking");
-		setMaxDamage(16000);
+		setMaxDamage(20000);
 		setMaxStackSize(1);
+		setTextureName(TheAndrewMod.MODID+":wallumCooking");
+		setFull3D();
 	}
 	
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
@@ -27,7 +29,7 @@ public class ItemWallumCooking extends Item {
 	}
 	
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		if(par1ItemStack.getItemDamage()<this.getMaxDamage()-200) {
+		if(par1ItemStack.getItemDamage()<=this.getMaxDamage()-200) {
 			par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
 		}
 		return par1ItemStack;
@@ -50,7 +52,7 @@ public class ItemWallumCooking extends Item {
 			if(en instanceof EntityItem) {
 				EntityItem it = (EntityItem)en;
 				ItemStack stack = it.getEntityItem();
-				if(par1ItemStack.getItemDamage()<this.getMaxDamage()-200*stack.stackSize) {
+				if(par1ItemStack.getItemDamage()<=this.getMaxDamage()-200*stack.stackSize) {
 					ItemStack res = FurnaceRecipes.smelting().getSmeltingResult(stack);
 					if(res!=null) {
 						ItemStack tm = res.copy();

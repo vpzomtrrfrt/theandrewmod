@@ -61,11 +61,11 @@ public class TheAndrewMod {
 	public static final String VERSION = "1.7.0pre";
 	public static final String NAME = "The Andrew Mod";
 	static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
-	static DamageSource deathBy789 = new DamageSource("theandrewmod.deathBy789");
-	static DamageSource deathByPotatoLiver = new DamageSource("theandrewmod.deathByPotatoLiver");
-	static DamageSource deathByCancer = new DamageSource("theandrewmod.deathByCancer");
-	static DamageSource deathByGlass = new DamageSource("theandrewmod.deathByGlass");
-	static DamageSource deathByCharlie = new DamageSource("theandrewmod.deathByCharlie");
+	static DamageSource deathBy789 = new DamageSource(MODID+".deathBy789");
+	static DamageSource deathByPotatoLiver = new DamageSource(MODID+".deathByPotatoLiver");
+	static DamageSource deathByCancer = new DamageSource(MODID+".deathByCancer");
+	static DamageSource deathByGlass = new DamageSource(MODID+".deathByGlass");
+	static DamageSource deathByCharlie = new DamageSource(MODID+".deathByCharlie");
 	static Enchantment cactusEnchantment;
 	static Block decoyBed = new DecoyBed().setBlockTextureName("bed");
 	static Block sideSlab = new BlockSideSlab().setBlockTextureName("stone_slab_top");
@@ -86,7 +86,7 @@ public class TheAndrewMod {
 	static Item glassBottleBoots = new ItemGlassBottleArmor(0,3).setUnlocalizedName("glassBottleBoots");
 	static Item itemRedstoneCake = new ItemReed(redstoneCake).setTextureName("cake").setCreativeTab(CreativeTabs.tabRedstone).setUnlocalizedName("redstoneCake");
 	static Item itemWallumCooking = new ItemWallumCooking();
-	static Item itemWallum = new Item().setUnlocalizedName("wallum");
+	static Item itemWallum = new Item().setUnlocalizedName("wallum").setTextureName(MODID+":wallum").setFull3D();
 	static int teidThomas;
 	static int teidJack;
 	static BiomeGenBase biomeDessert = new BiomeGenDessert(24);
@@ -275,7 +275,7 @@ public class TheAndrewMod {
 			if(stack!=null) {
 				if(stack.getItem().equals(plasticUtensils)) {
 					stack.stackSize--;
-					event.target.attackEntityFrom(new EntityDamageSource("theandrewmod.deathByPotatoLiver.player", event.entityPlayer), 100f);
+					event.target.attackEntityFrom(new EntityDamageSource(deathByPotatoLiver.damageType+".player", event.entityPlayer), 100f);
 					if(event.target instanceof EntityPlayer) {
 						((EntityPlayer) event.target).addStat(AchievementsAndrew.plasticVictim, 1);
 					}

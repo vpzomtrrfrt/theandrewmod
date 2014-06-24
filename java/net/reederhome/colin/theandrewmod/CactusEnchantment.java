@@ -7,7 +7,7 @@ public class CactusEnchantment extends Enchantment {
 
 	protected CactusEnchantment(int id) {
 		super(id, 9, EnumEnchantmentType.all);
-		this.setName("theandrewmod.cactus");
+		this.setName(TheAndrewMod.MODID+".cactus");
 	}
 	public int getMinEnchantability(int lvl) {
 		return 10+(int)Math.ceil(lvl*3.2);

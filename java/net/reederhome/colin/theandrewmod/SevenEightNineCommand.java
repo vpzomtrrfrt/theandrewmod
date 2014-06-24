@@ -117,7 +117,7 @@ public class SevenEightNineCommand implements ICommand {
 			                {
 			                    Entity var7 = (Entity)var6.next();
 			                    if(enemy==null) {var7.attackEntityFrom(var5,20.0f);}
-			                    else var7.attackEntityFrom(new EntityDamageSource("theandrewmod.deathBy789.player", enemy), 20.0f);
+			                    else var7.attackEntityFrom(new EntityDamageSource(TheAndrewMod.deathBy789.damageType+".player", enemy), 20.0f);
 			                }
 			            }
 			        }
