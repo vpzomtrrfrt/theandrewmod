@@ -74,6 +74,7 @@ public class TheAndrewMod {
 	static Block invasivePlant = new BlockInvasivePlant();
 	static Block cactusOre = new BlockCactusOre();
 	static Block redstoneCake = new BlockRedstoneCake();
+	static Block blockCactusGun = new BlockCactusGun();
 	static Potion cancerPotion;
 	static Item potatoLiver;
 	static Item plasticUtensils;
@@ -105,6 +106,7 @@ public class TheAndrewMod {
 		GameRegistry.registerBlock(dyedCactus, ItemBlockDyedCactus.class, "dyedCactus");
 		GameRegistry.registerBlock(invasivePlant, "invasivePlant");
 		GameRegistry.registerBlock(redstoneCake, "redstoneCake");
+		GameRegistry.registerBlock(blockCactusGun, "blockCactusGun");
 		teidThomas = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(EntityThomas.class, "Thomas", teidThomas, Color.black.getRGB(), Color.cyan.getRGB());
 		EntityRegistry.registerModEntity(EntityThomas.class, "Thomas", teidThomas, MODID, 128, 1, true);
