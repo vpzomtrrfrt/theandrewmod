@@ -3,9 +3,9 @@ package net.reederhome.colin.theandrewmod;
 import java.util.Iterator;
 import java.util.List;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
@@ -15,6 +15,7 @@ public class EntityItemButterDust extends EntityItem {
 
 	public EntityItemButterDust(World par1World) {
 		super(par1World);
+		this.setEntityItemStack(new ItemStack(TheAndrewMod.butterDust));
 	}
 	
 	public void onUpdate() {

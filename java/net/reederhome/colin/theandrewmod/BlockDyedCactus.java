@@ -67,7 +67,7 @@ public class BlockDyedCactus extends BlockCactus {
         else
         {
             Block var5 = p_149718_1_.getBlock(p_149718_2_, p_149718_3_ - 1, p_149718_4_);
-            return var5 == Blocks.cactus || var5 == this || var5 == Blocks.sand;
+            return var5 == Blocks.cactus || var5 == this || var5 == Blocks.sand || var5 == TheAndrewMod.rainbowMachine;
         }
     }
 	public void updateTick(World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_)

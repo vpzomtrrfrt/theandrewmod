@@ -20,6 +20,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemMinecart;
 import net.minecraft.item.ItemReed;
 import net.minecraft.item.ItemStack;
@@ -75,6 +76,7 @@ public class TheAndrewMod {
 	static Block cactusOre = new BlockCactusOre();
 	static Block redstoneCake = new BlockRedstoneCake();
 	static Block blockCactusGun = new BlockCactusGun();
+	static Block rainbowMachine = new BlockRainbowMachine();
 	static Potion cancerPotion;
 	static Item potatoLiver;
 	static Item plasticUtensils;
@@ -88,6 +90,8 @@ public class TheAndrewMod {
 	static Item itemRedstoneCake = new ItemReed(redstoneCake).setTextureName("cake").setCreativeTab(CreativeTabs.tabRedstone).setUnlocalizedName("redstoneCake");
 	static Item itemWallumCooking = new ItemWallumCooking();
 	static Item itemWallum = new Item().setUnlocalizedName("wallum").setTextureName(MODID+":wallum").setFull3D();
+	static Item rainbowCoreBasic = new Item().setUnlocalizedName("rainbowCoreBasic").setTextureName(MODID+":rainbowCoreBasic");
+	static Item rainbowCoreAdvanced = new Item().setUnlocalizedName("rainbowCoreAdvanced").setTextureName(MODID+":rainbowCoreAdvanced");
 	static int teidThomas;
 	static int teidJack;
 	static BiomeGenBase biomeDessert = new BiomeGenDessert(24);
@@ -107,6 +111,7 @@ public class TheAndrewMod {
 		GameRegistry.registerBlock(invasivePlant, "invasivePlant");
 		GameRegistry.registerBlock(redstoneCake, "redstoneCake");
 		GameRegistry.registerBlock(blockCactusGun, "blockCactusGun");
+		GameRegistry.registerBlock(rainbowMachine, "rainbowMachine");
 		teidThomas = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(EntityThomas.class, "Thomas", teidThomas, Color.black.getRGB(), Color.cyan.getRGB());
 		EntityRegistry.registerModEntity(EntityThomas.class, "Thomas", teidThomas, MODID, 128, 1, true);
@@ -177,13 +182,19 @@ public class TheAndrewMod {
 		glassBottleBoots.setTextureName(MODID+":glassBottleBoots");
 		GameRegistry.registerItem(itemWallumCooking, "wallumCooking");
 		GameRegistry.registerItem(itemWallum, "wallum");
+		GameRegistry.registerItem(rainbowCoreBasic, "rainbowCoreBasic");
+		GameRegistry.registerItem(rainbowCoreAdvanced, "rainbowCoreAdvanced");
 		GameRegistry.addRecipe(new ItemStack(glassBottleHelmet), "bbb", "b b", "   ", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(glassBottleChestplate), "b b", "bbb", "bbb", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(glassBottleLeggings), "bbb", "b b", "b b", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(glassBottleBoots), "   ", "b b", "b b", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new RecipesWallumCooking());
 		GameRegistry.addRecipe(new ShapedOreRecipe(itemWallum, "w", "s", "i", 'i', "ingotIron", 's', "stickWood", 'w', "plankWood"));
+		GameRegistry.addRecipe(new ItemStack(blockCactusGun), "rcr", "gig", "rcr", 'r', Items.redstone, 'c', Blocks.cobblestone, 'g', cactusGun, 'i', Items.iron_ingot);
+		GameRegistry.addRecipe(new ItemStack(rainbowMachine), "scs", "crc", "scs", 's', Items.redstone, 'c', Blocks.cobblestone, 'r', rainbowCoreAdvanced);
 		GameRegistry.addShapelessRecipe(new ItemStack(itemRedstoneCake), Items.cake, Items.redstone, Blocks.stone_stairs, Blocks.stone_pressure_plate, Blocks.wooden_button);
+		GameRegistry.addShapelessRecipe(new ItemStack(rainbowCoreBasic), dye("black"), dye("white"), dye("red"), dye("lime"), Items.redstone, dye("blue"), dye("yellow"), dye("cyan"), dye("magenta"));
+		GameRegistry.addShapelessRecipe(new ItemStack(rainbowCoreAdvanced), dye("brown"), dye("purple"), dye("silver"), dye("gray"), rainbowCoreBasic, dye("pink"), dye("green"), dye("lightBlue"), dye("orange"));
 		VillagerRegistry.instance().registerVillagerId(avid);
 		VillagerRegistry.instance().registerVillageTradeHandler(avid, new TradeHandlerAndrew());
 		BiomeDictionary.registerBiomeType(biomeDessert, BiomeDictionary.Type.WASTELAND);
@@ -195,6 +206,15 @@ public class TheAndrewMod {
 		AchievementsAndrew.setup();
 	}
 	
+	public ItemStack dye(String string) {
+		for(int i = 0; i < 16; i++) {
+			if(string.equalsIgnoreCase(ItemDye.field_150923_a[i])) {
+				return new ItemStack(Items.dye, 1, i);
+			}
+		}
+		return null;
+	}
+
 	private int registerPotion() {
 		Potion[] potionTypes = null;
 

@@ -42,6 +42,7 @@ public class EntityThrownCactus extends EntityThrowable {
 	protected void onImpact(MovingObjectPosition var1) {
 		if(worldObj.isRemote) return;
 		if(var1.entityHit!=null) {
+			if(var1.entityHit.isEntityInvulnerable()||(var1.entityHit instanceof EntityPlayer&&((EntityPlayer)var1.entityHit).capabilities.isCreativeMode)) return;
 			var1.entityHit.attackEntityFrom(DamageSource.cactus, 4+power);
 			var1.entityHit.dropItem(new ItemStack(Blocks.cactus).getItem(), cactus);
 		}
