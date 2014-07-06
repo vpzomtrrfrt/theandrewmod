@@ -18,6 +18,7 @@ public class BlockRainbowMachine extends Block {
 	IIcon sideIcon;
 	public BlockRainbowMachine() {
 		super(Material.cloth);
+		setBlockName("rainbowMachine");
 	}
 	
 	public IIcon getIcon(int side, int meta) {

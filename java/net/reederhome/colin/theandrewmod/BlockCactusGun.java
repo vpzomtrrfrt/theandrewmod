@@ -15,6 +15,7 @@ public class BlockCactusGun extends Block {
 	IIcon front, bottom;
 	public BlockCactusGun() {
 		super(Material.cactus);
+		setBlockName("blockCactusGun");
 	}
 	
 	public void onBlockPlacedBy(World world, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
