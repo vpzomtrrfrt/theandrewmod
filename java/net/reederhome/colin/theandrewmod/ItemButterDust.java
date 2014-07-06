@@ -15,7 +15,7 @@ public class ItemButterDust extends ItemFood {
 	public ItemButterDust() {
 		super(20, 0, false);
 		this.setAlwaysEdible();
-		this.setCreativeTab(CreativeTabs.tabFood);
+		this.setCreativeTab(TheAndrewMod.tabAndrew);
 		this.setUnlocalizedName("butterDust");
 	}
 	public void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {

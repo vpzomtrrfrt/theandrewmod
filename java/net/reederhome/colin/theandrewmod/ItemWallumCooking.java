@@ -22,6 +22,7 @@ public class ItemWallumCooking extends Item {
 		setMaxStackSize(1);
 		setTextureName(TheAndrewMod.MODID+":wallumCooking");
 		setFull3D();
+		setCreativeTab(TheAndrewMod.tabAndrew);
 	}
 	
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {

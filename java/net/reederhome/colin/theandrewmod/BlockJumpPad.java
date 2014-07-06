@@ -15,6 +15,7 @@ public class BlockJumpPad extends Block implements ITileEntityProvider {
 	public BlockJumpPad() {
 		super(Material.cloth);
 		setBlockName("jumpPad");
+		setCreativeTab(TheAndrewMod.tabAndrew);
 	}
 
 	@Override

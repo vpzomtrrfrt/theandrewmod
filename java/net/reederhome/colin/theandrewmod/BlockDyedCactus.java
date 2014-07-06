@@ -22,6 +22,7 @@ public class BlockDyedCactus extends BlockCactus {
 	protected BlockDyedCactus() {
 		super();
 		this.setBlockName("dyed_cactus");
+		setCreativeTab(TheAndrewMod.tabAndrew);
 	}
 	public IIcon getIcon(int side, int meta) {
 		int sidei = side == 1 ? 0 : (side == 0 ? 2 : 1);

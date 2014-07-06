@@ -5,6 +5,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Random;
 
+import javax.swing.text.TabableView;
+
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
@@ -54,13 +56,22 @@ import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @Mod(modid = TheAndrewMod.MODID, version = TheAndrewMod.VERSION, name = TheAndrewMod.NAME)
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.7.0pre";
+	public static final String VERSION = "1.7.0";
 	public static final String NAME = "The Andrew Mod";
+	static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
+		@Override
+		@SideOnly(Side.CLIENT)
+		public Item getTabIconItem() {
+			return potatoLiver;
+		}
+	};
 	static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
 	static DamageSource deathBy789 = new DamageSource(MODID+".deathBy789");
 	static DamageSource deathByPotatoLiver = new DamageSource(MODID+".deathByPotatoLiver");
@@ -87,11 +98,11 @@ public class TheAndrewMod {
 	static Item glassBottleChestplate = new ItemGlassBottleArmor(0,1).setUnlocalizedName("glassBottleChestplate");
 	static Item glassBottleLeggings = new ItemGlassBottleArmor(0,2).setUnlocalizedName("glassBottleLeggings");
 	static Item glassBottleBoots = new ItemGlassBottleArmor(0,3).setUnlocalizedName("glassBottleBoots");
-	static Item itemRedstoneCake = new ItemReed(redstoneCake).setTextureName("cake").setCreativeTab(CreativeTabs.tabRedstone).setUnlocalizedName("redstoneCake");
+	static Item itemRedstoneCake = new ItemReed(redstoneCake).setTextureName("cake").setUnlocalizedName("redstoneCake").setCreativeTab(tabAndrew);
 	static Item itemWallumCooking = new ItemWallumCooking();
-	static Item itemWallum = new Item().setUnlocalizedName("wallum").setTextureName(MODID+":wallum").setFull3D();
-	static Item rainbowCoreBasic = new Item().setUnlocalizedName("rainbowCoreBasic").setTextureName(MODID+":rainbowCoreBasic");
-	static Item rainbowCoreAdvanced = new Item().setUnlocalizedName("rainbowCoreAdvanced").setTextureName(MODID+":rainbowCoreAdvanced");
+	static Item itemWallum = new Item().setUnlocalizedName("wallum").setTextureName(MODID+":wallum").setFull3D().setCreativeTab(tabAndrew);
+	static Item rainbowCoreBasic = new Item().setUnlocalizedName("rainbowCoreBasic").setTextureName(MODID+":rainbowCoreBasic").setCreativeTab(tabAndrew);
+	static Item rainbowCoreAdvanced = new Item().setUnlocalizedName("rainbowCoreAdvanced").setTextureName(MODID+":rainbowCoreAdvanced").setCreativeTab(tabAndrew);
 	static int teidThomas;
 	static int teidJack;
 	static BiomeGenBase biomeDessert = new BiomeGenDessert(24);
@@ -144,7 +155,7 @@ public class TheAndrewMod {
 		plasticUtensils = new Item();
 		plasticUtensils.setUnlocalizedName("plasticUtensils");
 		plasticUtensils.setTextureName(MODID+":plasticUtensils");
-		plasticUtensils.setCreativeTab(CreativeTabs.tabCombat);
+		plasticUtensils.setCreativeTab(tabAndrew);
 		GameRegistry.registerItem(plasticUtensils, "plasticUtensils");
 		butterDust = new ItemButterDust();
 		butterDust.setTextureName(MODID+":butterDust");

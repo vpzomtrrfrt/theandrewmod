@@ -12,6 +12,7 @@ public class BlockCactusOre extends BlockOre {
 	public BlockCactusOre() {
 		super();
 		setBlockName("cactusOre");
+		setCreativeTab(TheAndrewMod.tabAndrew);
 	}
 	public Item getItemDropped(int par1, Random r, int par2) {
 		return new ItemStack(Blocks.cactus).getItem();

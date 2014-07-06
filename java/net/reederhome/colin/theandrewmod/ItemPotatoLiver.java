@@ -10,7 +10,7 @@ public class ItemPotatoLiver extends ItemFood {
 
 	public ItemPotatoLiver() {
 		super(1, true);
-		setCreativeTab(CreativeTabs.tabCombat);
+		setCreativeTab(TheAndrewMod.tabAndrew);
 		setUnlocalizedName("potatoLiver");
 	}
 	/*@Override

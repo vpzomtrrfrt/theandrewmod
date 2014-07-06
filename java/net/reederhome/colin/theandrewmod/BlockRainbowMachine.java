@@ -19,6 +19,7 @@ public class BlockRainbowMachine extends Block {
 	public BlockRainbowMachine() {
 		super(Material.cloth);
 		setBlockName("rainbowMachine");
+		setCreativeTab(TheAndrewMod.tabAndrew);
 	}
 	
 	public IIcon getIcon(int side, int meta) {

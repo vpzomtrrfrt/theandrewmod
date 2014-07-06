@@ -15,7 +15,7 @@ public class ItemBlastingDevice extends Item {
 		setMaxDamage(18);
 		setUnlocalizedName("blastingDevice");
 		setFull3D();
-		setCreativeTab(CreativeTabs.tabCombat);
+		setCreativeTab(TheAndrewMod.tabAndrew);
 	}
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		world.createExplosion(player, player.posX-2, player.posY, player.posZ, 3, false);

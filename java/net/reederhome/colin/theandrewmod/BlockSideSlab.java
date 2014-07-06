@@ -14,7 +14,7 @@ public class BlockSideSlab extends Block implements ITileEntityProvider {
 
 	protected BlockSideSlab() {
 		super(Material.rock);
-		setCreativeTab(CreativeTabs.tabBlock);
+		setCreativeTab(TheAndrewMod.tabAndrew);
 		setBlockBounds(0, 0, 0, 1, 1, 0.5f);
 		setBlockName("sideSlab");
 	}

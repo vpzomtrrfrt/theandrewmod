@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Facing;
@@ -16,6 +17,7 @@ public class BlockCactusGun extends Block {
 	public BlockCactusGun() {
 		super(Material.cactus);
 		setBlockName("blockCactusGun");
+		setCreativeTab(TheAndrewMod.tabAndrew);
 	}
 	
 	public void onBlockPlacedBy(World world, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_) {
