@@ -63,7 +63,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.7.0";
+	public static final String VERSION = "1.8.0pre";
 	public static final String NAME = "The Andrew Mod";
 	static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
 		@Override
@@ -114,7 +114,6 @@ public class TheAndrewMod {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		//LanguageRegistry.instance().addStringLocalization("death.attack.theAndrewMod.deathBy789", "7 8 %1$s");
 		GameRegistry.registerBlock(decoyBed, "decoyBed");
 		GameRegistry.registerBlock(sideSlab, "sideSlab");
 		GameRegistry.registerBlock(jumpPad, "jumpPad");
@@ -123,6 +122,9 @@ public class TheAndrewMod {
 		GameRegistry.registerBlock(redstoneCake, "redstoneCake");
 		GameRegistry.registerBlock(blockCactusGun, "blockCactusGun");
 		GameRegistry.registerBlock(rainbowMachine, "rainbowMachine");
+		for(int i = 0; i < 16; i++) {
+			GameRegistry.registerBlock(new BlockDyedCake(i), "dyed_cake_"+ItemDye.field_150921_b[i]);
+		}
 		teidThomas = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(EntityThomas.class, "Thomas", teidThomas, Color.black.getRGB(), Color.cyan.getRGB());
 		EntityRegistry.registerModEntity(EntityThomas.class, "Thomas", teidThomas, MODID, 128, 1, true);
@@ -412,6 +414,13 @@ public class TheAndrewMod {
 			event.entity.worldObj.setBlock(event.x, event.y, event.z, dyedCactus, item.getItemDamage(), 3);
 			event.entity.worldObj.playSound(event.x, event.y, event.z, "mob.villager.death", 1f, 1f, true);
 			event.entityPlayer.addStat(AchievementsAndrew.dyeCactus, 1);
+		}
+		else if((block.equals(Blocks.cake)||block instanceof BlockDyedCake)&&item!=null&&item.getItem().equals(Items.dye)) {
+			item.stackSize--;
+			int meta = event.entity.worldObj.getBlockMetadata(event.x, event.y, event.z);
+			event.entity.worldObj.setBlock(event.x, event.y, event.z, BlockDyedCake.listDyedCake[item.getItemDamage()]);
+			event.entity.worldObj.setBlockMetadataWithNotify(event.x, event.y, event.z, meta, 3);
+			event.entity.worldObj.playSound(event.x, event.y, event.z, "mob.villager.death", 1f, 1f, true);
 		}
 	}
 	
