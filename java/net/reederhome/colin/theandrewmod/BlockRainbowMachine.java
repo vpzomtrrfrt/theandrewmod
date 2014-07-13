@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemDye;
@@ -82,6 +83,12 @@ public class BlockRainbowMachine extends Block {
 				}
 				else if(e instanceof EntityCharlie) {
 					((EntityCharlie)e).getDataWatcher().updateObject(16, nc);
+				}
+				else if(e instanceof EntityWolf) {
+					EntityWolf wolf = (EntityWolf)e;
+					if(wolf.isTamed()) {
+						wolf.setCollarColor(nc);
+					}
 				}
 				else if(e instanceof EntityLivingBase) {
 					for(int s = 1; s < 5; s++) {
