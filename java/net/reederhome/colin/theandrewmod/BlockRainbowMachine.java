@@ -17,6 +17,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Facing;
 import net.minecraft.util.IIcon;
@@ -25,7 +26,8 @@ import net.minecraft.world.World;
 public class BlockRainbowMachine extends Block {
 
 	IIcon sideIcon;
-	static int nc;
+	int nc;
+	long ltc;
 	public BlockRainbowMachine() {
 		super(Material.cloth);
 		setBlockName("rainbowMachine");
@@ -61,9 +63,12 @@ public class BlockRainbowMachine extends Block {
 		int by = y+Facing.offsetsYForSide[m];
 		int bz = z+Facing.offsetsZForSide[m];
 		Block b = world.getBlock(bx, by, bz);
-		nc--;
-		if(nc<0) {
-			nc=15;
+		if(ltc!=world.getTotalWorldTime()) {
+			nc--;
+			if(nc<0) {
+				nc=15;
+			}
+			ltc=world.getTotalWorldTime();
 		}
 		if(b.equals(Blocks.wool)||b.equals(Blocks.stained_hardened_clay)||b.equals(Blocks.stained_glass)||b.equals(Blocks.stained_glass_pane)||b.equals(Blocks.carpet)||b.equals(TheAndrewMod.dyedCactus)) {
 			world.setBlockMetadataWithNotify(bx, by, bz, nc, 3);
@@ -97,6 +102,8 @@ public class BlockRainbowMachine extends Block {
 							if(stack.getItem() instanceof ItemArmor) {
 								ItemArmor ita = (ItemArmor) stack.getItem();
 								if(ita.getArmorMaterial().equals(ItemArmor.ArmorMaterial.CLOTH)) {
+									if(!stack.hasTagCompound()) {stack.setTagCompound(new NBTTagCompound());}
+									if(!stack.getTagCompound().hasKey("display")) {stack.getTagCompound().setTag("display", new NBTTagCompound());}
 									stack.getTagCompound().getCompoundTag("display").setInteger("color", ItemDye.field_150922_c[nc]);
 								}
 							}
