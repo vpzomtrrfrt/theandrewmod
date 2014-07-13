@@ -1,6 +1,7 @@
 package net.reederhome.colin.theandrewmod;
 
-import net.minecraft.creativetab.CreativeTabs;
+import java.util.Random;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -21,7 +22,12 @@ public class ItemCactusGun extends Item {
 				player.inventory.consumeInventoryItem(new ItemStack(Blocks.cactus).getItem());
 			}
 			if(!world.isRemote) {
-				world.spawnEntityInWorld(new EntityThrownCactus(world, player));
+				EntityThrownCactus ent = new EntityThrownCactus(world, player);
+				if(player.inventory.hasItem(TheAndrewMod.rainbowCoreAdvanced)) {
+					ent.setClr(new Random().nextInt(16));
+					System.out.println("Server-side Colorful!  "+ent.getClr());
+				}
+				world.spawnEntityInWorld(ent);
 			}
 			player.addStat(AchievementsAndrew.cactusGun, 1);
 		}

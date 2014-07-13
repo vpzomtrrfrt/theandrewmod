@@ -15,6 +15,6 @@ public class RenderCharlie extends RenderChicken {
 		super(new ModelChicken(), 0.5f);
 	}
 	public ResourceLocation getEntityTexture(Entity e) {
-		return new ResourceLocation(TheAndrewMod.MODID, "textures/models/charlie_"+ItemDye.field_150921_b[e.getDataWatcher().getWatchableObjectInt(16)]+".png");
+		return new ResourceLocation(TheAndrewMod.MODID, "textures/models/charlie_"+ItemDye.field_150923_a[e.getDataWatcher().getWatchableObjectInt(16)]+".png");
 	}
 }

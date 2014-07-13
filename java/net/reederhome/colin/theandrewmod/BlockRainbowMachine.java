@@ -1,14 +1,22 @@
 package net.reederhome.colin.theandrewmod;
 
+import java.awt.Color;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Facing;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -16,6 +24,7 @@ import net.minecraft.world.World;
 public class BlockRainbowMachine extends Block {
 
 	IIcon sideIcon;
+	static int nc;
 	public BlockRainbowMachine() {
 		super(Material.cloth);
 		setBlockName("rainbowMachine");
@@ -51,14 +60,49 @@ public class BlockRainbowMachine extends Block {
 		int by = y+Facing.offsetsYForSide[m];
 		int bz = z+Facing.offsetsZForSide[m];
 		Block b = world.getBlock(bx, by, bz);
+		nc--;
+		if(nc<0) {
+			nc=15;
+		}
 		if(b.equals(Blocks.wool)||b.equals(Blocks.stained_hardened_clay)||b.equals(Blocks.stained_glass)||b.equals(Blocks.stained_glass_pane)||b.equals(Blocks.carpet)||b.equals(TheAndrewMod.dyedCactus)) {
-			int nm = world.getBlockMetadata(bx, by, bz)-1;
-			if(nm<0) {
-				nm=15;
+			world.setBlockMetadataWithNotify(bx, by, bz, nc, 3);
+		}
+		else if(b instanceof BlockDyedCake) {
+			int meta = world.getBlockMetadata(bx, by, bz);
+			world.setBlock(bx, by, bz, BlockDyedCake.listDyedCake[nc]);
+			world.setBlockMetadataWithNotify(bx, by, bz, meta, 3);
+		}
+		else if(b.getMaterial().equals(Material.air)) {
+			List<Entity> el = world.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getBoundingBox(bx, by, bz, bx+1, by+1, bz+1));
+			Iterator<Entity> i = el.iterator();
+			while(i.hasNext()) {
+				Entity e = i.next();
+				if(e instanceof EntitySheep) {
+					((EntitySheep)e).setFleeceColor(nc);
+				}
+				else if(e instanceof EntityCharlie) {
+					((EntityCharlie)e).getDataWatcher().updateObject(16, nc);
+				}
+				else if(e instanceof EntityLivingBase) {
+					for(int s = 1; s < 5; s++) {
+						ItemStack stack = ((EntityLivingBase)e).getEquipmentInSlot(s);
+						if(stack!=null) {
+							if(stack.getItem() instanceof ItemArmor) {
+								ItemArmor ita = (ItemArmor) stack.getItem();
+								if(ita.getArmorMaterial().equals(ItemArmor.ArmorMaterial.CLOTH)) {
+									stack.getTagCompound().getCompoundTag("display").setInteger("color", ItemDye.field_150922_c[nc]);
+								}
+							}
+						}
+					}
+				}
 			}
-			world.setBlockMetadataWithNotify(bx, by, bz, nm, 3);
 		}
 		world.scheduleBlockUpdate(x, y, z, this, 2);
+	}
+	
+	public int colorcode(Color clr) {
+		return (clr.getRed()<<16)+(clr.getGreen()<<8)+(clr.getBlue());
 	}
 
 }

@@ -12,6 +12,10 @@ public class BlockDyedCake extends BlockCake {
 	static Potion[] cakePotions = null;
 	static int[] cakeFood = null;
 	private int clr;
+	
+	public int getColor() {
+		return clr;
+	}
 	public BlockDyedCake(int clr) {
 		this.clr=clr;
 		listDyedCake[clr]=this;

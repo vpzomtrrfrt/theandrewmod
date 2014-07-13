@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -20,6 +21,21 @@ public class EntityThrownCactus extends EntityThrowable {
 	int cactus=0;
 	boolean silkTouch=false;
 	EntityLivingBase user;
+	
+	public int getClr() {
+		try {
+			return this.getDataWatcher().getWatchableObjectInt(14);
+		} catch(Exception e) {
+			return -1;
+		}
+	}
+	public void setClr(int clr) {
+		try {
+			this.getDataWatcher().updateObject(14, clr);
+		} catch(Exception e) {
+			this.getDataWatcher().addObject(14, clr);
+		}
+	}
 	public EntityThrownCactus(World par1World,
 			EntityLivingBase par2EntityLivingBase) {
 		super(par1World, par2EntityLivingBase);
@@ -33,7 +49,40 @@ public class EntityThrownCactus extends EntityThrowable {
 		if(EnchantmentHelper.getEnchantmentLevel(Enchantment.silkTouch.effectId, par2EntityLivingBase.getHeldItem())>0) {
 			silkTouch=true;
 		}
+		this.getDataWatcher().addObject(14, -1);
 	}
+	
+	public void writeEntityToNBT(NBTTagCompound nbt) {
+		super.writeEntityToNBT(nbt);
+		nbt.setBoolean("Hoe", doHoe);
+		nbt.setIntArray("Ench", new int[]{fortune,power,cactus});
+		nbt.setBoolean("Silk", silkTouch);
+		nbt.setInteger("Color", getClr());
+	}
+	
+	public boolean hk(NBTTagCompound nbt, String tag) {
+		return nbt.hasKey(tag);
+	}
+	
+	public void readEntityFromNBT(NBTTagCompound nbt) {
+		super.readEntityFromNBT(nbt);
+		if(hk(nbt,"Hoe")) {
+			doHoe=nbt.getBoolean("Hoe");
+		}
+		if(hk(nbt,"Ench")) {
+			int[] ench = nbt.getIntArray("Ench");
+			fortune=ench[0];
+			power=ench[1];
+			cactus=ench[2];
+		}
+		if(hk(nbt,"Silk")) {
+			silkTouch=nbt.getBoolean("Silk");
+		}
+		if(hk(nbt,"Color")) {
+			setClr(nbt.getInteger("Color"));
+		}
+	}
+	
 	public EntityThrownCactus(World world) {
 		super(world);
 	}

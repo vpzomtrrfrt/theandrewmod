@@ -82,7 +82,7 @@ public class TheAndrewMod {
 	static Block decoyBed = new DecoyBed().setBlockTextureName("bed");
 	static Block sideSlab = new BlockSideSlab().setBlockTextureName("stone_slab_top");
 	static Block jumpPad = new BlockJumpPad();
-	static Block dyedCactus = new BlockDyedCactus();
+	public static Block dyedCactus = new BlockDyedCactus();
 	static Block invasivePlant = new BlockInvasivePlant();
 	static Block cactusOre = new BlockCactusOre();
 	static Block redstoneCake = new BlockRedstoneCake();
