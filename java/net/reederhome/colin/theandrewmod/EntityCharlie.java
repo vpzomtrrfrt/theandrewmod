@@ -6,6 +6,7 @@ import java.util.Random;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,6 +22,7 @@ public class EntityCharlie extends EntityChicken {
 	public EntityCharlie(World p_i1682_1_) {
 		super(p_i1682_1_);
 		this.getDataWatcher().addObject(16, 3);
+		this.tasks.addTask(0, new EntityAIMoveTowardsBlock(this, TheAndrewMod.invasivePlant, 5, 0.2));
 	}
 	public void onUpdate() {
 		super.onUpdate();
@@ -34,7 +36,7 @@ public class EntityCharlie extends EntityChicken {
 				}
 			}
 		}
-		else if(Math.random()<0.1) {
+		else if(Math.random()<0.7) {
 			boolean dontEat=false;
 			if(!eatPlant(posX,posY,posZ)) if(!eatPlant(posX+1,posY,posZ)) if(!eatPlant(posX,posZ,posZ+1)) if(!eatPlant(posX-1, posY, posZ)) if(!eatPlant(posX, posY, posZ-1)) dontEat=true;
 			if(!dontEat) {this.setRotation(this.rotationYaw, 90);}
