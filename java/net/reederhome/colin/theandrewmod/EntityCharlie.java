@@ -6,11 +6,13 @@ import java.util.Random;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.EntityAIControlledByPlayer;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
@@ -23,6 +25,11 @@ public class EntityCharlie extends EntityChicken {
 		super(p_i1682_1_);
 		this.getDataWatcher().addObject(16, 3);
 		this.tasks.addTask(0, new EntityAIMoveTowardsBlock(this, TheAndrewMod.invasivePlant, 5, 0.2));
+		this.tasks.addTask(2, new EntityAIControlledByPlayer(this, 0.3f));
+	}
+	
+	public boolean canBeSteered() {
+		return (this.riddenByEntity instanceof EntityPlayer)&&(((EntityPlayer)this.riddenByEntity).getHeldItem()!=null&&((EntityPlayer)this.riddenByEntity).getHeldItem().getItem().equals(Item.getItemFromBlock(TheAndrewMod.invasivePlant)));
 	}
 	public void onUpdate() {
 		super.onUpdate();
