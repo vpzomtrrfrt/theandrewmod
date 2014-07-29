@@ -24,12 +24,12 @@ public class EntityCharlie extends EntityChicken {
 	public EntityCharlie(World p_i1682_1_) {
 		super(p_i1682_1_);
 		this.getDataWatcher().addObject(16, 3);
-		this.tasks.addTask(0, new EntityAIMoveTowardsBlock(this, TheAndrewMod.invasivePlant, 5, 0.2));
+		this.tasks.addTask(0, new EntityAIMoveTowardsBlock(this, BlocksAndrew.invasivePlant, 5, 0.2));
 		this.tasks.addTask(2, new EntityAIControlledByPlayer(this, 0.3f));
 	}
 	
 	public boolean canBeSteered() {
-		return (this.riddenByEntity instanceof EntityPlayer)&&(((EntityPlayer)this.riddenByEntity).getHeldItem()!=null&&((EntityPlayer)this.riddenByEntity).getHeldItem().getItem().equals(Item.getItemFromBlock(TheAndrewMod.invasivePlant)));
+		return (this.riddenByEntity instanceof EntityPlayer)&&(((EntityPlayer)this.riddenByEntity).getHeldItem()!=null&&((EntityPlayer)this.riddenByEntity).getHeldItem().getItem().equals(Item.getItemFromBlock(BlocksAndrew.invasivePlant)));
 	}
 	public void onUpdate() {
 		super.onUpdate();
@@ -51,7 +51,7 @@ public class EntityCharlie extends EntityChicken {
 	}
 	public boolean interact(EntityPlayer p) {
 		ItemStack stack = p.getHeldItem();
-		if(stack!=null&&stack.getItem().equals(new ItemStack(TheAndrewMod.invasivePlant).getItem())) {
+		if(stack!=null&&stack.getItem().equals(new ItemStack(BlocksAndrew.invasivePlant).getItem())) {
 			Entity thing = this;
 			while(thing.riddenByEntity!=null) {
 				thing=thing.riddenByEntity;
@@ -65,7 +65,7 @@ public class EntityCharlie extends EntityChicken {
 		return false;
 	}
 	public boolean eatPlant(double posX, double posY, double posZ) {
-		if(worldObj.getBlock((int)posX, (int)posY, (int)posZ).equals(TheAndrewMod.invasivePlant)) {
+		if(worldObj.getBlock((int)posX, (int)posY, (int)posZ).equals(BlocksAndrew.invasivePlant)) {
 			worldObj.setBlockToAir((int)posX, (int)posY, (int)posZ);
 			this.heal(1);
 			return true;

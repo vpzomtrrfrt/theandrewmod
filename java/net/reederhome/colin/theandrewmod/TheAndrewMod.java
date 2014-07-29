@@ -72,7 +72,7 @@ public class TheAndrewMod {
 		@Override
 		@SideOnly(Side.CLIENT)
 		public Item getTabIconItem() {
-			return potatoLiver;
+			return ItemsAndrew.potatoLiver;
 		}
 	};
 	static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
@@ -82,30 +82,7 @@ public class TheAndrewMod {
 	static DamageSource deathByGlass = new DamageSource(MODID+".deathByGlass");
 	static DamageSource deathByCharlie = new DamageSource(MODID+".deathByCharlie");
 	static Enchantment cactusEnchantment;
-	static Block decoyBed = new DecoyBed().setBlockTextureName("bed");
-	static Block sideSlab = new BlockSideSlab().setBlockTextureName("stone_slab_top");
-	static Block jumpPad = new BlockJumpPad();
-	public static Block dyedCactus = new BlockDyedCactus();
-	static Block invasivePlant = new BlockInvasivePlant();
-	static Block cactusOre = new BlockCactusOre();
-	static Block redstoneCake = new BlockRedstoneCake();
-	static Block blockCactusGun = new BlockCactusGun();
-	static Block rainbowMachine = new BlockRainbowMachine();
 	static Potion cancerPotion;
-	static Item potatoLiver;
-	static Item plasticUtensils;
-	static Item butterDust;
-	static Item cactusGun;
-	static Item blastingDevice;
-	static Item glassBottleHelmet = new ItemGlassBottleArmor(0,0).setUnlocalizedName("glassBottleHelmet");
-	static Item glassBottleChestplate = new ItemGlassBottleArmor(0,1).setUnlocalizedName("glassBottleChestplate");
-	static Item glassBottleLeggings = new ItemGlassBottleArmor(0,2).setUnlocalizedName("glassBottleLeggings");
-	static Item glassBottleBoots = new ItemGlassBottleArmor(0,3).setUnlocalizedName("glassBottleBoots");
-	static Item itemRedstoneCake = new ItemReed(redstoneCake).setTextureName("cake").setUnlocalizedName("redstoneCake").setCreativeTab(tabAndrew);
-	static Item itemWallumCooking = new ItemWallumCooking();
-	static Item itemWallum = new Item().setUnlocalizedName("wallum").setTextureName(MODID+":wallum").setFull3D().setCreativeTab(tabAndrew);
-	static Item rainbowCoreBasic = new Item().setUnlocalizedName("rainbowCoreBasic").setTextureName(MODID+":rainbowCoreBasic").setCreativeTab(tabAndrew);
-	static Item rainbowCoreAdvanced = new Item().setUnlocalizedName("rainbowCoreAdvanced").setTextureName(MODID+":rainbowCoreAdvanced").setCreativeTab(tabAndrew);
 	static int teidThomas;
 	static int teidJack;
 	static BiomeGenBase biomeDessert;
@@ -123,17 +100,6 @@ public class TheAndrewMod {
 		config.load();
 		avid = config.get("ids", "villagerId", 24).getInt();
 		biomeDessert = new BiomeGenDessert(config.get("ids", "dessertBiomeId", 24).getInt());
-		GameRegistry.registerBlock(decoyBed, "decoyBed");
-		GameRegistry.registerBlock(sideSlab, "sideSlab");
-		GameRegistry.registerBlock(jumpPad, "jumpPad");
-		GameRegistry.registerBlock(dyedCactus, ItemBlockDyedCactus.class, "dyedCactus");
-		GameRegistry.registerBlock(invasivePlant, "invasivePlant");
-		GameRegistry.registerBlock(redstoneCake, "redstoneCake");
-		GameRegistry.registerBlock(blockCactusGun, "blockCactusGun");
-		GameRegistry.registerBlock(rainbowMachine, "rainbowMachine");
-		for(int i = 0; i < 16; i++) {
-			GameRegistry.registerBlock(new BlockDyedCake(i), "dyed_cake_"+ItemDye.field_150921_b[i]);
-		}
 		teidThomas = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(EntityThomas.class, "Thomas", teidThomas, Color.black.getRGB(), Color.cyan.getRGB());
 		EntityRegistry.registerModEntity(EntityThomas.class, "Thomas", teidThomas, MODID, 128, 1, true);
@@ -160,72 +126,41 @@ public class TheAndrewMod {
 		EntityRegistry.registerModEntity(EntityItemButterDust.class, "ItemButterDust", teid, MODID, 128, 1, true);
 		GameRegistry.registerTileEntity(TileEntitySideSlab.class, "sideSlab");
 		GameRegistry.registerTileEntity(TileEntityJumpPad.class, "jumpPad");
-		potatoLiver = new ItemPotatoLiver();
-		potatoLiver.setTextureName(MODID+":potatoLiver");
-		GameRegistry.registerItem(potatoLiver, "potatoLiver");
-		plasticUtensils = new Item();
-		plasticUtensils.setUnlocalizedName("plasticUtensils");
-		plasticUtensils.setTextureName(MODID+":plasticUtensils");
-		plasticUtensils.setCreativeTab(tabAndrew);
-		GameRegistry.registerItem(plasticUtensils, "plasticUtensils");
-		butterDust = new ItemButterDust();
-		butterDust.setTextureName(MODID+":butterDust");
-		GameRegistry.registerItem(butterDust, "butterDust");
-		cactusGun=new ItemCactusGun();
-		cactusGun.setTextureName(MODID+":cactusGun");
-		GameRegistry.registerItem(cactusGun, "cactusGun");
-		blastingDevice = new ItemBlastingDevice();
-		blastingDevice.setTextureName(MODID+":blastingDevice");
-		GameRegistry.registerItem(blastingDevice, "blastingDevice");
 		deathByPotatoLiver.setDamageIsAbsolute();
 		deathByPotatoLiver.setDamageAllowedInCreativeMode();
-		jumpPad.setBlockTextureName(MODID+":jumpPad");
-		invasivePlant.setBlockTextureName(MODID+":invasivePlant");
-		GameRegistry.registerBlock(cactusOre, "cactusOre");
-		cactusOre.setBlockTextureName(MODID+":oreCactus");
-		GameRegistry.registerItem(itemRedstoneCake, "itemRedstoneCake");
 		System.out.println("Hello?");
 		int cpi = registerPotion();
 		System.out.println("cpi="+cpi);
 		cancerPotion = new CancerPotion(cpi, false, Color.black.getRGB());
-		GameRegistry.addRecipe(new ItemStack(sideSlab), "s", "s", "s", 's', Blocks.stone_slab);
-		GameRegistry.addShapelessRecipe(new ItemStack(potatoLiver), Items.bone, Items.potato, Items.wooden_sword);
-		GameRegistry.addShapelessRecipe(new ItemStack(butterDust, 4), Items.gold_nugget, Items.milk_bucket, plasticUtensils, invasivePlant);
-		GameRegistry.addRecipe(new ItemStack(blastingDevice), "ttt", "ttt", "stt", 't', Blocks.tnt, 's', Blocks.lever);
-		GameRegistry.addRecipe(new ItemStack(cactusGun), "cbc", "coc", "c  ", 'c', Blocks.cactus, 'b', Items.bow, 'o', Blocks.obsidian);
+		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.sideSlab), "s", "s", "s", 's', Blocks.stone_slab);
+		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.potatoLiver), Items.bone, Items.potato, Items.wooden_sword);
+		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.butterDust, 4), Items.gold_nugget, Items.milk_bucket, ItemsAndrew.plasticUtensils, BlocksAndrew.invasivePlant);
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.blastingDevice), "ttt", "ttt", "stt", 't', Blocks.tnt, 's', Blocks.lever);
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.cactusGun), "cbc", "coc", "c  ", 'c', Blocks.cactus, 'b', Items.bow, 'o', Blocks.obsidian);
 		cactusEnchantment = new CactusEnchantment(config.get("ids", "enchantmentCactus", 24).getInt());
-		GameRegistry.registerItem(glassBottleHelmet, "glassBottleHelmet");
-		GameRegistry.registerItem(glassBottleChestplate, "glassBottleChestplate");
-		GameRegistry.registerItem(glassBottleLeggings, "glassBottleLeggings");
-		GameRegistry.registerItem(glassBottleBoots, "glassBottleBoots");
-		glassBottleHelmet.setTextureName(MODID+":glassBottleHelmet");
-		glassBottleChestplate.setTextureName(MODID+":glassBottleChestplate");
-		glassBottleLeggings.setTextureName(MODID+":glassBottleLeggings");
-		glassBottleBoots.setTextureName(MODID+":glassBottleBoots");
-		GameRegistry.registerItem(itemWallumCooking, "wallumCooking");
-		GameRegistry.registerItem(itemWallum, "wallum");
-		GameRegistry.registerItem(rainbowCoreBasic, "rainbowCoreBasic");
-		GameRegistry.registerItem(rainbowCoreAdvanced, "rainbowCoreAdvanced");
-		GameRegistry.addRecipe(new ItemStack(glassBottleHelmet), "bbb", "b b", "   ", 'b', Items.glass_bottle);
-		GameRegistry.addRecipe(new ItemStack(glassBottleChestplate), "b b", "bbb", "bbb", 'b', Items.glass_bottle);
-		GameRegistry.addRecipe(new ItemStack(glassBottleLeggings), "bbb", "b b", "b b", 'b', Items.glass_bottle);
-		GameRegistry.addRecipe(new ItemStack(glassBottleBoots), "   ", "b b", "b b", 'b', Items.glass_bottle);
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleHelmet), "bbb", "b b", "   ", 'b', Items.glass_bottle);
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleChestplate), "b b", "bbb", "bbb", 'b', Items.glass_bottle);
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleLeggings), "bbb", "b b", "b b", 'b', Items.glass_bottle);
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleBoots), "   ", "b b", "b b", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new RecipesWallumCooking());
-		GameRegistry.addRecipe(new ShapedOreRecipe(itemWallum, "w", "s", "i", 'i', "ingotIron", 's', "stickWood", 'w', "plankWood"));
-		GameRegistry.addRecipe(new ItemStack(blockCactusGun), "rcr", "gig", "rcr", 'r', Items.redstone, 'c', Blocks.cobblestone, 'g', cactusGun, 'i', Items.iron_ingot);
-		GameRegistry.addRecipe(new ItemStack(rainbowMachine), "scs", "crc", "scs", 's', Items.redstone, 'c', Blocks.cobblestone, 'r', rainbowCoreAdvanced);
-		GameRegistry.addShapelessRecipe(new ItemStack(itemRedstoneCake), Items.cake, Items.redstone, Blocks.stone_stairs, Blocks.stone_pressure_plate, Blocks.wooden_button);
-		GameRegistry.addShapelessRecipe(new ItemStack(rainbowCoreBasic), dye("black"), dye("white"), dye("red"), dye("lime"), Items.redstone, dye("blue"), dye("yellow"), dye("cyan"), dye("magenta"));
-		GameRegistry.addShapelessRecipe(new ItemStack(rainbowCoreAdvanced), dye("brown"), dye("purple"), dye("silver"), dye("gray"), rainbowCoreBasic, dye("pink"), dye("green"), dye("lightBlue"), dye("orange"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(ItemsAndrew.itemWallum, "w", "s", "i", 'i', "ingotIron", 's', "stickWood", 'w', "plankWood"));
+		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.blockCactusGun), "rcr", "gig", "rcr", 'r', Items.redstone, 'c', Blocks.cobblestone, 'g', ItemsAndrew.cactusGun, 'i', Items.iron_ingot);
+		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.rainbowMachine), "scs", "crc", "scs", 's', Items.redstone, 'c', Blocks.cobblestone, 'r', ItemsAndrew.rainbowCoreAdvanced);
+		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.itemRedstoneCake), Items.cake, Items.redstone, Blocks.stone_stairs, Blocks.stone_pressure_plate, Blocks.wooden_button);
+		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.rainbowCoreBasic), dye("black"), dye("white"), dye("red"), dye("lime"), Items.redstone, dye("blue"), dye("yellow"), dye("cyan"), dye("magenta"));
+		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.rainbowCoreAdvanced), dye("brown"), dye("purple"), dye("silver"), dye("gray"), ItemsAndrew.rainbowCoreBasic, dye("pink"), dye("green"), dye("lightBlue"), dye("orange"));
+		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.bulbasauce), Items.wheat_seeds, Items.wheat_seeds, Items.wheat_seeds, Items.bowl);
 		VillagerRegistry.instance().registerVillagerId(avid);
 		VillagerRegistry.instance().registerVillageTradeHandler(avid, new TradeHandlerAndrew());
 		BiomeDictionary.registerBiomeType(biomeDessert, BiomeDictionary.Type.WASTELAND);
 		BiomeManager.addSpawnBiome(biomeDessert);
 		GameRegistry.registerWorldGenerator(new WorldGeneratorAndrew(), 8);
 		for(int d = 0; d < 16; d++) {
-			GameRegistry.addSmelting(new ItemStack(dyedCactus, 1, d), new ItemStack(Items.dye, 1, d), 17);
+			GameRegistry.addSmelting(new ItemStack(BlocksAndrew.dyedCactus, 1, d), new ItemStack(Items.dye, 1, d), 17);
 		}
 		AchievementsAndrew.setup();
+		ItemsAndrew.registerItems();
+		BlocksAndrew.registerBlocks();
 		config.save();
 	}
 	
@@ -305,7 +240,7 @@ public class TheAndrewMod {
 	
 	@SubscribeEvent
 	public void onItemPickup(EntityItemPickupEvent event) {
-		if(event.item.getEntityItem().getItem().equals(potatoLiver)&&!(event.entityPlayer!=null&&event.item.func_145798_i()==event.entityPlayer.getCommandSenderName())) {
+		if(event.item.getEntityItem().getItem().equals(ItemsAndrew.potatoLiver)&&!(event.entityPlayer!=null&&event.item.func_145798_i()==event.entityPlayer.getCommandSenderName())) {
 			System.out.println("potatoLiver pickup");
 			event.entityLiving.attackEntityFrom(TheAndrewMod.deathByPotatoLiver, 100f);
 			event.setCanceled(true);
@@ -318,7 +253,7 @@ public class TheAndrewMod {
 		ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
 		if(!event.target.worldObj.isRemote) {
 			if(stack!=null) {
-				if(stack.getItem().equals(plasticUtensils)) {
+				if(stack.getItem().equals(ItemsAndrew.plasticUtensils)) {
 					stack.stackSize--;
 					event.target.attackEntityFrom(new EntityDamageSource(deathByPotatoLiver.damageType+".player", event.entityPlayer), 100f);
 					if(event.target instanceof EntityPlayer) {
@@ -407,11 +342,11 @@ public class TheAndrewMod {
 	public void onEntityDeath(LivingDeathEvent event) {
 		if(event.entity.worldObj.isRemote) return;
 		if(event.source.damageType.contains("PotatoLiver")&&Math.random()<0.9) {
-			event.entityLiving.dropItem(plasticUtensils, 1);
+			event.entityLiving.dropItem(ItemsAndrew.plasticUtensils, 1);
 		}
 		if(event.entity instanceof EntityThomas) {
 			event.entity.worldObj.createExplosion(event.entity, event.entity.posX, event.entity.posY, event.entity.posZ, 5, event.entity.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"));
-			event.entity.dropItem(new ItemStack(invasivePlant).getItem(), 1);
+			event.entity.dropItem(new ItemStack(BlocksAndrew.invasivePlant).getItem(), 1);
 		}
 	}
 	
@@ -419,9 +354,9 @@ public class TheAndrewMod {
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		Block block = event.entity.worldObj.getBlock(event.x, event.y, event.z);
 		ItemStack item = event.entityPlayer.getCurrentEquippedItem();
-		if((block.equals(Blocks.cactus)||block.equals(dyedCactus))&&item!=null&&item.getItem().equals(Items.dye)) {
+		if((block.equals(Blocks.cactus)||block.equals(BlocksAndrew.dyedCactus))&&item!=null&&item.getItem().equals(Items.dye)) {
 			item.stackSize--;
-			event.entity.worldObj.setBlock(event.x, event.y, event.z, dyedCactus, item.getItemDamage(), 3);
+			event.entity.worldObj.setBlock(event.x, event.y, event.z, BlocksAndrew.dyedCactus, item.getItemDamage(), 3);
 			event.entity.worldObj.playSound(event.x, event.y, event.z, "mob.villager.death", 1f, 1f, true);
 			event.entityPlayer.addStat(AchievementsAndrew.dyeCactus, 1);
 		}
@@ -437,16 +372,16 @@ public class TheAndrewMod {
 	@SubscribeEvent
 	public void onPlayerCraft(ItemCraftedEvent ev) {
 		System.out.println(ev.player.getCommandSenderName()+" crafted something");
-		if(ev.crafting.getItem().equals(butterDust)) {
+		if(ev.crafting.getItem().equals(ItemsAndrew.butterDust)) {
 			//System.out.println("butter dust crafted");
 			ev.player.addStat(AchievementsAndrew.butterDust, 1);
 			if(Math.random()<0.9) {
-				if(!ev.player.inventory.addItemStackToInventory(new ItemStack(plasticUtensils, 1))) {
-					ev.player.dropItem(plasticUtensils, 1);
+				if(!ev.player.inventory.addItemStackToInventory(new ItemStack(ItemsAndrew.plasticUtensils, 1))) {
+					ev.player.dropItem(ItemsAndrew.plasticUtensils, 1);
 				}
 			}
 		}
-		else if(ev.crafting.getItem().equals(potatoLiver)) {
+		else if(ev.crafting.getItem().equals(ItemsAndrew.potatoLiver)) {
 			ev.player.addStat(AchievementsAndrew.potatoLiver, 1);
 		}
 	}

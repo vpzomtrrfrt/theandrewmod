@@ -70,7 +70,7 @@ public class BlockRainbowMachine extends Block {
 			}
 			ltc=world.getTotalWorldTime();
 		}
-		if(b.equals(Blocks.wool)||b.equals(Blocks.stained_hardened_clay)||b.equals(Blocks.stained_glass)||b.equals(Blocks.stained_glass_pane)||b.equals(Blocks.carpet)||b.equals(TheAndrewMod.dyedCactus)) {
+		if(b.equals(Blocks.wool)||b.equals(Blocks.stained_hardened_clay)||b.equals(Blocks.stained_glass)||b.equals(Blocks.stained_glass_pane)||b.equals(Blocks.carpet)||b.equals(BlocksAndrew.dyedCactus)) {
 			world.setBlockMetadataWithNotify(bx, by, bz, nc, 3);
 		}
 		else if(b instanceof BlockDyedCake) {

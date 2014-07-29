@@ -60,8 +60,8 @@ public class FirmMatressCommand implements ICommand {
 		ChunkCoordinates coords = var1.getPlayerCoordinates();
 		int decoy = new Random().nextInt(7)+coords.posX-4;
 		for(int x = coords.posX-4; x < coords.posX+3; x++) {
-			world.setBlock(x, coords.posY, coords.posZ, x==decoy?TheAndrewMod.decoyBed:Blocks.bed);
-			world.setBlock(x, coords.posY, coords.posZ+1, x==decoy?TheAndrewMod.decoyBed:Blocks.bed, 8, 3);
+			world.setBlock(x, coords.posY, coords.posZ, x==decoy?BlocksAndrew.decoyBed:Blocks.bed);
+			world.setBlock(x, coords.posY, coords.posZ+1, x==decoy?BlocksAndrew.decoyBed:Blocks.bed, 8, 3);
 		}
 		System.out.println("Decoy: "+decoy);
 	}

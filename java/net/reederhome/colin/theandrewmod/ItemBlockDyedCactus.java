@@ -9,7 +9,7 @@ import net.minecraft.util.IIcon;
 public class ItemBlockDyedCactus extends ItemBlockWithMetadata {
 
 	public ItemBlockDyedCactus(Block p_i45328_1_) {
-		super(p_i45328_1_, TheAndrewMod.dyedCactus);
+		super(p_i45328_1_, BlocksAndrew.dyedCactus);
 		setHasSubtypes(true);
 		this.setMaxDamage(0);
 	}
@@ -20,7 +20,7 @@ public class ItemBlockDyedCactus extends ItemBlockWithMetadata {
 		return "tile.dyedCactus."+ItemDye.field_150923_a[stack.getItemDamage()];
 	}
 	public IIcon getIconFromDamage(int meta) {
-		return TheAndrewMod.dyedCactus.getIcon(1, meta);
+		return BlocksAndrew.dyedCactus.getIcon(1, meta);
 	}
 
 }

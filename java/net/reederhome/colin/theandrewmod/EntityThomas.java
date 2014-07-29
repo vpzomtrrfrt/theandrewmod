@@ -44,7 +44,7 @@ public class EntityThomas extends EntityCreature implements IRangedAttackMob {
 		return true;
 	}
 	public Item getDropItem() {
-		return new ItemStack(TheAndrewMod.invasivePlant).getItem();
+		return new ItemStack(BlocksAndrew.invasivePlant).getItem();
 	}
 	public void onLivingUpdate() {
 		super.onLivingUpdate();

@@ -64,7 +64,7 @@ public class BeCactusCommand implements ICommand {
 			if(var2.length>0) {
 				try {
 					int meta = Integer.parseInt(var2[0]);
-					e.setCurrentItemOrArmor(4, new ItemStack(TheAndrewMod.dyedCactus, 1, meta));
+					e.setCurrentItemOrArmor(4, new ItemStack(BlocksAndrew.dyedCactus, 1, meta));
 					return;
 				} catch(NumberFormatException ex){}
 			}

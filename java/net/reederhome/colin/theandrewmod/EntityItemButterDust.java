@@ -15,7 +15,7 @@ public class EntityItemButterDust extends EntityItem {
 
 	public EntityItemButterDust(World par1World) {
 		super(par1World);
-		this.setEntityItemStack(new ItemStack(TheAndrewMod.butterDust));
+		this.setEntityItemStack(new ItemStack(ItemsAndrew.butterDust));
 	}
 	
 	public void onUpdate() {

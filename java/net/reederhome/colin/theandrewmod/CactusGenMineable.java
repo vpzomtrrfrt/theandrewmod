@@ -7,7 +7,7 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 public class CactusGenMineable extends WorldGenMinable {
 
 	public CactusGenMineable() {
-		super(TheAndrewMod.cactusOre, 16);
+		super(BlocksAndrew.cactusOre, 16);
 	}
 
 }

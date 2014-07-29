@@ -8,10 +8,12 @@ import net.minecraft.world.World;
 
 public class ItemGlassBottleArmor extends ItemArmor {
 
+	String[] names = {"Helmet","Chestplate","Leggings","Boots"};
 	public ItemGlassBottleArmor(int p_i45325_2_,
 			int p_i45325_3_) {
 		super(TheAndrewMod.glassBottleArmorMaterial, p_i45325_2_, p_i45325_3_);
 		setCreativeTab(TheAndrewMod.tabAndrew);
+		setTextureName(TheAndrewMod.MODID+":glassBottle"+names[p_i45325_3_]);
 	}
 	
 	public String getArmorTexture(ItemStack itemstack, Entity entity, int slot, String type) {

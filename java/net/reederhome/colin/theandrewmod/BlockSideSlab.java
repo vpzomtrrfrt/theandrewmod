@@ -39,8 +39,8 @@ public class BlockSideSlab extends Block implements ITileEntityProvider {
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
 		if(world.isRemote) return true;
 		if(player.getHeldItem().getUnlocalizedName().equals(this.getUnlocalizedName())) {
-			world.setBlock(x, y, z, TheAndrewMod.jumpPad);
-			TheAndrewMod.jumpPad.onBlockPlacedBy(world, x, y, z, player, new ItemStack(TheAndrewMod.jumpPad));
+			world.setBlock(x, y, z, BlocksAndrew.jumpPad);
+			BlocksAndrew.jumpPad.onBlockPlacedBy(world, x, y, z, player, new ItemStack(BlocksAndrew.jumpPad));
 			return true;
 		}
 		return false;

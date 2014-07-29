@@ -23,7 +23,7 @@ public class ItemCactusGun extends Item {
 			}
 			if(!world.isRemote) {
 				EntityThrownCactus ent = new EntityThrownCactus(world, player);
-				if(player.inventory.hasItem(TheAndrewMod.rainbowCoreAdvanced)) {
+				if(player.inventory.hasItem(ItemsAndrew.rainbowCoreAdvanced)) {
 					ent.setClr(new Random().nextInt(16));
 					System.out.println("Server-side Colorful!  "+ent.getClr());
 				}

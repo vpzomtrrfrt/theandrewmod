@@ -17,12 +17,12 @@ public class RecipesWallumCooking implements IRecipe {
 		for(int x = 0; x < arg0.getSizeInventory(); x++) {
 			ItemStack sis = arg0.getStackInSlot(x);
 			if(sis!=null) {
-				if(sis.getItem().equals(TheAndrewMod.itemWallumCooking)) {
+				if(sis.getItem().equals(ItemsAndrew.itemWallumCooking)) {
 					numWallums++;
 					fuel+=sis.getMaxDamage()-sis.getItemDamage();
 					if(sis.hasDisplayName()) name = sis.getDisplayName();
 				}
-				else if(sis.getItem().equals(TheAndrewMod.itemWallum)) {
+				else if(sis.getItem().equals(ItemsAndrew.itemWallum)) {
 					numWallums+=0.8;
 					if(sis.hasDisplayName()) name = sis.getDisplayName();
 				}
@@ -43,7 +43,7 @@ public class RecipesWallumCooking implements IRecipe {
 			}
 		}
 		if(numWallums==1) {
-			ItemStack tr = new ItemStack(TheAndrewMod.itemWallumCooking, 1, TheAndrewMod.itemWallumCooking.getMaxDamage()-fuel);
+			ItemStack tr = new ItemStack(ItemsAndrew.itemWallumCooking, 1, ItemsAndrew.itemWallumCooking.getMaxDamage()-fuel);
 			if(name!=null) tr.setStackDisplayName(name);
 			return tr;
 		}

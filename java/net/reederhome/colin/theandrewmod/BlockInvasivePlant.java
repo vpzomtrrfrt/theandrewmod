@@ -18,6 +18,7 @@ public class BlockInvasivePlant extends BlockBush {
 		super();
 		setBlockName("invasivePlant");
 		setCreativeTab(TheAndrewMod.tabAndrew);
+		setBlockTextureName(TheAndrewMod.MODID+":invasivePlant");
 	}
 	public void updateTick(World world, int x, int y, int z, Random r) {
 		int xm = x+r.nextInt(10)-5;

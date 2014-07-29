@@ -10,6 +10,7 @@ import net.minecraft.item.ItemPotion;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+import net.reederhome.colin.theandrewmod.BlocksAndrew;
 import net.reederhome.colin.theandrewmod.EntityThrownCactus;
 import net.reederhome.colin.theandrewmod.TheAndrewMod;
 
@@ -26,7 +27,7 @@ public class RenderThrownCactus extends Render {
 			int clr = ((EntityThrownCactus)var1).getClr();
 			System.out.println("Client Colorful!  "+clr);
 			if(clr!=-1) {
-				var10 = TheAndrewMod.dyedCactus.getIcon(1, clr);
+				var10 = BlocksAndrew.dyedCactus.getIcon(1, clr);
 			}
 		}
 

@@ -60,7 +60,7 @@ public class EntityJack extends EntityCreature implements IRangedAttackMob {
 			}
 			worldObj.setBlock(x, y, z, Blocks.air);
 			worldObj.setBlock(x, y-1, z, Blocks.air);
-			worldObj.setBlock(x, y-2, z, TheAndrewMod.jumpPad);
+			worldObj.setBlock(x, y-2, z, BlocksAndrew.jumpPad);
 		}
 		Vec3 g = RandomPositionGenerator.findRandomTarget(this, 2, 3);
 		//System.out.println(g);
