@@ -51,7 +51,7 @@ public class BlockDyedCake extends BlockCake {
 		setHardness(10);
 	}
 	
-	public void doEatCake(World world, int x, int y, int z, EntityPlayer player) {
+	public boolean doEatCake(World world, int x, int y, int z, EntityPlayer player) {
 		if (player.canEat(false)||cakeFood[clr]<0)
         {
             player.getFoodStats().addStats(cakeFood[clr]==0?2:cakeFood[clr], 0.1F);
@@ -71,11 +71,17 @@ public class BlockDyedCake extends BlockCake {
             	mob.setLocationAndAngles(x, y+2, z, 0, 0);
             	world.spawnEntityInWorld(mob);
             }
+            return true;
         }
+		return false;
 	}
 	
 	public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
 		doEatCake(world, x, y, z, player);
+	}
+	
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+		return doEatCake(world, x, y, z, player);
 	}
 	
 	public void applyPotion(EntityPlayer player) {
