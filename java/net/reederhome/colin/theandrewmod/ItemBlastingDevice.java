@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 
 public class ItemBlastingDevice extends Item {
 
+	static final String griefingRule = "blastingDeviceGriefing";
 	public ItemBlastingDevice() {
 		setMaxDamage(18);
 		setUnlocalizedName("blastingDevice");
@@ -18,10 +19,14 @@ public class ItemBlastingDevice extends Item {
 		setCreativeTab(TheAndrewMod.tabAndrew);
 	}
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		world.createExplosion(player, player.posX-2, player.posY, player.posZ, 3, false);
-		world.createExplosion(player, player.posX+2, player.posY, player.posZ, 3, false);
-		world.createExplosion(player, player.posX, player.posY, player.posZ-2, 3, false);
-		world.createExplosion(player, player.posX, player.posY, player.posZ+2, 3, false);
+		if(!world.isRemote) {
+			if(!world.getGameRules().hasRule(griefingRule)) {world.getGameRules().addGameRule(griefingRule, "false");}
+			boolean griefing = world.getGameRules().getGameRuleBooleanValue(griefingRule);
+			world.createExplosion(player, player.posX-2, player.posY, player.posZ, 3, griefing);
+			world.createExplosion(player, player.posX+2, player.posY, player.posZ, 3, griefing);
+			world.createExplosion(player, player.posX, player.posY, player.posZ-2, 3, griefing);
+			world.createExplosion(player, player.posX, player.posY, player.posZ+2, 3, griefing);
+		}
 		stack.damageItem(1, player);
 		return stack;
 	}

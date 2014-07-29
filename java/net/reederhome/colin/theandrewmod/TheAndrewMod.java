@@ -8,6 +8,7 @@ import java.util.Random;
 import javax.swing.text.TabableView;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -31,11 +32,13 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -105,15 +108,21 @@ public class TheAndrewMod {
 	static Item rainbowCoreAdvanced = new Item().setUnlocalizedName("rainbowCoreAdvanced").setTextureName(MODID+":rainbowCoreAdvanced").setCreativeTab(tabAndrew);
 	static int teidThomas;
 	static int teidJack;
-	static BiomeGenBase biomeDessert = new BiomeGenDessert(24);
+	static BiomeGenBase biomeDessert;
 	
-	public static int avid = 24;
+	public static int avid;
+	
+	static Configuration config;
 	
 	@SidedProxy(serverSide="net.reederhome.colin.theandrewmod.CommonProxy", clientSide="net.reederhome.colin.theandrewmod.client.ClientProxy")
 	static CommonProxy proxy;
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		config = new Configuration(event.getSuggestedConfigurationFile());
+		config.load();
+		avid = config.get("ids", "villagerId", 24).getInt();
+		biomeDessert = new BiomeGenDessert(config.get("ids", "dessertBiomeId", 24).getInt());
 		GameRegistry.registerBlock(decoyBed, "decoyBed");
 		GameRegistry.registerBlock(sideSlab, "sideSlab");
 		GameRegistry.registerBlock(jumpPad, "jumpPad");
@@ -184,7 +193,7 @@ public class TheAndrewMod {
 		GameRegistry.addShapelessRecipe(new ItemStack(butterDust, 4), Items.gold_nugget, Items.milk_bucket, plasticUtensils, invasivePlant);
 		GameRegistry.addRecipe(new ItemStack(blastingDevice), "ttt", "ttt", "stt", 't', Blocks.tnt, 's', Blocks.lever);
 		GameRegistry.addRecipe(new ItemStack(cactusGun), "cbc", "coc", "c  ", 'c', Blocks.cactus, 'b', Items.bow, 'o', Blocks.obsidian);
-		cactusEnchantment = new CactusEnchantment(24);
+		cactusEnchantment = new CactusEnchantment(config.get("ids", "enchantmentCactus", 24).getInt());
 		GameRegistry.registerItem(glassBottleHelmet, "glassBottleHelmet");
 		GameRegistry.registerItem(glassBottleChestplate, "glassBottleChestplate");
 		GameRegistry.registerItem(glassBottleLeggings, "glassBottleLeggings");
@@ -217,6 +226,7 @@ public class TheAndrewMod {
 			GameRegistry.addSmelting(new ItemStack(dyedCactus, 1, d), new ItemStack(Items.dye, 1, d), 17);
 		}
 		AchievementsAndrew.setup();
+		config.save();
 	}
 	
 	public ItemStack dye(String string) {
