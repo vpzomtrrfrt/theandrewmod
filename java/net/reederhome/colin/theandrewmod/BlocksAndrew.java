@@ -7,7 +7,7 @@ import net.minecraft.item.ItemDye;
 
 public class BlocksAndrew {
 
-	public static Block decoyBed = new DecoyBed().setBlockTextureName("bed");
+	public static Block decoyBed = new BlockDecoyBed().setBlockTextureName("bed");
 	public static Block sideSlab = new BlockSideSlab().setBlockTextureName("stone_slab_top");
 	public static Block jumpPad = new BlockJumpPad();
 	public static Block dyedCactus = new BlockDyedCactus();

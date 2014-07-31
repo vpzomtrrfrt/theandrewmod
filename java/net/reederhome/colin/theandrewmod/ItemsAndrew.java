@@ -21,6 +21,7 @@ public class ItemsAndrew {
 	static Item rainbowCoreBasic = new Item().setUnlocalizedName("rainbowCoreBasic").setTextureName(TheAndrewMod.MODID+":rainbowCoreBasic").setCreativeTab(TheAndrewMod.tabAndrew);
 	static Item rainbowCoreAdvanced = new Item().setUnlocalizedName("rainbowCoreAdvanced").setTextureName(TheAndrewMod.MODID+":rainbowCoreAdvanced").setCreativeTab(TheAndrewMod.tabAndrew);
 	static Item bulbasauce = new ItemSoup(4).setUnlocalizedName("bulbasauce").setTextureName(TheAndrewMod.MODID+":bulbasauce").setCreativeTab(TheAndrewMod.tabAndrew);
+	static Item decoyBed = new ItemDecoyBed();
 	
 	public static void registerItems() {
 		GameRegistry.registerItem(potatoLiver, "potatoLiver");
@@ -38,5 +39,6 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(rainbowCoreBasic, "rainbowCoreBasic");
 		GameRegistry.registerItem(rainbowCoreAdvanced, "rainbowCoreAdvanced");
 		GameRegistry.registerItem(bulbasauce, "bulbasauce");
+		GameRegistry.registerItem(decoyBed, "itemDecoyBed");
 	}
 }
