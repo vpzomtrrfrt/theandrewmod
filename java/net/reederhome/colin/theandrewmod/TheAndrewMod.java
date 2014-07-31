@@ -146,6 +146,7 @@ public class TheAndrewMod {
 		GameRegistry.addRecipe(new ShapedOreRecipe(ItemsAndrew.itemWallum, "w", "s", "i", 'i', "ingotIron", 's', "stickWood", 'w', "plankWood"));
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.blockCactusGun), "rcr", "gig", "rcr", 'r', Items.redstone, 'c', Blocks.cobblestone, 'g', ItemsAndrew.cactusGun, 'i', Items.iron_ingot);
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.rainbowMachine), "scs", "crc", "scs", 's', Items.redstone, 'c', Blocks.cobblestone, 'r', ItemsAndrew.rainbowCoreAdvanced);
+		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.decoyBed), Items.bed, Items.gunpowder, Blocks.stone_button, Items.redstone);
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.itemRedstoneCake), Items.cake, Items.redstone, Blocks.stone_stairs, Blocks.stone_pressure_plate, Blocks.wooden_button);
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.rainbowCoreBasic), dye("black"), dye("white"), dye("red"), dye("lime"), Items.redstone, dye("blue"), dye("yellow"), dye("cyan"), dye("magenta"));
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.rainbowCoreAdvanced), dye("brown"), dye("purple"), dye("silver"), dye("gray"), ItemsAndrew.rainbowCoreBasic, dye("pink"), dye("green"), dye("lightBlue"), dye("orange"));
