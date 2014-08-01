@@ -159,9 +159,9 @@ public class TheAndrewMod {
 		for(int d = 0; d < 16; d++) {
 			GameRegistry.addSmelting(new ItemStack(BlocksAndrew.dyedCactus, 1, d), new ItemStack(Items.dye, 1, d), 17);
 		}
-		AchievementsAndrew.setup();
 		ItemsAndrew.registerItems();
 		BlocksAndrew.registerBlocks();
+		AchievementsAndrew.setup();
 		config.save();
 	}
 	

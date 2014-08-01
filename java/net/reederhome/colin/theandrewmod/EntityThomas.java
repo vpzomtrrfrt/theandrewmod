@@ -4,13 +4,18 @@ package net.reederhome.colin.theandrewmod;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIArrowAttack;
+import net.minecraft.entity.ai.EntityAIFollowOwner;
+import net.minecraft.entity.ai.EntityAIMoveTowardsTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAIOwnerHurtTarget;
 import net.minecraft.entity.ai.RandomPositionGenerator;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
@@ -22,7 +27,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-public class EntityThomas extends EntityCreature implements IRangedAttackMob {
+public class EntityThomas extends EntityTameable implements IRangedAttackMob {
 
 	
 	public EntityThomas(World par1World) {
@@ -30,15 +35,19 @@ public class EntityThomas extends EntityCreature implements IRangedAttackMob {
 		this.tasks.addTask(0, new EntityAIMoveRandomly(this));
 		this.tasks.addTask(1, new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F));
 		this.tasks.addTask(2, new EntityAIRideHorses(this));
+		this.tasks.addTask(3, new EntityAIFollowOwner(this, 1, 10, 2));
+		this.tasks.addTask(4, new EntityAIMoveTowardsTarget(this, 0.9, 32));
 		this.targetTasks.addTask(0, new EntityAINearestAttackableTarget(this, EntityJack.class, 2, true));
 		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityTrevor.class, 2, false));
+		this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
 		this.setCurrentItemOrArmor(0, new ItemStack(Items.lava_bucket));
 		this.isImmuneToFire=true;
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0);
 		this.setHealth(40);
-		this.getDataWatcher().addObject(12, new Byte((byte)0));
+		this.getDataWatcher().addObject(15, new Byte((byte)0));
 		this.getDataWatcher().addObject(14, new Byte((byte)0));
 		this.getDataWatcher().addObject(13, new Byte((byte)0));
+		setSize(0.6f, 1.8f);
 	}
 	public boolean isAIEnabled() {
 		return true;
@@ -101,18 +110,14 @@ public class EntityThomas extends EntityCreature implements IRangedAttackMob {
 		tag.setBoolean("Harmless", this.getDataWatcher().getWatchableObjectByte(13)==1);
 	}
 	public boolean isChild() {
-		return this.getDataWatcher().getWatchableObjectByte(12)==1;
+		return this.getDataWatcher().getWatchableObjectByte(15)==1;
 	}
 	public boolean interact(EntityPlayer p) {
 		ItemStack s = p.getCurrentEquippedItem();
 		if(s==null) return false;
 		if((!isChild())&&s!=null&&s.getItem().equals(Items.shears)) {
 			if(!worldObj.isRemote) {
-				EntityThomas baby = new EntityThomas(this.worldObj);
-				baby.setChild(true);
-				if(Math.random()<0.001) baby.getDataWatcher().updateObject(14, (byte)1);
-				baby.setLocationAndAngles(posX, posY, posZ, rotationPitch, rotationYaw);
-				this.worldObj.spawnEntityInWorld(baby);
+				createChild(this);
 			}
 			else {
 				for(int i = 0; i < this.rand.nextInt(16); i++) {
@@ -126,10 +131,22 @@ public class EntityThomas extends EntityCreature implements IRangedAttackMob {
 			setChild(false);
 			s.stackSize--;
 		}
+		else if(s!=null&&!s.getItem().equals(Blocks.cobblestone)&&!s.getItem().equals(Blocks.dirt)) {
+			if(!p.capabilities.isCreativeMode) {
+				s.stackSize--;
+			}
+			if((Math.random()<0.1||p.capabilities.isCreativeMode)) {
+				setOwner(p.getCommandSenderName());
+				setTamed(true);
+				this.getDataWatcher().updateObject(13, (byte)0);
+				playTameEffect(true);
+			}
+			playTameEffect(false);
+		}
 		return false;
 	}
 	public void setChild(boolean child) {
-		this.getDataWatcher().updateObject(12, Byte.valueOf((byte)(child?1:0)));
+		this.getDataWatcher().updateObject(15, Byte.valueOf((byte)(child?1:0)));
 	}
 	public boolean isEnderThomas() {
 		return this.getDataWatcher().getWatchableObjectByte(14)==1;
@@ -139,5 +156,14 @@ public class EntityThomas extends EntityCreature implements IRangedAttackMob {
 		EntityArrow arrow = new EntityArrow(worldObj, this, var1, 1.6f, 14f);
 		arrow.setFire(1000);
 		worldObj.spawnEntityInWorld(arrow);
+	}
+	@Override
+	public EntityAgeable createChild(EntityAgeable arg0) {
+		EntityThomas baby = new EntityThomas(arg0.worldObj);
+		baby.setChild(true);
+		if(Math.random()<0.001) baby.setChild(true);
+		baby.setLocationAndAngles(arg0.posX, arg0.posY, arg0.posZ, arg0.rotationPitch, arg0.rotationYaw);
+		arg0.worldObj.spawnEntityInWorld(baby);
+		return baby;
 	}
 }
