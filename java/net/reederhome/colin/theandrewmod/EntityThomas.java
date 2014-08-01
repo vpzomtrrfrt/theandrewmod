@@ -11,9 +11,12 @@ import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.ai.EntityAIFollowOwner;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAIMoveTowardsTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAIOwnerHurtByTarget;
 import net.minecraft.entity.ai.EntityAIOwnerHurtTarget;
+import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,9 +40,13 @@ public class EntityThomas extends EntityTameable implements IRangedAttackMob {
 		this.tasks.addTask(2, new EntityAIRideHorses(this));
 		this.tasks.addTask(3, new EntityAIFollowOwner(this, 1, 10, 2));
 		this.tasks.addTask(4, new EntityAIMoveTowardsTarget(this, 0.9, 32));
+		this.tasks.addTask(5, this.aiSit);
+		this.tasks.addTask(6, new EntityAISwimming(this));
 		this.targetTasks.addTask(0, new EntityAINearestAttackableTarget(this, EntityJack.class, 2, true));
 		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityTrevor.class, 2, false));
 		this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
+		this.targetTasks.addTask(3, new EntityAIOwnerHurtByTarget(this));
+		this.targetTasks.addTask(4, new EntityAIHurtByTarget(this, false));
 		this.setCurrentItemOrArmor(0, new ItemStack(Items.lava_bucket));
 		this.isImmuneToFire=true;
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0);
@@ -49,6 +56,11 @@ public class EntityThomas extends EntityTameable implements IRangedAttackMob {
 		this.getDataWatcher().addObject(13, new Byte((byte)0));
 		setSize(0.6f, 1.8f);
 	}
+	
+	public float getSoundVolume() {
+		return 0.4f;
+	}
+	
 	public boolean isAIEnabled() {
 		return true;
 	}
@@ -141,7 +153,9 @@ public class EntityThomas extends EntityTameable implements IRangedAttackMob {
 				this.getDataWatcher().updateObject(13, (byte)0);
 				playTameEffect(true);
 			}
-			playTameEffect(false);
+			else {
+				playTameEffect(false);
+			}
 		}
 		return false;
 	}

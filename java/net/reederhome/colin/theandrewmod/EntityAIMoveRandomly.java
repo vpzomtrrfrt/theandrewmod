@@ -3,6 +3,7 @@ package net.reederhome.colin.theandrewmod;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.util.Vec3;
 
 
@@ -16,7 +17,7 @@ public class EntityAIMoveRandomly extends EntityAIBase {
 	
 	@Override
 	public boolean shouldExecute() {
-		return te.getAttackTarget()==null;
+		return te.getAttackTarget()==null&&!(te instanceof EntityTameable&&((EntityTameable)te).isSitting());
 	}
 
 	public boolean continueExecuting() {
