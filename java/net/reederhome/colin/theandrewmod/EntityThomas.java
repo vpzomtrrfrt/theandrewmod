@@ -125,8 +125,8 @@ public class EntityThomas extends EntityTameable implements IRangedAttackMob {
 		return this.getDataWatcher().getWatchableObjectByte(15)==1;
 	}
 	public boolean interact(EntityPlayer p) {
+		if(super.interact(p)) return true;
 		ItemStack s = p.getCurrentEquippedItem();
-		if(s==null) return false;
 		if((!isChild())&&s!=null&&s.getItem().equals(Items.shears)) {
 			if(!worldObj.isRemote) {
 				createChild(this);
@@ -143,18 +143,32 @@ public class EntityThomas extends EntityTameable implements IRangedAttackMob {
 			setChild(false);
 			s.stackSize--;
 		}
-		else if(s!=null&&!s.getItem().equals(Blocks.cobblestone)&&!s.getItem().equals(Blocks.dirt)) {
+		else if(s!=null&&!s.getItem().equals(Item.getItemFromBlock(Blocks.cobblestone))&&!s.getItem().equals(Item.getItemFromBlock(Blocks.dirt))) {
 			if(!p.capabilities.isCreativeMode) {
 				s.stackSize--;
 			}
 			if((Math.random()<0.1||p.capabilities.isCreativeMode)) {
 				setOwner(p.getCommandSenderName());
 				setTamed(true);
-				this.getDataWatcher().updateObject(13, (byte)0);
+				this.getDataWatcher().updateObject(13, (byte)1);
 				playTameEffect(true);
 			}
 			else {
 				playTameEffect(false);
+			}
+		}
+		else if(s==null&&p.getCommandSenderName().equals(this.getOwnerName())) {
+			if(p.isSneaking()) {
+				if(this.getEquipmentInSlot(4)==null) {
+					ItemStack head = new ItemStack(Items.skull, 1, 3);
+					NBTTagCompound tag = new NBTTagCompound();
+					tag.setString("SkullOwner", p.getCommandSenderName());
+					head.setTagCompound(tag);
+					this.setCurrentItemOrArmor(4, head);
+				}
+				else {
+					this.setCurrentItemOrArmor(4, null);
+				}
 			}
 		}
 		return false;

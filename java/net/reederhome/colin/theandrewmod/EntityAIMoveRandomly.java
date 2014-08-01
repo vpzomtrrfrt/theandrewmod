@@ -17,7 +17,7 @@ public class EntityAIMoveRandomly extends EntityAIBase {
 	
 	@Override
 	public boolean shouldExecute() {
-		return te.getAttackTarget()==null&&!(te instanceof EntityTameable&&((EntityTameable)te).isSitting());
+		return te.getAttackTarget()==null&&!(te instanceof EntityTameable&&((EntityTameable)te).isTamed());
 	}
 
 	public boolean continueExecuting() {
