@@ -66,7 +66,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.8.0";
+	public static final String VERSION = "1.8.1";
 	public static final String NAME = "The Andrew Mod";
 	static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
 		@Override
