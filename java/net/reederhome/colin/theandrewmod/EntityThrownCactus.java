@@ -112,6 +112,7 @@ public class EntityThrownCactus extends EntityThrowable {
 				int meta = worldObj.getBlockMetadata(var1.blockX, var1.blockY, var1.blockZ);
 				worldObj.setBlockToAir(var1.blockX, var1.blockY, var1.blockZ);
 				if(!silkTouch) {
+					if((thing.equals(BlocksAndrew.cactusOre))&&Math.random()<0.6&&user instanceof EntityPlayer) ((EntityPlayer)this.user).inventory.addItemStackToInventory(new ItemStack(Blocks.cactus)); 
 					thing.dropBlockAsItem(worldObj, var1.blockX, var1.blockY, var1.blockZ, meta, fortune);
 				}
 				else {
