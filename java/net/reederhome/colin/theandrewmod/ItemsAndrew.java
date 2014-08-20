@@ -1,6 +1,7 @@
 package net.reederhome.colin.theandrewmod;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemReed;
 import net.minecraft.item.ItemSoup;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -22,6 +23,10 @@ public class ItemsAndrew {
 	static Item rainbowCoreAdvanced = new Item().setUnlocalizedName("rainbowCoreAdvanced").setTextureName(TheAndrewMod.MODID+":rainbowCoreAdvanced").setCreativeTab(TheAndrewMod.tabAndrew);
 	static Item bulbasauce = new ItemSoup(4).setUnlocalizedName("bulbasauce").setTextureName(TheAndrewMod.MODID+":bulbasauce").setCreativeTab(TheAndrewMod.tabAndrew);
 	static Item decoyBed = new ItemDecoyBed();
+	static Item[] pickaxeCactusGun;
+	
+	
+	static Item.ToolMaterial[] t = {Item.ToolMaterial.EMERALD, Item.ToolMaterial.GOLD, Item.ToolMaterial.IRON, Item.ToolMaterial.STONE, Item.ToolMaterial.WOOD};
 	
 	public static void registerItems() {
 		GameRegistry.registerItem(potatoLiver, "potatoLiver");
@@ -40,5 +45,10 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(rainbowCoreAdvanced, "rainbowCoreAdvanced");
 		GameRegistry.registerItem(bulbasauce, "bulbasauce");
 		GameRegistry.registerItem(decoyBed, "itemDecoyBed");
+		pickaxeCactusGun = new Item[t.length];
+		for(int i=0;i<t.length;i++) {
+			pickaxeCactusGun[i]=new ItemPickaxeCactusGun(t[i]);
+			GameRegistry.registerItem(pickaxeCactusGun[i], "pickaxeCactusGun"+t[i]);
+		}
 	}
 }

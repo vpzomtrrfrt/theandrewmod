@@ -162,6 +162,10 @@ public class TheAndrewMod {
 		ItemsAndrew.registerItems();
 		BlocksAndrew.registerBlocks();
 		AchievementsAndrew.setup();
+		for(int m = 0; m < ItemsAndrew.t.length; m++) {
+			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.pickaxeCactusGun[m]), "mmm", "rsl", "rsc", 'm', ItemsAndrew.t[m].func_150995_f(), 'c', ItemsAndrew.cactusGun, 's', Items.stick, 'l', Items.slime_ball, 'r', Items.redstone);
+			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.pickaxeCactusGun[m]), "mmm", "lsr", "csr", 'm', ItemsAndrew.t[m].func_150995_f(), 'c', ItemsAndrew.cactusGun, 's', Items.stick, 'l', Items.slime_ball, 'r', Items.redstone);
+		}
 		config.save();
 	}
 	
