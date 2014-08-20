@@ -5,8 +5,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Random;
 
-import javax.swing.text.TabableView;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
@@ -25,14 +23,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemMinecart;
-import net.minecraft.item.ItemReed;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.WeightedRandomChestContent;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
@@ -47,6 +43,7 @@ import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.reederhome.colin.theandrewmod.client.ClientProxy;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -55,7 +52,10 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
@@ -66,7 +66,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.8.1";
+	public static final String VERSION = "1.9.0pre";
 	public static final String NAME = "The Andrew Mod";
 	static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
 		@Override
@@ -76,6 +76,7 @@ public class TheAndrewMod {
 		}
 	};
 	static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
+	static ItemArmor.ArmorMaterial cactusGunArmorMaterial = EnumHelper.addArmorMaterial("cactusGun", 5, new int[]{1,3,2,1}, 20);
 	static DamageSource deathBy789 = new DamageSource(MODID+".deathBy789");
 	static DamageSource deathByPotatoLiver = new DamageSource(MODID+".deathByPotatoLiver");
 	static DamageSource deathByCancer = new DamageSource(MODID+".deathByCancer");
@@ -86,6 +87,7 @@ public class TheAndrewMod {
 	static int teidThomas;
 	static int teidJack;
 	static BiomeGenBase biomeDessert;
+	static SimpleNetworkWrapper netWrap;
 	
 	public static int avid;
 	
@@ -146,6 +148,7 @@ public class TheAndrewMod {
 		GameRegistry.addRecipe(new ShapedOreRecipe(ItemsAndrew.itemWallum, "w", "s", "i", 'i', "ingotIron", 's', "stickWood", 'w', "plankWood"));
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.blockCactusGun), "rcr", "gig", "rcr", 'r', Items.redstone, 'c', Blocks.cobblestone, 'g', ItemsAndrew.cactusGun, 'i', Items.iron_ingot);
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.rainbowMachine), "scs", "crc", "scs", 's', Items.redstone, 'c', Blocks.cobblestone, 'r', ItemsAndrew.rainbowCoreAdvanced);
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.cactusGunPants), "lgl", "c c", "c c", 'l', Items.leather, 'g', ItemsAndrew.cactusGun, 'c', Blocks.cactus);
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.decoyBed), Items.bed, Items.gunpowder, Blocks.stone_button, Items.redstone);
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.itemRedstoneCake), Items.cake, Items.redstone, Blocks.stone_stairs, Blocks.stone_pressure_plate, Blocks.wooden_button);
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.rainbowCoreBasic), dye("black"), dye("white"), dye("red"), dye("lime"), Items.redstone, dye("blue"), dye("yellow"), dye("cyan"), dye("magenta"));
@@ -166,6 +169,8 @@ public class TheAndrewMod {
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.pickaxeCactusGun[m]), "mmm", "rsl", "rsc", 'm', ItemsAndrew.t[m].func_150995_f(), 'c', ItemsAndrew.cactusGun, 's', Items.stick, 'l', Items.slime_ball, 'r', Items.redstone);
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.pickaxeCactusGun[m]), "mmm", "lsr", "csr", 'm', ItemsAndrew.t[m].func_150995_f(), 'c', ItemsAndrew.cactusGun, 's', Items.stick, 'l', Items.slime_ball, 'r', Items.redstone);
 		}
+		netWrap = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
+		netWrap.registerMessage(CactusFireMessage.Handler.class, CactusFireMessage.class, 0, Side.SERVER);
 		config.save();
 	}
 	
@@ -388,6 +393,15 @@ public class TheAndrewMod {
 		}
 		else if(ev.crafting.getItem().equals(ItemsAndrew.potatoLiver)) {
 			ev.player.addStat(AchievementsAndrew.potatoLiver, 1);
+		}
+	}
+	
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onKeyInput(KeyInputEvent ev) {
+		if(((ClientProxy)proxy).keyCactusFire.isPressed()) {
+			netWrap.sendToServer(new CactusFireMessage());
+			ItemsAndrew.cactusGun.onItemRightClick(null, Minecraft.getMinecraft().theWorld, Minecraft.getMinecraft().thePlayer);
 		}
 	}
 }

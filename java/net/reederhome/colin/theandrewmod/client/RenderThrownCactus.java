@@ -25,7 +25,7 @@ public class RenderThrownCactus extends Render {
 		IIcon var10 = Blocks.cactus.getBlockTextureFromSide(1);
 		if(var1 instanceof EntityThrownCactus) {
 			int clr = ((EntityThrownCactus)var1).getClr();
-			System.out.println("Client Colorful!  "+clr);
+			//System.out.println("Client Colorful!  "+clr);
 			if(clr!=-1) {
 				var10 = BlocksAndrew.dyedCactus.getIcon(1, clr);
 			}
