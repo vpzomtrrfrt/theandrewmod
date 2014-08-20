@@ -29,7 +29,7 @@ public class CactusFireMessage implements IMessage {
 		public IMessage onMessage(CactusFireMessage arg0, MessageContext arg1) {
 			try {
 				EntityPlayer player = arg1.getServerHandler().playerEntity;
-				if((player.getHeldItem()!=null&&player.getHeldItem().getItem().equals(ItemsAndrew.cactusGun))||(player.getCurrentArmor(1)!=null&&player.getCurrentArmor(1).getItem().equals(ItemsAndrew.cactusGunPants))) {
+				if((player.getHeldItem()!=null&&(player.getHeldItem().getItem().equals(ItemsAndrew.cactusGun)||player.getHeldItem().getItem() instanceof ItemPickaxeCactusGun))||(player.getCurrentArmor(1)!=null&&player.getCurrentArmor(1).getItem().equals(ItemsAndrew.cactusGunPants))) {
 					ItemsAndrew.cactusGun.onItemRightClick(null, player.worldObj, player);
 				}
 			} catch(Exception e) {
