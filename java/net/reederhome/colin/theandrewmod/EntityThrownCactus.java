@@ -9,6 +9,8 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -106,6 +108,13 @@ public class EntityThrownCactus extends EntityThrowable {
 			else if(doHoe&&thing.equals(Blocks.farmland)) {
 				if(Math.random()<0.3) {
 					Blocks.cactus.dropBlockAsItem(worldObj, var1.blockX, var1.blockY+1, var1.blockZ, 0, 1);
+				}
+			}
+			else if(doHoe&&thing.equals(Blocks.stone)) {
+				if(Math.abs(user.posX-this.posX)<2&&Math.abs(user.posZ-this.posZ)<2) {
+					//user.motionY=user.motionY<0?0.5:user.motionY+0.5;
+					user.addPotionEffect(new PotionEffect(Potion.resistance.id, 10, 3, true));
+					worldObj.createExplosion(this, user.posX, user.posY, user.posZ, 0.2f, false);
 				}
 			}
 			else {
