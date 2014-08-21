@@ -66,7 +66,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.9.0pre";
+	public static final String VERSION = "1.9.0";
 	public static final String NAME = "The Andrew Mod";
 	static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
 		@Override
@@ -76,7 +76,7 @@ public class TheAndrewMod {
 		}
 	};
 	static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
-	static ItemArmor.ArmorMaterial cactusGunArmorMaterial = EnumHelper.addArmorMaterial("cactusGun", 5, new int[]{1,3,2,1}, 20);
+	static ItemArmor.ArmorMaterial cactusGunArmorMaterial = EnumHelper.addArmorMaterial("cactusGun", 12, new int[]{1,3,2,1}, 20);
 	static DamageSource deathBy789 = new DamageSource(MODID+".deathBy789");
 	static DamageSource deathByPotatoLiver = new DamageSource(MODID+".deathByPotatoLiver");
 	static DamageSource deathByCancer = new DamageSource(MODID+".deathByCancer");

@@ -112,7 +112,6 @@ public class EntityThrownCactus extends EntityThrowable {
 			}
 			else if(doHoe&&thing.equals(Blocks.stone)) {
 				if(Math.abs(user.posX-this.posX)<2&&Math.abs(user.posZ-this.posZ)<2) {
-					//user.motionY=user.motionY<0?0.5:user.motionY+0.5;
 					user.addPotionEffect(new PotionEffect(Potion.resistance.id, 10, 3, true));
 					worldObj.createExplosion(this, user.posX, user.posY, user.posZ, 0.2f, false);
 				}
