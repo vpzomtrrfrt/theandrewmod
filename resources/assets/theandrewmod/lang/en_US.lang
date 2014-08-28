@@ -49,6 +49,7 @@ tile.cactusOre.name=Cactus Ore
 tile.redstoneCake.name=Cake
 tile.rainbowMachine.name=Rainbow Machine
 tile.blockCactusGun.name=Cactus Gun Block
+tile.tntChest.name=TNT Chest
 potion.cancerPotion=Cancer
 entity.Thomas.name=Thomas
 entity.Jack.name=Jack

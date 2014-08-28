@@ -16,6 +16,7 @@ public class BlocksAndrew {
 	public static Block redstoneCake = new BlockRedstoneCake();
 	public static Block blockCactusGun = new BlockCactusGun();
 	public static Block rainbowMachine = new BlockRainbowMachine();
+	public static Block tntChest = new BlockTNTChest();
 	
 	public static void registerBlocks() {
 		GameRegistry.registerBlock(decoyBed, "decoyBed");
@@ -30,5 +31,6 @@ public class BlocksAndrew {
 		for(int i = 0; i < 16; i++) {
 			GameRegistry.registerBlock(new BlockDyedCake(i), "dyed_cake_"+ItemDye.field_150921_b[i]);
 		}
+		GameRegistry.registerBlock(tntChest, "tntChest");
 	}
 }

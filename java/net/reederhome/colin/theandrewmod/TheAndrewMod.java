@@ -128,6 +128,7 @@ public class TheAndrewMod {
 		EntityRegistry.registerModEntity(EntityItemButterDust.class, "ItemButterDust", teid, MODID, 128, 1, true);
 		GameRegistry.registerTileEntity(TileEntitySideSlab.class, "sideSlab");
 		GameRegistry.registerTileEntity(TileEntityJumpPad.class, "jumpPad");
+		GameRegistry.registerTileEntity(TileEntityTNTChest.class, "TNTChest");
 		deathByPotatoLiver.setDamageIsAbsolute();
 		deathByPotatoLiver.setDamageAllowedInCreativeMode();
 		System.out.println("Hello?");
