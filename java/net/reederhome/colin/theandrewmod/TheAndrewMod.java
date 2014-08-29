@@ -66,7 +66,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.9.0";
+	public static final String VERSION = "1.10.0pre";
 	public static final String NAME = "The Andrew Mod";
 	static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
 		@Override
@@ -135,6 +135,8 @@ public class TheAndrewMod {
 		int cpi = registerPotion();
 		System.out.println("cpi="+cpi);
 		cancerPotion = new CancerPotion(cpi, false, Color.black.getRGB());
+		ItemsAndrew.registerItems();
+		BlocksAndrew.registerBlocks();
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.sideSlab), "s", "s", "s", 's', Blocks.stone_slab);
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.potatoLiver), Items.bone, Items.potato, Items.wooden_sword);
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.butterDust, 4), Items.gold_nugget, Items.milk_bucket, ItemsAndrew.plasticUtensils, BlocksAndrew.invasivePlant);
@@ -151,6 +153,7 @@ public class TheAndrewMod {
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.rainbowMachine), "scs", "crc", "scs", 's', Items.redstone, 'c', Blocks.cobblestone, 'r', ItemsAndrew.rainbowCoreAdvanced);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.cactusGunPants), "lgl", "c c", "c c", 'l', Items.leather, 'g', ItemsAndrew.cactusGun, 'c', Blocks.cactus);
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.decoyBed), Items.bed, Items.gunpowder, Blocks.stone_button, Items.redstone);
+		GameRegistry.addShapelessRecipe(new ItemStack(BlocksAndrew.tntChest), Blocks.tnt, Blocks.chest, Items.gunpowder, dye("green"));
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.itemRedstoneCake), Items.cake, Items.redstone, Blocks.stone_stairs, Blocks.stone_pressure_plate, Blocks.wooden_button);
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.rainbowCoreBasic), dye("black"), dye("white"), dye("red"), dye("lime"), Items.redstone, dye("blue"), dye("yellow"), dye("cyan"), dye("magenta"));
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.rainbowCoreAdvanced), dye("brown"), dye("purple"), dye("silver"), dye("gray"), ItemsAndrew.rainbowCoreBasic, dye("pink"), dye("green"), dye("lightBlue"), dye("orange"));
@@ -163,8 +166,6 @@ public class TheAndrewMod {
 		for(int d = 0; d < 16; d++) {
 			GameRegistry.addSmelting(new ItemStack(BlocksAndrew.dyedCactus, 1, d), new ItemStack(Items.dye, 1, d), 17);
 		}
-		ItemsAndrew.registerItems();
-		BlocksAndrew.registerBlocks();
 		AchievementsAndrew.setup();
 		for(int m = 0; m < ItemsAndrew.t.length; m++) {
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.pickaxeCactusGun[m]), "mmm", "rsl", "rsc", 'm', ItemsAndrew.t[m].func_150995_f(), 'c', ItemsAndrew.cactusGun, 's', Items.stick, 'l', Items.slime_ball, 'r', Items.redstone);
