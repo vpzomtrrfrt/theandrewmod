@@ -6,22 +6,24 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.stats.StatBase;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.common.AchievementPage;
+import net.reederhome.colin.theandrewmod.block.BlocksAndrew;
+import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
 
 public class AchievementsAndrew {
 
-	static Achievement dyeCactus;
-	static Achievement invasivePlant;
-	static Achievement shearThem;
-	static Achievement butterDust;
-	static Achievement jumpPad;
-	static Achievement cactusGun;
-	static Achievement cactusHoe;
-	static Achievement glassBottleArmor;
-	static Achievement potatoLiver;
-	static Achievement plasticVictim;
-	static Achievement glassBottleArmorFill;
-	static Achievement plasticUser;
-	static AchievementPage page;
+	public static Achievement dyeCactus;
+	public static Achievement invasivePlant;
+	public static Achievement shearThem;
+	public static Achievement butterDust;
+	public static Achievement jumpPad;
+	public static Achievement cactusGun;
+	public static Achievement cactusHoe;
+	public static Achievement glassBottleArmor;
+	public static Achievement potatoLiver;
+	public static Achievement plasticVictim;
+	public static Achievement glassBottleArmorFill;
+	public static Achievement plasticUser;
+	public static AchievementPage page;
 	public static void setup() {
 		dyeCactus = new Achievement("achievement.theandrewmod.dyeCactus", "dyeCactus", 0, 0, new ItemStack(Items.dye, 1, 5), null).registerStat();
 		invasivePlant = new Achievement("achievement.theandrewmod.invasivePlant", "invasivePlant", 2, 2, BlocksAndrew.invasivePlant, null).registerStat();

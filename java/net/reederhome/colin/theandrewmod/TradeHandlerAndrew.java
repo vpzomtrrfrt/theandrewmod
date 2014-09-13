@@ -8,6 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
+import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
 import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
 
 public class TradeHandlerAndrew implements IVillageTradeHandler {

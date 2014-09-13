@@ -43,7 +43,27 @@ import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.reederhome.colin.theandrewmod.block.BlockDyedCake;
+import net.reederhome.colin.theandrewmod.block.BlocksAndrew;
 import net.reederhome.colin.theandrewmod.client.ClientProxy;
+import net.reederhome.colin.theandrewmod.command.BeCactusCommand;
+import net.reederhome.colin.theandrewmod.command.BeCommandBlockCommand;
+import net.reederhome.colin.theandrewmod.command.FirmMatressCommand;
+import net.reederhome.colin.theandrewmod.command.RadiationCommand;
+import net.reederhome.colin.theandrewmod.command.SevenEightNineCommand;
+import net.reederhome.colin.theandrewmod.command.SnorlaxCommand;
+import net.reederhome.colin.theandrewmod.command.YesCommand;
+import net.reederhome.colin.theandrewmod.entity.EntityCharlie;
+import net.reederhome.colin.theandrewmod.entity.EntityItemButterDust;
+import net.reederhome.colin.theandrewmod.entity.EntityJack;
+import net.reederhome.colin.theandrewmod.entity.EntityThomas;
+import net.reederhome.colin.theandrewmod.entity.EntityThrownCactus;
+import net.reederhome.colin.theandrewmod.entity.EntityTrevor;
+import net.reederhome.colin.theandrewmod.item.ItemGlassBottleArmor;
+import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
+import net.reederhome.colin.theandrewmod.tileentity.TileEntityJumpPad;
+import net.reederhome.colin.theandrewmod.tileentity.TileEntitySideSlab;
+import net.reederhome.colin.theandrewmod.tileentity.TileEntityTNTChest;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -68,26 +88,26 @@ public class TheAndrewMod {
 	public static final String MODID = "theandrewmod";
 	public static final String VERSION = "1.10.0pre";
 	public static final String NAME = "The Andrew Mod";
-	static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
+	public static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
 		@Override
 		@SideOnly(Side.CLIENT)
 		public Item getTabIconItem() {
 			return ItemsAndrew.potatoLiver;
 		}
 	};
-	static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
-	static ItemArmor.ArmorMaterial cactusGunArmorMaterial = EnumHelper.addArmorMaterial("cactusGun", 12, new int[]{1,3,2,1}, 20);
-	static DamageSource deathBy789 = new DamageSource(MODID+".deathBy789");
-	static DamageSource deathByPotatoLiver = new DamageSource(MODID+".deathByPotatoLiver");
-	static DamageSource deathByCancer = new DamageSource(MODID+".deathByCancer");
-	static DamageSource deathByGlass = new DamageSource(MODID+".deathByGlass");
-	static DamageSource deathByCharlie = new DamageSource(MODID+".deathByCharlie");
-	static Enchantment cactusEnchantment;
-	static Potion cancerPotion;
-	static int teidThomas;
-	static int teidJack;
-	static BiomeGenBase biomeDessert;
-	static SimpleNetworkWrapper netWrap;
+	public static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
+	public static ItemArmor.ArmorMaterial cactusGunArmorMaterial = EnumHelper.addArmorMaterial("cactusGun", 12, new int[]{1,3,2,1}, 20);
+	public static DamageSource deathBy789 = new DamageSource(MODID+".deathBy789");
+	public static DamageSource deathByPotatoLiver = new DamageSource(MODID+".deathByPotatoLiver");
+	public static DamageSource deathByCancer = new DamageSource(MODID+".deathByCancer");
+	public static DamageSource deathByGlass = new DamageSource(MODID+".deathByGlass");
+	public static DamageSource deathByCharlie = new DamageSource(MODID+".deathByCharlie");
+	public static Enchantment cactusEnchantment;
+	public static Potion cancerPotion;
+	public static int teidThomas;
+	public static int teidJack;
+	public static BiomeGenBase biomeDessert;
+	public static SimpleNetworkWrapper netWrap;
 	
 	public static int avid;
 	

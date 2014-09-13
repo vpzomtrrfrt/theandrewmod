@@ -10,9 +10,9 @@ import net.minecraft.item.ItemPotion;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
-import net.reederhome.colin.theandrewmod.BlocksAndrew;
-import net.reederhome.colin.theandrewmod.EntityThrownCactus;
 import net.reederhome.colin.theandrewmod.TheAndrewMod;
+import net.reederhome.colin.theandrewmod.block.BlocksAndrew;
+import net.reederhome.colin.theandrewmod.entity.EntityThrownCactus;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;

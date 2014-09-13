@@ -6,8 +6,8 @@ import net.minecraft.client.renderer.entity.RenderChicken;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemDye;
 import net.minecraft.util.ResourceLocation;
-import net.reederhome.colin.theandrewmod.EntityThomas;
 import net.reederhome.colin.theandrewmod.TheAndrewMod;
+import net.reederhome.colin.theandrewmod.entity.EntityThomas;
 
 public class RenderCharlie extends RenderChicken {
 

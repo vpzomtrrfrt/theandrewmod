@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.world.World;
+import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
 
 public class RecipesWallumCooking implements IRecipe {
 
