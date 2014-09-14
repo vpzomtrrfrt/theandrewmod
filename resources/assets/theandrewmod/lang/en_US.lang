@@ -5,6 +5,7 @@ death.attack.theandrewmod.deathByPotatoLiver.player=%1$s was operated on with pl
 death.attack.theandrewmod.deathByCancer=%1$s died of cancer
 death.attack.theandrewmod.deathByGlass=%1$s was splintered
 death.attack.theandrewmod.deathByCharlie=Charlie bit %1$s, and it really hurt!
+death.attack.theandrewmod.deathByGrindingWallum=%1$s was ground
 item.potatoLiver.name=Potato Liver
 item.plasticUtensils.name=Plastic Utensils
 item.butterDust.name=Butter Dust
