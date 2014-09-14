@@ -27,6 +27,8 @@ public class ItemsAndrew {
 	public static Item decoyBed = new ItemDecoyBed();
 	public static Item[] pickaxeCactusGun;
 	public static Item cactusGunPants = new CactusGunArmor(0, 2);
+	public static Item wallumGrinding = new ItemWallumGrinding();
+	public static Item wallumDust = new ItemWallumDust(new String[]{"Iron", "Gold", "Diamond", "Coal", "Emerald", "Quartz", "Redstone", "Cactus"});
 	
 	
 	public static Item.ToolMaterial[] t = Item.ToolMaterial.values();
@@ -49,6 +51,9 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(bulbasauce, "bulbasauce");
 		GameRegistry.registerItem(decoyBed, "itemDecoyBed");
 		GameRegistry.registerItem(cactusGunPants, "cactusGunPants");
+		GameRegistry.registerItem(wallumGrinding, "wallumGrinding");
+		GameRegistry.registerItem(wallumDust, "wallumDust");
+		
 		
 		pickaxeCactusGun = new Item[t.length];
 		for(int i=0;i<t.length;i++) {

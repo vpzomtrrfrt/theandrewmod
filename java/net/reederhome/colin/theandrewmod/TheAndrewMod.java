@@ -3,6 +3,8 @@ package net.reederhome.colin.theandrewmod;
 import java.awt.Color;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -24,6 +26,7 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemMinecart;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -42,6 +45,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.reederhome.colin.theandrewmod.block.BlockDyedCake;
 import net.reederhome.colin.theandrewmod.block.BlocksAndrew;
@@ -60,6 +64,7 @@ import net.reederhome.colin.theandrewmod.entity.EntityThomas;
 import net.reederhome.colin.theandrewmod.entity.EntityThrownCactus;
 import net.reederhome.colin.theandrewmod.entity.EntityTrevor;
 import net.reederhome.colin.theandrewmod.item.ItemGlassBottleArmor;
+import net.reederhome.colin.theandrewmod.item.ItemWallumDust;
 import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntityJumpPad;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntitySideSlab;
@@ -69,6 +74,7 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -102,6 +108,7 @@ public class TheAndrewMod {
 	public static DamageSource deathByCancer = new DamageSource(MODID+".deathByCancer");
 	public static DamageSource deathByGlass = new DamageSource(MODID+".deathByGlass");
 	public static DamageSource deathByCharlie = new DamageSource(MODID+".deathByCharlie");
+	public static DamageSource deathByGrindingWallum = new DamageSource(MODID+".deathByGrindingWallum");
 	public static Enchantment cactusEnchantment;
 	public static Potion cancerPotion;
 	public static int teidThomas;
@@ -191,9 +198,12 @@ public class TheAndrewMod {
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.pickaxeCactusGun[m]), "mmm", "rsl", "rsc", 'm', ItemsAndrew.t[m].func_150995_f(), 'c', ItemsAndrew.cactusGun, 's', Items.stick, 'l', Items.slime_ball, 'r', Items.redstone);
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.pickaxeCactusGun[m]), "mmm", "lsr", "csr", 'm', ItemsAndrew.t[m].func_150995_f(), 'c', ItemsAndrew.cactusGun, 's', Items.stick, 'l', Items.slime_ball, 'r', Items.redstone);
 		}
+		GameRegistry.addSmelting(BlocksAndrew.cactusOre, new ItemStack(Blocks.cactus), 22);
+		OreDictionary.registerOre("oreCactus", BlocksAndrew.cactusOre);
 		netWrap = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
 		netWrap.registerMessage(CactusFireMessage.Handler.class, CactusFireMessage.class, 0, Side.SERVER);
 		config.save();
+		//OreDictionary.initVanillaEntries();
 	}
 	
 	public ItemStack dye(String string) {
@@ -203,6 +213,23 @@ public class TheAndrewMod {
 			}
 		}
 		return null;
+	}
+	
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent ev) {
+		Iterator<String> iter = ItemWallumDust.listWallumDust.keySet().iterator();
+		while(iter.hasNext()) {
+			String ore = iter.next();
+			ArrayList<ItemStack> orei = OreDictionary.getOres("ore"+ore);
+			for(int i = 0; i < orei.size(); i++) {
+				ItemStack res = FurnaceRecipes.smelting().getSmeltingResult(orei.get(i));
+				if(res!=null) {
+					ItemStack from = ItemWallumDust.listWallumDust.get(ore);
+					GameRegistry.addSmelting(from, res, FurnaceRecipes.smelting().func_151398_b(from));
+					break;
+				}
+			}
+		}
 	}
 
 	private int registerPotion() {
