@@ -20,7 +20,7 @@ public class ItemsAndrew {
 	public static Item glassBottleBoots = new ItemGlassBottleArmor(0,3).setUnlocalizedName("glassBottleBoots");
 	public static Item itemRedstoneCake = new ItemReed(BlocksAndrew.redstoneCake).setTextureName("cake").setUnlocalizedName("redstoneCake").setCreativeTab(TheAndrewMod.tabAndrew);
 	public static Item itemWallumCooking = new ItemWallumCooking();
-	public static Item itemWallum = new Item().setUnlocalizedName("wallum").setTextureName(TheAndrewMod.MODID+":wallum").setFull3D().setCreativeTab(TheAndrewMod.tabAndrew);
+	public static Item itemWallum = new Item().setUnlocalizedName("wallum").setTextureName(TheAndrewMod.MODID+":wallum").setFull3D().setCreativeTab(TheAndrewMod.tabAndrew).setMaxDamage(7);
 	public static Item rainbowCoreBasic = new Item().setUnlocalizedName("rainbowCoreBasic").setTextureName(TheAndrewMod.MODID+":rainbowCoreBasic").setCreativeTab(TheAndrewMod.tabAndrew);
 	public static Item rainbowCoreAdvanced = new Item().setUnlocalizedName("rainbowCoreAdvanced").setTextureName(TheAndrewMod.MODID+":rainbowCoreAdvanced").setCreativeTab(TheAndrewMod.tabAndrew);
 	public static Item bulbasauce = new ItemSoup(4).setUnlocalizedName("bulbasauce").setTextureName(TheAndrewMod.MODID+":bulbasauce").setCreativeTab(TheAndrewMod.tabAndrew);

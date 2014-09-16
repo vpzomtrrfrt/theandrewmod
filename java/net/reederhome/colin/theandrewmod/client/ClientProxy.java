@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.reederhome.colin.theandrewmod.CommonProxy;
 import net.reederhome.colin.theandrewmod.TheAndrewMod;
 import net.reederhome.colin.theandrewmod.entity.EntityCharlie;
+import net.reederhome.colin.theandrewmod.entity.EntityHPCreeper;
 import net.reederhome.colin.theandrewmod.entity.EntityJack;
 import net.reederhome.colin.theandrewmod.entity.EntityThomas;
 import net.reederhome.colin.theandrewmod.entity.EntityThrownCactus;
@@ -29,6 +30,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityTrevor.class, new RenderTrevor(new ModelBiped(), 0.5f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityThrownCactus.class, new RenderThrownCactus());
 		RenderingRegistry.registerEntityRenderingHandler(EntityCharlie.class, new RenderCharlie());
+		RenderingRegistry.registerEntityRenderingHandler(EntityHPCreeper.class, new RenderHPCreeper());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySideSlab.class, new RenderSideSlab());
 		VillagerRegistry.instance().registerVillagerSkin(TheAndrewMod.avid, new ResourceLocation(TheAndrewMod.MODID+":/textures/models/andrew.png"));
 		ClientRegistry.registerKeyBinding(keyCactusFire);
