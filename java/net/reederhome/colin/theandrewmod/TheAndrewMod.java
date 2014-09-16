@@ -93,7 +93,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.10.0pre";
+	public static final String VERSION = "1.10.0";
 	public static final String NAME = "The Andrew Mod";
 	public static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
 		@Override
@@ -157,7 +157,7 @@ public class TheAndrewMod {
 		teid = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(EntityHPCreeper.class, "HPCreeper", teid);
 		EntityRegistry.registerModEntity(EntityHPCreeper.class, "HPCreeper", teid, MODID, 128, 1, true);
-		EntityRegistry.addSpawn(EntityHPCreeper.class, 14, 1, 4, EnumCreatureType.monster, BiomeGenBase.plains);
+		EntityRegistry.addSpawn(EntityHPCreeper.class, 10, 1, 4, EnumCreatureType.monster, BiomeGenBase.plains);
 		GameRegistry.registerTileEntity(TileEntitySideSlab.class, "sideSlab");
 		GameRegistry.registerTileEntity(TileEntityJumpPad.class, "jumpPad");
 		GameRegistry.registerTileEntity(TileEntityTNTChest.class, "TNTChest");
@@ -190,6 +190,7 @@ public class TheAndrewMod {
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.rainbowCoreBasic), dye("black"), dye("white"), dye("red"), dye("lime"), Items.redstone, dye("blue"), dye("yellow"), dye("cyan"), dye("magenta"));
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.rainbowCoreAdvanced), dye("brown"), dye("purple"), dye("silver"), dye("gray"), ItemsAndrew.rainbowCoreBasic, dye("pink"), dye("green"), dye("lightBlue"), dye("orange"));
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.bulbasauce), Items.wheat_seeds, Items.wheat_seeds, Items.wheat_seeds, Items.bowl);
+		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.wallumGrinding), Items.iron_ingot, ItemsAndrew.itemWallum, Blocks.redstone_block, Items.flint, Items.flint, Items.flint);
 		VillagerRegistry.instance().registerVillagerId(avid);
 		VillagerRegistry.instance().registerVillageTradeHandler(avid, new TradeHandlerAndrew());
 		BiomeDictionary.registerBiomeType(biomeDessert, BiomeDictionary.Type.WASTELAND);

@@ -13,7 +13,7 @@ import net.minecraft.util.AxisAlignedBB;
 
 public class TileEntityJumpPad extends TileEntity {
 
-	public String owner;
+	public String owner = "";
 
 	@Override
 	public void updateEntity() {
