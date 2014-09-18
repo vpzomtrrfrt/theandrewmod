@@ -1,4 +1,4 @@
-package net.reederhome.colin.theandrewmod;
+package net.reederhome.colin.theandrewmod.world;
 
 import net.minecraft.entity.passive.EntityMooshroom;
 import net.minecraft.init.Blocks;

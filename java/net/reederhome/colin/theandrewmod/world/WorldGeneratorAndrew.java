@@ -1,4 +1,4 @@
-package net.reederhome.colin.theandrewmod;
+package net.reederhome.colin.theandrewmod.world;
 
 import java.util.Random;
 

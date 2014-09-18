@@ -70,6 +70,8 @@ import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntityJumpPad;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntitySideSlab;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntityTNTChest;
+import net.reederhome.colin.theandrewmod.world.BiomeGenDessert;
+import net.reederhome.colin.theandrewmod.world.WorldGeneratorAndrew;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
