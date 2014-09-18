@@ -150,7 +150,7 @@ public class EntityThomas extends EntityTameable implements IRangedAttackMob {
 				s.stackSize--;
 			}
 			if((Math.random()<0.1||p.capabilities.isCreativeMode)) {
-				setOwner(p.getCommandSenderName());
+				this.func_152115_b(p.getCommandSenderName());
 				setTamed(true);
 				this.getDataWatcher().updateObject(13, (byte)1);
 				playTameEffect(true);
@@ -159,7 +159,7 @@ public class EntityThomas extends EntityTameable implements IRangedAttackMob {
 				playTameEffect(false);
 			}
 		}
-		else if(s==null&&p.getCommandSenderName().equals(this.getOwnerName())) {
+		else if(s==null&&p.getCommandSenderName().equals(this.func_152113_b())) {
 			if(p.isSneaking()) {
 				if(this.getEquipmentInSlot(4)==null) {
 					ItemStack head = new ItemStack(Items.skull, 1, 3);
@@ -173,6 +173,7 @@ public class EntityThomas extends EntityTameable implements IRangedAttackMob {
 				}
 			}
 		}
+		System.out.println(this.func_152113_b());
 		return false;
 	}
 	public void setChild(boolean child) {
