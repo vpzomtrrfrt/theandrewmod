@@ -2,6 +2,7 @@ package net.reederhome.colin.theandrewmod.block;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlockWithMetadata;
 import net.minecraft.item.ItemDye;
 import net.reederhome.colin.theandrewmod.item.ItemBlockDyedCactus;
@@ -18,6 +19,8 @@ public class BlocksAndrew {
 	public static Block blockCactusGun = new BlockCactusGun();
 	public static Block rainbowMachine = new BlockRainbowMachine();
 	public static Block tntChest = new BlockTNTChest();
+	public static Block pakistan = new BlockPakistan();
+	public static Block checkerboard = new BlockCheckerboard(Material.cloth);
 	
 	public static void registerBlocks() {
 		GameRegistry.registerBlock(decoyBed, "decoyBed");
@@ -33,5 +36,7 @@ public class BlocksAndrew {
 			GameRegistry.registerBlock(new BlockDyedCake(i), "dyed_cake_"+ItemDye.field_150921_b[i]);
 		}
 		GameRegistry.registerBlock(tntChest, "tntChest");
+		GameRegistry.registerBlock(pakistan, "pakistan");
+		GameRegistry.registerBlock(checkerboard, "checkerboard");
 	}
 }

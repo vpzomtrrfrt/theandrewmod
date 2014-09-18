@@ -206,6 +206,8 @@ public class TheAndrewMod {
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.pickaxeCactusGun[m]), "mmm", "rsl", "rsc", 'm', ItemsAndrew.t[m].func_150995_f(), 'c', ItemsAndrew.cactusGun, 's', Items.stick, 'l', Items.slime_ball, 'r', Items.redstone);
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.pickaxeCactusGun[m]), "mmm", "lsr", "csr", 'm', ItemsAndrew.t[m].func_150995_f(), 'c', ItemsAndrew.cactusGun, 's', Items.stick, 'l', Items.slime_ball, 'r', Items.redstone);
 		}
+		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.pakistan), " rc", " mr", "cr ", 'r', Items.redstone, 'm', Items.map, 'c', Blocks.cactus);
+		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.checkerboard), "wbw", "brb", "wbw", 'w', new ItemStack(Blocks.wool, 1, 0), 'b', new ItemStack(Blocks.wool, 1, 15), 'r', Items.redstone);
 		GameRegistry.addSmelting(BlocksAndrew.cactusOre, new ItemStack(Blocks.cactus), 22);
 		OreDictionary.registerOre("oreCactus", BlocksAndrew.cactusOre);
 		netWrap = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
@@ -450,6 +452,21 @@ public class TheAndrewMod {
 		}
 		else if(ev.crafting.getItem().equals(ItemsAndrew.potatoLiver)) {
 			ev.player.addStat(AchievementsAndrew.potatoLiver, 1);
+		}
+		else if(ev.crafting.getItem().equals(ItemsAndrew.itemWallum)) {
+			ev.player.addStat(AchievementsAndrew.wallum, 1);
+		}
+		else if(ev.crafting.getItem().equals(ItemsAndrew.itemWallumCooking)) {
+			ev.player.addStat(AchievementsAndrew.wallumCooking, 1);
+		}
+		else if(ev.crafting.getItem().equals(ItemsAndrew.wallumGrinding)) {
+			ev.player.addStat(AchievementsAndrew.wallumGrinding, 1);
+		}
+		else if(ev.crafting.getItem().equals(Item.getItemFromBlock(BlocksAndrew.tntChest))) {
+			ev.player.addStat(AchievementsAndrew.tntChest, 1);
+		}
+		else if(ev.crafting.getItem().equals(ItemsAndrew.cactusGunPants)) {
+			ev.player.addStat(AchievementsAndrew.cactusPants, 1);
 		}
 	}
 	
