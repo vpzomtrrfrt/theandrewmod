@@ -132,8 +132,8 @@ public class TheAndrewMod {
 		config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
 		debugMode = config.getBoolean("debugMode", "misc", false, "Some extra logging for debugging and showcases");
-		avid = config.get("ids", "villagerId", 24).getInt();
-		biomeDessert = new BiomeGenDessert(config.get("ids", "dessertBiomeId", 24).getInt());
+		avid = config.getInt("villagerId", "ids", 24, 0, 4096, "id for Andrew");
+		biomeDessert = new BiomeGenDessert(config.getInt("dessertBiomeId", "ids", 24, 0, 4096, "id for Dessert Biome"));
 		teidThomas = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(EntityThomas.class, "Thomas", teidThomas, Color.black.getRGB(), Color.cyan.getRGB());
 		EntityRegistry.registerModEntity(EntityThomas.class, "Thomas", teidThomas, MODID, 128, 1, true);
@@ -178,7 +178,7 @@ public class TheAndrewMod {
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.butterDust, 4), Items.gold_nugget, Items.milk_bucket, ItemsAndrew.plasticUtensils, BlocksAndrew.invasivePlant);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.blastingDevice), "ttt", "ttt", "stt", 't', Blocks.tnt, 's', Blocks.lever);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.cactusGun), "cbc", "coc", "c  ", 'c', Blocks.cactus, 'b', Items.bow, 'o', Blocks.obsidian);
-		cactusEnchantment = new CactusEnchantment(config.get("ids", "enchantmentCactus", 24).getInt());
+		cactusEnchantment = new CactusEnchantment(config.getInt("enchantmentCactus", "ids", 24, 0, 4096, "id for Cactus Enchantment"));
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleHelmet), "bbb", "b b", "   ", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleChestplate), "b b", "bbb", "bbb", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleLeggings), "bbb", "b b", "b b", 'b', Items.glass_bottle);
