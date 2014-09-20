@@ -120,6 +120,7 @@ public class TheAndrewMod {
 	public static SimpleNetworkWrapper netWrap;
 	
 	public static int avid;
+	public static boolean debugMode;
 	
 	static Configuration config;
 	
@@ -130,6 +131,7 @@ public class TheAndrewMod {
 	public void preInit(FMLPreInitializationEvent event) {
 		config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
+		debugMode = config.getBoolean("debugMode", "misc", false, "Some extra logging for debugging and showcases");
 		avid = config.get("ids", "villagerId", 24).getInt();
 		biomeDessert = new BiomeGenDessert(config.get("ids", "dessertBiomeId", 24).getInt());
 		teidThomas = EntityRegistry.findGlobalUniqueEntityId();
