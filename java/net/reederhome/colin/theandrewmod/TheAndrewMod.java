@@ -69,6 +69,8 @@ import net.reederhome.colin.theandrewmod.entity.EntityTrevor;
 import net.reederhome.colin.theandrewmod.item.ItemGlassBottleArmor;
 import net.reederhome.colin.theandrewmod.item.ItemWallumDust;
 import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
+import net.reederhome.colin.theandrewmod.potion.CancerPotion;
+import net.reederhome.colin.theandrewmod.potion.ClusterPotion;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntityJumpPad;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntitySideSlab;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntityTNTChest;
