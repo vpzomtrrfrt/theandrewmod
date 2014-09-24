@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -29,6 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.WeightedRandomChestContent;
@@ -109,11 +111,13 @@ public class TheAndrewMod {
 	public static DamageSource deathBy789 = new DamageSource(MODID+".deathBy789");
 	public static DamageSource deathByPotatoLiver = new DamageSource(MODID+".deathByPotatoLiver");
 	public static DamageSource deathByCancer = new DamageSource(MODID+".deathByCancer");
+	public static DamageSource deathByCluster = new DamageSource(MODID+".deathByCluster");
 	public static DamageSource deathByGlass = new DamageSource(MODID+".deathByGlass");
 	public static DamageSource deathByCharlie = new DamageSource(MODID+".deathByCharlie");
 	public static DamageSource deathByGrindingWallum = new DamageSource(MODID+".deathByGrindingWallum");
 	public static Enchantment cactusEnchantment;
 	public static Potion cancerPotion;
+	public static Potion clusterPotion;
 	public static int teidThomas;
 	public static int teidJack;
 	public static BiomeGenBase biomeDessert;
@@ -171,6 +175,8 @@ public class TheAndrewMod {
 		int cpi = registerPotion();
 		System.out.println("cpi="+cpi);
 		cancerPotion = new CancerPotion(cpi, false, Color.black.getRGB());
+		int lpi = registerPotion();
+		clusterPotion= new ClusterPotion(lpi,false, new Color(0, 32, 32).getRGB());
 		ItemsAndrew.registerItems();
 		BlocksAndrew.registerBlocks();
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.sideSlab), "s", "s", "s", 's', Blocks.stone_slab);
@@ -304,6 +310,18 @@ public class TheAndrewMod {
 				e.entityLiving.attackEntityFrom(deathByCancer, 1);
 				if(pe.getDuration()==1) {
 					e.entityLiving.attackEntityFrom(deathByCancer, 10);
+				}
+			}
+		}
+		if(e.entityLiving.isPotionActive(TheAndrewMod.clusterPotion)) {
+			double r = 10;
+			List<EntityLivingBase> stuff = e.entity.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(e.entity.posX-r, e.entity.posY-r, e.entity.posZ-r, e.entity.posX+r, e.entity.posY+r, e.entity.posZ+r));
+			Iterator<EntityLivingBase> i = stuff.iterator();
+			while(i.hasNext()) {
+				EntityLivingBase c = i.next();
+				if(e.entity.getDistanceToEntity(c)<r&&!e.entity.equals(c)) {
+					e.entityLiving.attackEntityFrom(TheAndrewMod.deathByCluster, (float)r-e.entity.getDistanceToEntity(c));
+					c.attackEntityFrom(TheAndrewMod.deathByCluster, (float)r-c.getDistanceToEntity(e.entity));
 				}
 			}
 		}
