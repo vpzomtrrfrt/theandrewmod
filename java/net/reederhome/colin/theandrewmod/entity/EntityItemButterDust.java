@@ -3,6 +3,7 @@ package net.reederhome.colin.theandrewmod.entity;
 import java.util.Iterator;
 import java.util.List;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -34,6 +35,12 @@ public class EntityItemButterDust extends EntityItem {
 				thing.addPotionEffect(new PotionEffect(Potion.confusion.getId(), dur, 0));
 				thing.addPotionEffect(new PotionEffect(Potion.moveSpeed.getId(), dur, 95));
 				thing.addPotionEffect(new PotionEffect(Potion.digSlowdown.getId(), dur, 1));
+			}
+		}
+		if(this.isInsideOfMaterial(Material.web)&&!worldObj.isRemote) {
+			if(getEntityItem().stackSize==4) {
+				getEntityItem().stackSize--;
+				this.dropItem(ItemsAndrew.butterCluster, 1);
 			}
 		}
 	}

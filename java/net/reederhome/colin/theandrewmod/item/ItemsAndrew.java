@@ -29,6 +29,9 @@ public class ItemsAndrew {
 	public static Item cactusGunPants = new CactusGunArmor(0, 2);
 	public static Item wallumGrinding = new ItemWallumGrinding();
 	public static Item wallumDust = new ItemWallumDust(new String[]{"Iron", "Gold", "Diamond", "Coal", "Emerald", "Quartz", "Redstone", "Cactus"});
+	public static Item butterCluster = new ItemButterCluster();
+	public static Item butterShellEmpty = new Item().setUnlocalizedName("butterShell").setTextureName(TheAndrewMod.MODID+":butterShellEmpty").setCreativeTab(TheAndrewMod.tabAndrew);
+	public static Item butterShellFull = new ItemButterShell();
 	
 	
 	public static Item.ToolMaterial[] t = Item.ToolMaterial.values();
@@ -53,6 +56,9 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(cactusGunPants, "cactusGunPants");
 		GameRegistry.registerItem(wallumGrinding, "wallumGrinding");
 		GameRegistry.registerItem(wallumDust, "wallumDust");
+		GameRegistry.registerItem(butterCluster, "butterCluster");
+		GameRegistry.registerItem(butterShellEmpty, "butterShell");
+		GameRegistry.registerItem(butterShellFull, "butterShellFull");
 		
 		
 		pickaxeCactusGun = new Item[t.length];

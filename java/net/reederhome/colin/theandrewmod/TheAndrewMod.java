@@ -48,6 +48,8 @@ import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.RecipeSorter;
+import net.minecraftforge.oredict.RecipeSorter.Category;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.reederhome.colin.theandrewmod.block.BlockDyedCake;
 import net.reederhome.colin.theandrewmod.block.BlocksAndrew;
@@ -191,7 +193,10 @@ public class TheAndrewMod {
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleChestplate), "b b", "bbb", "bbb", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleLeggings), "bbb", "b b", "b b", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleBoots), "   ", "b b", "b b", 'b', Items.glass_bottle);
+		RecipeSorter.register("wallumCooking", RecipesWallumCooking.class, Category.SHAPELESS, "");
+		RecipeSorter.register("butterShell", RecipesButterShell.class, Category.SHAPELESS, "");
 		GameRegistry.addRecipe(new RecipesWallumCooking());
+		GameRegistry.addRecipe(new RecipesButterShell());
 		GameRegistry.addRecipe(new ShapedOreRecipe(ItemsAndrew.itemWallum, "w", "s", "i", 'i', "ingotIron", 's', "stickWood", 'w', "plankWood"));
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.blockCactusGun), "rcr", "gig", "rcr", 'r', Items.redstone, 'c', Blocks.cobblestone, 'g', ItemsAndrew.cactusGun, 'i', Items.iron_ingot);
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.rainbowMachine), "scs", "crc", "scs", 's', Items.redstone, 'c', Blocks.cobblestone, 'r', ItemsAndrew.rainbowCoreAdvanced);
@@ -223,7 +228,6 @@ public class TheAndrewMod {
 		netWrap = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
 		netWrap.registerMessage(CactusFireMessage.Handler.class, CactusFireMessage.class, 0, Side.SERVER);
 		config.save();
-		//OreDictionary.initVanillaEntries();
 	}
 	
 	public ItemStack dye(String string) {
