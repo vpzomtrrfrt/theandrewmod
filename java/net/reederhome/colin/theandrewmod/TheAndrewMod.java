@@ -62,6 +62,7 @@ import net.reederhome.colin.theandrewmod.command.SevenEightNineCommand;
 import net.reederhome.colin.theandrewmod.command.SnorlaxCommand;
 import net.reederhome.colin.theandrewmod.command.YesCommand;
 import net.reederhome.colin.theandrewmod.entity.EntityCharlie;
+import net.reederhome.colin.theandrewmod.entity.EntityCurveball;
 import net.reederhome.colin.theandrewmod.entity.EntityHPCreeper;
 import net.reederhome.colin.theandrewmod.entity.EntityItemButterDust;
 import net.reederhome.colin.theandrewmod.entity.EntityJack;
@@ -71,8 +72,6 @@ import net.reederhome.colin.theandrewmod.entity.EntityTrevor;
 import net.reederhome.colin.theandrewmod.item.ItemGlassBottleArmor;
 import net.reederhome.colin.theandrewmod.item.ItemWallumDust;
 import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
-import net.reederhome.colin.theandrewmod.potion.CancerPotion;
-import net.reederhome.colin.theandrewmod.potion.ClusterPotion;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntityJumpPad;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntitySideSlab;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntityTNTChest;
@@ -122,6 +121,7 @@ public class TheAndrewMod {
 	public static Enchantment cactusEnchantment;
 	public static Potion cancerPotion;
 	public static Potion clusterPotion;
+	public static Potion spinningPotion;
 	public static int teidThomas;
 	public static int teidJack;
 	public static BiomeGenBase biomeDessert;
@@ -170,6 +170,9 @@ public class TheAndrewMod {
 		EntityRegistry.registerGlobalEntityID(EntityHPCreeper.class, "HPCreeper", teid);
 		EntityRegistry.registerModEntity(EntityHPCreeper.class, "HPCreeper", teid, MODID, 128, 1, true);
 		EntityRegistry.addSpawn(EntityHPCreeper.class, 10, 1, 4, EnumCreatureType.monster, BiomeGenBase.plains);
+		teid = EntityRegistry.findGlobalUniqueEntityId();
+		EntityRegistry.registerGlobalEntityID(EntityCurveball.class, "Curveball", teid);
+		EntityRegistry.registerModEntity(EntityCurveball.class, "Curveball", teid, MODID, 128, 1, true);
 		GameRegistry.registerTileEntity(TileEntitySideSlab.class, "sideSlab");
 		GameRegistry.registerTileEntity(TileEntityJumpPad.class, "jumpPad");
 		GameRegistry.registerTileEntity(TileEntityTNTChest.class, "TNTChest");
@@ -178,9 +181,11 @@ public class TheAndrewMod {
 		System.out.println("Hello?");
 		int cpi = registerPotion();
 		System.out.println("cpi="+cpi);
-		cancerPotion = new CancerPotion(cpi, false, Color.black.getRGB());
+		cancerPotion = new PotionAndrew(cpi, false, Color.black.getRGB()).setPotionName("potion.cancerPotion");
 		int lpi = registerPotion();
-		clusterPotion= new ClusterPotion(lpi,false, new Color(0, 32, 32).getRGB());
+		clusterPotion = new PotionAndrew(lpi, false, new Color(0, 32, 32).getRGB()).setPotionName("potion.clusterPotion");
+		int spi = registerPotion();
+		spinningPotion = new PotionAndrew(spi, false, new Color(55, 200, 200).getRGB()).setPotionName("potion.spinningPotion"); 
 		ItemsAndrew.registerItems();
 		BlocksAndrew.registerBlocks();
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.sideSlab), "s", "s", "s", 's', Blocks.stone_slab);
@@ -306,7 +311,6 @@ public class TheAndrewMod {
 	
 	@SubscribeEvent
 	public void onEntityUpdate(LivingUpdateEvent e) {
-		//System.out.println("livingUpdate");
 		if(e.entityLiving.getEquipmentInSlot(4)!=null&&e.entityLiving.getEquipmentInSlot(4).getItem().getUnlocalizedName().equals(Blocks.command_block.getUnlocalizedName())) {
 			e.entityLiving.addPotionEffect(new PotionEffect(14, 2, 1, false));
 		}
@@ -330,6 +334,9 @@ public class TheAndrewMod {
 					c.attackEntityFrom(TheAndrewMod.deathByCluster, (float)r-c.getDistanceToEntity(e.entity));
 				}
 			}
+		}
+		if(e.entityLiving.isPotionActive(spinningPotion)) {
+			e.entity.setAngles(e.entity.rotationPitch, e.entity.rotationYaw+5);
 		}
 	}
 	
