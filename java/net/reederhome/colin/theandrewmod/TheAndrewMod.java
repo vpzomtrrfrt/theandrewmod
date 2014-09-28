@@ -336,7 +336,8 @@ public class TheAndrewMod {
 			}
 		}
 		if(e.entityLiving.isPotionActive(spinningPotion)) {
-			e.entity.setAngles(e.entity.rotationPitch, e.entity.rotationYaw+5);
+			e.entity.setAngles(e.entity.rotationPitch+5, e.entity.rotationYaw+5);
+			e.entityLiving.setRotationYawHead(e.entityLiving.rotationYawHead+5);
 		}
 	}
 	

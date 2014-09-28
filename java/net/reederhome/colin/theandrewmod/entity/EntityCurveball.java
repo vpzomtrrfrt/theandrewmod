@@ -10,6 +10,8 @@ import net.reederhome.colin.theandrewmod.TheAndrewMod;
 
 public class EntityCurveball extends EntitySnowball {
 
+	double startX = 0;
+	double startZ = 0;
 	public EntityCurveball(World p_i1773_1_) {
 		super(p_i1773_1_);
 	}
@@ -30,8 +32,13 @@ public class EntityCurveball extends EntitySnowball {
 
 	public void onUpdate() {
 		super.onUpdate();
+		if(startX==0&&startZ==0) {
+			startX=motionX/2;
+			startZ=motionZ/2;
+		}
 		double t = Math.atan2(motionZ, motionX)+5;
-		setVelocity(Math.sin(t), motionY, Math.cos(t));
+		double vel = Math.sqrt(motionX*motionX+motionZ*motionZ);
+		setVelocity(Math.cos(t)*vel+startX, motionY, Math.sin(t)*vel+startZ);
 	}
 
 }
