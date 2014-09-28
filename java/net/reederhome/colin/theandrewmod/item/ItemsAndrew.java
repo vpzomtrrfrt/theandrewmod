@@ -33,6 +33,7 @@ public class ItemsAndrew {
 	public static Item butterShellEmpty = new Item().setUnlocalizedName("butterShell").setTextureName(TheAndrewMod.MODID+":butterShellEmpty").setCreativeTab(TheAndrewMod.tabAndrew);
 	public static Item butterShellFull = new ItemButterShell();
 	public static Item curveball = new ItemCurveball();
+	public static Item networkBoots = new NetworkArmor(0, 3);
 	
 	
 	public static Item.ToolMaterial[] t = Item.ToolMaterial.values();
@@ -61,6 +62,7 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(butterShellEmpty, "butterShell");
 		GameRegistry.registerItem(butterShellFull, "butterShellFull");
 		GameRegistry.registerItem(curveball, "curveball");
+		GameRegistry.registerItem(networkBoots, "networkBoots");
 		
 		
 		pickaxeCactusGun = new Item[t.length];

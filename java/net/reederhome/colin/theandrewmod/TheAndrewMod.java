@@ -111,6 +111,7 @@ public class TheAndrewMod {
 	};
 	public static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
 	public static ItemArmor.ArmorMaterial cactusGunArmorMaterial = EnumHelper.addArmorMaterial("cactusGun", 12, new int[]{1,3,2,1}, 20);
+	public static ItemArmor.ArmorMaterial networkArmorMaterial = EnumHelper.addArmorMaterial("network", 12, new int[]{3,9,6,3}, 20);
 	public static DamageSource deathBy789 = new DamageSource(MODID+".deathBy789");
 	public static DamageSource deathByPotatoLiver = new DamageSource(MODID+".deathByPotatoLiver");
 	public static DamageSource deathByCancer = new DamageSource(MODID+".deathByCancer");
@@ -232,6 +233,7 @@ public class TheAndrewMod {
 		OreDictionary.registerOre("oreCactus", BlocksAndrew.cactusOre);
 		netWrap = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
 		netWrap.registerMessage(CactusFireMessage.Handler.class, CactusFireMessage.class, 0, Side.SERVER);
+		netWrap.registerMessage(NetworkBootMessage.Handler.class, NetworkBootMessage.class, 0, Side.SERVER);
 		config.save();
 	}
 	
@@ -510,6 +512,9 @@ public class TheAndrewMod {
 		if(((ClientProxy)proxy).keyCactusFire.isPressed()) {
 			netWrap.sendToServer(new CactusFireMessage());
 			ItemsAndrew.cactusGun.onItemRightClick(null, Minecraft.getMinecraft().theWorld, Minecraft.getMinecraft().thePlayer);
+		}
+		if(((ClientProxy)proxy).keyNetworkBoot.isPressed()) {
+			netWrap.sendToServer(new NetworkBootMessage());
 		}
 	}
 }

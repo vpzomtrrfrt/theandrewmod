@@ -22,6 +22,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 public class ClientProxy extends CommonProxy {
 
 	public static KeyBinding keyCactusFire = new KeyBinding("key.fireCactus", Keyboard.KEY_C, "key.category.andrew");
+	public static KeyBinding keyNetworkBoot = new KeyBinding("key.networkBoot", Keyboard.KEY_N, "key.category.andrew");
 	public void registerRenderers() {
 		RenderBiped renderThomas = new RenderThomas(new ModelThomas(), 0.5f);
 		RenderBiped renderJack = new RenderJack(new ModelBiped(), 0.5f);
@@ -34,5 +35,6 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySideSlab.class, new RenderSideSlab());
 		VillagerRegistry.instance().registerVillagerSkin(TheAndrewMod.avid, new ResourceLocation(TheAndrewMod.MODID+":/textures/models/andrew.png"));
 		ClientRegistry.registerKeyBinding(keyCactusFire);
+		ClientRegistry.registerKeyBinding(keyNetworkBoot);
 	}
 }
