@@ -40,6 +40,9 @@ public class NetworkBootMessage implements IMessage {
 					EntityLivingBase t = null;
 					while(it.hasNext()) {
 						EntityLivingBase e = it.next();
+						if(e==player) {
+							continue;
+						}
 						if(e.getEquipmentInSlot(1)!=null&&(e.getEquipmentInSlot(1).getItem() instanceof NetworkArmor)) {
 							t=e;
 							break;

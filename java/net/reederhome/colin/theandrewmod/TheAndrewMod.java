@@ -410,14 +410,10 @@ public class TheAndrewMod {
 			for(int i = 1; i < 5; i++) {
 				ItemStack stack = event.entityLiving.getEquipmentInSlot(i);
 				if(stack!=null&&stack.getItem().getClass().equals(ItemGlassBottleArmor.class)) {
-					//System.out.println("good job - "+stack.getItemDamage());
 					if(stack.getItem().getMaxDamage()-stack.getItemDamage()<event.ammount+2) {
 						event.entityLiving.attackEntityFrom(deathByGlass, 100f);
 						event.setCanceled(true);
 					}
-				}
-				else if(stack!=null){
-					System.out.println(stack.getItem().getClass());
 				}
 			}
 		}
