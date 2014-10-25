@@ -71,6 +71,7 @@ import net.reederhome.colin.theandrewmod.entity.EntityJack;
 import net.reederhome.colin.theandrewmod.entity.EntityThomas;
 import net.reederhome.colin.theandrewmod.entity.EntityThrownCactus;
 import net.reederhome.colin.theandrewmod.entity.EntityTrevor;
+import net.reederhome.colin.theandrewmod.entity.EntityZombieCow;
 import net.reederhome.colin.theandrewmod.item.ItemGlassBottleArmor;
 import net.reederhome.colin.theandrewmod.item.ItemWallumDust;
 import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
@@ -178,6 +179,9 @@ public class TheAndrewMod {
 		teid = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(EntityCurveball.class, "Curveball", teid);
 		EntityRegistry.registerModEntity(EntityCurveball.class, "Curveball", teid, MODID, 128, 1, true);
+		teid = EntityRegistry.findGlobalUniqueEntityId();
+		EntityRegistry.registerGlobalEntityID(EntityZombieCow.class, "ZombieCow", teid);
+		EntityRegistry.registerModEntity(EntityZombieCow.class, "ZombieCow", teid, MODID, 128, 1, true);
 		GameRegistry.registerTileEntity(TileEntitySideSlab.class, "sideSlab");
 		GameRegistry.registerTileEntity(TileEntityJumpPad.class, "jumpPad");
 		GameRegistry.registerTileEntity(TileEntityTNTChest.class, "TNTChest");
