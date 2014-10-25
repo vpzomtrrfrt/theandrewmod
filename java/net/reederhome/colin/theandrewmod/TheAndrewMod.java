@@ -61,6 +61,8 @@ import net.reederhome.colin.theandrewmod.command.RadiationCommand;
 import net.reederhome.colin.theandrewmod.command.SevenEightNineCommand;
 import net.reederhome.colin.theandrewmod.command.SnorlaxCommand;
 import net.reederhome.colin.theandrewmod.command.YesCommand;
+import net.reederhome.colin.theandrewmod.enchantment.CactusEnchantment;
+import net.reederhome.colin.theandrewmod.enchantment.ClusterProtectionEnchantment;
 import net.reederhome.colin.theandrewmod.entity.EntityCharlie;
 import net.reederhome.colin.theandrewmod.entity.EntityCurveball;
 import net.reederhome.colin.theandrewmod.entity.EntityHPCreeper;
@@ -121,6 +123,7 @@ public class TheAndrewMod {
 	public static DamageSource deathByGrindingWallum = new DamageSource(MODID+".deathByGrindingWallum");
 	public static DamageSource deathByCrafting = new DamageSource(MODID+".deathByCrafting");
 	public static Enchantment cactusEnchantment;
+	public static Enchantment clusterProtection;
 	public static Potion cancerPotion;
 	public static Potion clusterPotion;
 	public static Potion spinningPotion;
@@ -196,6 +199,7 @@ public class TheAndrewMod {
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.blastingDevice), "ttt", "ttt", "stt", 't', Blocks.tnt, 's', Blocks.lever);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.cactusGun), "cbc", "coc", "c  ", 'c', Blocks.cactus, 'b', Items.bow, 'o', Blocks.obsidian);
 		cactusEnchantment = new CactusEnchantment(config.getInt("enchantmentCactus", "ids", 24, 0, 4096, "id for Cactus Enchantment"));
+		clusterProtection = new ClusterProtectionEnchantment(config.getInt("enchantmentClusterProtection", "ids", 25, 0, 4096, "id for Cluster Protection Enchantment")); 
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleHelmet), "bbb", "b b", "   ", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleChestplate), "b b", "bbb", "bbb", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleLeggings), "bbb", "b b", "b b", 'b', Items.glass_bottle);
@@ -337,8 +341,13 @@ public class TheAndrewMod {
 			while(i.hasNext()) {
 				EntityLivingBase c = i.next();
 				if(e.entity.getDistanceToEntity(c)<r&&!e.entity.equals(c)) {
-					e.entityLiving.attackEntityFrom(TheAndrewMod.deathByCluster, (float)r-e.entity.getDistanceToEntity(c));
-					c.attackEntityFrom(TheAndrewMod.deathByCluster, (float)r-c.getDistanceToEntity(e.entity));
+					if(e.entityLiving.getEquipmentInSlot(3)==null||EnchantmentHelper.getEnchantmentLevel(clusterProtection.effectId, e.entityLiving.getEquipmentInSlot(3))==0) {
+						e.entityLiving.attackEntityFrom(TheAndrewMod.deathByCluster, (float)r-e.entity.getDistanceToEntity(c));
+					}
+					if(c.getEquipmentInSlot(3)==null||EnchantmentHelper.getEnchantmentLevel(clusterProtection.effectId, c.getEquipmentInSlot(3))==0) {
+						c.attackEntityFrom(TheAndrewMod.deathByCluster, (float)r-c.getDistanceToEntity(e.entity));
+						System.out.println(c.getEquipmentInSlot(3));
+					}
 				}
 			}
 		}

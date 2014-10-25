@@ -1,11 +1,12 @@
-package net.reederhome.colin.theandrewmod;
+package net.reederhome.colin.theandrewmod.enchantment;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
+import net.reederhome.colin.theandrewmod.TheAndrewMod;
 
 public class CactusEnchantment extends Enchantment {
 
-	protected CactusEnchantment(int id) {
+	public CactusEnchantment(int id) {
 		super(id, 9, EnumEnchantmentType.all);
 		this.setName(TheAndrewMod.MODID+".cactus");
 	}

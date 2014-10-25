@@ -75,6 +75,7 @@ potion.spinningPotion=Spinning
 entity.Thomas.name=Thomas
 entity.Jack.name=Jack
 enchantment.theandrewmod.cactus=Cactus
+enchantment.theandrewmod.clusterProtection=Cluster Protection
 achievement.dyeCactus=So Random
 achievement.dyeCactus.desc=Dye some cactus
 achievement.invasivePlant=Starting Something
