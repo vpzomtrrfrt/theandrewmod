@@ -36,7 +36,7 @@ public class ItemsAndrew {
 	public static Item networkBoots = new NetworkArmor(0, 3);
 	
 	
-	public static Item.ToolMaterial[] t = Item.ToolMaterial.values();
+	public static Item.ToolMaterial[] t = new Item.ToolMaterial[]{Item.ToolMaterial.EMERALD,Item.ToolMaterial.GOLD,Item.ToolMaterial.IRON,Item.ToolMaterial.STONE,Item.ToolMaterial.WOOD};
 	
 	public static void registerItems() {
 		GameRegistry.registerItem(potatoLiver, "potatoLiver");

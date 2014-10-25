@@ -7,6 +7,7 @@ death.attack.theandrewmod.deathByGlass=%1$s was splintered
 death.attack.theandrewmod.deathByCharlie=Charlie bit %1$s, and it really hurt!
 death.attack.theandrewmod.deathByGrindingWallum=%1$s was ground
 death.attack.theandrewmod.deathByCluster=%1$s was clustered to death
+death.attack.theandrewmod.deathByCrafting=%1$s crafted too hard
 item.potatoLiver.name=Potato Liver
 item.plasticUtensils.name=Plastic Utensils
 item.butterDust.name=Butter Dust

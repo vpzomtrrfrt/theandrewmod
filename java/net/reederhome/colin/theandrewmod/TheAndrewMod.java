@@ -100,7 +100,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.11.0";
+	public static final String VERSION = "1.11.1";
 	public static final String NAME = "The Andrew Mod";
 	public static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
 		@Override
@@ -119,6 +119,7 @@ public class TheAndrewMod {
 	public static DamageSource deathByGlass = new DamageSource(MODID+".deathByGlass");
 	public static DamageSource deathByCharlie = new DamageSource(MODID+".deathByCharlie");
 	public static DamageSource deathByGrindingWallum = new DamageSource(MODID+".deathByGrindingWallum");
+	public static DamageSource deathByCrafting = new DamageSource(MODID+".deathByCrafting");
 	public static Enchantment cactusEnchantment;
 	public static Potion cancerPotion;
 	public static Potion clusterPotion;
@@ -229,6 +230,8 @@ public class TheAndrewMod {
 		}
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.pakistan), " rc", " mr", "cr ", 'r', Items.redstone, 'm', Items.map, 'c', Blocks.cactus);
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.checkerboard), "wbw", "brb", "wbw", 'w', new ItemStack(Blocks.wool, 1, 0), 'b', new ItemStack(Blocks.wool, 1, 15), 'r', Items.redstone);
+		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.curveball), Items.snowball, Items.snowball);
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.networkBoots), "   ", "i l", "r p", 'i', Items.iron_ingot, 'l', Items.leather, 'r', Items.redstone, 'p', Items.repeater);
 		GameRegistry.addSmelting(BlocksAndrew.cactusOre, new ItemStack(Blocks.cactus), 22);
 		OreDictionary.registerOre("oreCactus", BlocksAndrew.cactusOre);
 		netWrap = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
@@ -499,6 +502,14 @@ public class TheAndrewMod {
 		}
 		else if(ev.crafting.getItem().equals(ItemsAndrew.cactusGunPants)) {
 			ev.player.addStat(AchievementsAndrew.cactusPants, 1);
+		}
+		else if(ev.crafting.getItem().equals(ItemsAndrew.curveball)) {
+			if(ev.player.experienceLevel>1) {
+				ev.player.addExperienceLevel(-1);
+			}
+			else {
+				ev.player.attackEntityFrom(deathByCrafting, 100f);
+			}
 		}
 	}
 	
