@@ -201,9 +201,11 @@ public class TheAndrewMod {
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleLeggings), "bbb", "b b", "b b", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleBoots), "   ", "b b", "b b", 'b', Items.glass_bottle);
 		RecipeSorter.register("wallumCooking", RecipesWallumCooking.class, Category.SHAPELESS, "");
-		RecipeSorter.register("butterShell", RecipesButterShell.class, Category.SHAPELESS, "");
 		GameRegistry.addRecipe(new RecipesWallumCooking());
-		GameRegistry.addRecipe(new RecipesButterShell());
+		if(config.getBoolean("butterShell", "crafting", false, "It's broken right now...")) {
+			RecipeSorter.register("butterShell", RecipesButterShell.class, Category.SHAPELESS, "");
+			GameRegistry.addRecipe(new RecipesButterShell());
+		}
 		GameRegistry.addRecipe(new ShapedOreRecipe(ItemsAndrew.itemWallum, "w", "s", "i", 'i', "ingotIron", 's', "stickWood", 'w', "plankWood"));
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.blockCactusGun), "rcr", "gig", "rcr", 'r', Items.redstone, 'c', Blocks.cobblestone, 'g', ItemsAndrew.cactusGun, 'i', Items.iron_ingot);
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.rainbowMachine), "scs", "crc", "scs", 's', Items.redstone, 'c', Blocks.cobblestone, 'r', ItemsAndrew.rainbowCoreAdvanced);
