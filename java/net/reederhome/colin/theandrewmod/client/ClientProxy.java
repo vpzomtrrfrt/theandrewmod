@@ -14,6 +14,7 @@ import net.reederhome.colin.theandrewmod.entity.EntityJack;
 import net.reederhome.colin.theandrewmod.entity.EntityThomas;
 import net.reederhome.colin.theandrewmod.entity.EntityThrownCactus;
 import net.reederhome.colin.theandrewmod.entity.EntityTrevor;
+import net.reederhome.colin.theandrewmod.entity.EntityZombieCow;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntitySideSlab;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -32,6 +33,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityThrownCactus.class, new RenderThrownCactus());
 		RenderingRegistry.registerEntityRenderingHandler(EntityCharlie.class, new RenderCharlie());
 		RenderingRegistry.registerEntityRenderingHandler(EntityHPCreeper.class, new RenderHPCreeper());
+		RenderingRegistry.registerEntityRenderingHandler(EntityZombieCow.class, new RenderZombieCow());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySideSlab.class, new RenderSideSlab());
 		VillagerRegistry.instance().registerVillagerSkin(TheAndrewMod.avid, new ResourceLocation(TheAndrewMod.MODID+":/textures/models/andrew.png"));
 		ClientRegistry.registerKeyBinding(keyCactusFire);

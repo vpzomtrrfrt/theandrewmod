@@ -1,6 +1,7 @@
 package net.reederhome.colin.theandrewmod.entity;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -15,6 +16,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
@@ -40,6 +42,20 @@ public class EntityZombieCow extends EntityCow {
 	public boolean attackEntityAsMob(Entity e) {
 		e.attackEntityFrom(DamageSource.causeMobDamage(this), 4);
 		return true;
+	}
+	public EntityZombieCow createChild(EntityAgeable par1EntityAgeable)
+    {
+        return new EntityZombieCow(this.worldObj);
+    }
+	public void dropFewItems(boolean b, int i) {
+		super.dropFewItems(b, i);
+		int var4 = this.rand.nextInt(3);
+        if (i > 0) {
+            var4 += this.rand.nextInt(i + 1);
+        }
+        for (int var5 = 0; var5 < var4; ++var5) {
+            this.dropItem(Items.rotten_flesh, 1);
+        }
 	}
 
 }
