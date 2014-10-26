@@ -28,7 +28,7 @@ public class ItemsAndrew {
 	public static Item[] pickaxeCactusGun;
 	public static Item cactusGunPants = new CactusGunArmor(0, 2);
 	public static Item wallumGrinding = new ItemWallumGrinding();
-	public static Item wallumDust = new ItemWallumDust(new String[]{"Iron", "Gold", "Diamond", "Coal", "Emerald", "Quartz", "Redstone", "Cactus"});
+	public static Item wallumDust = new ItemWallumDust(new String[]{"Iron", "Gold", "Diamond", "Coal", "Emerald", "Quartz", "Cactus"});
 	public static Item butterCluster = new ItemButterCluster();
 	public static Item butterShellEmpty = new Item().setUnlocalizedName("butterShell").setTextureName(TheAndrewMod.MODID+":butterShellEmpty").setCreativeTab(TheAndrewMod.tabAndrew);
 	public static Item butterShellFull = new ItemButterShell();

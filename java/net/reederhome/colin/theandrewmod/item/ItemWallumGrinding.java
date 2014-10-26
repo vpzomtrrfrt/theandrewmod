@@ -3,11 +3,14 @@ package net.reederhome.colin.theandrewmod.item;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -54,7 +57,7 @@ public class ItemWallumGrinding extends Item {
 			if(en instanceof EntityItem) {
 				EntityItem it = (EntityItem)en;
 				ItemStack stack = it.getEntityItem();
-				if(par1ItemStack.getItemDamage()<=this.getMaxDamage()-200*stack.stackSize) {
+				if(par1ItemStack.getItemDamage()<=this.getMaxDamage()-200*stack.stackSize||par3EntityPlayer.capabilities.isCreativeMode) {
 					ItemStack res = null;
 					Set<String> keys = ItemWallumDust.listWallumDust.keySet();
 					Iterator<String> sit = keys.iterator();
@@ -65,13 +68,22 @@ public class ItemWallumGrinding extends Item {
 						for(int o = 0; o < ores.size(); o++) {
 							//System.out.println(ores.get(o));
 							if(ores.get(o).getItem().equals(stack.getItem())) {
-								res = ItemWallumDust.listWallumDust.get(key);
+								res = ItemWallumDust.listWallumDust.get(key).copy();
+								res.stackSize*=2;
 							}
+						}
+					}
+					if(res==null) {
+						if(OreDictionary.itemMatches(new ItemStack(Blocks.redstone_ore), stack, false)) {
+							res = new ItemStack(Items.redstone, new Random().nextInt(8));
+						}
+						else if(OreDictionary.itemMatches(new ItemStack(Blocks.cobblestone), stack, false)) {
+							res = new ItemStack(Blocks.sand, 1);
 						}
 					}
 					if(res!=null) {
 						ItemStack tm = res.copy();
-						tm.stackSize=stack.stackSize*2;
+						tm.stackSize*=stack.stackSize;
 						it.setEntityItemStack(tm);
 						par1ItemStack.damageItem(200*stack.stackSize, par3EntityPlayer);
 					}
