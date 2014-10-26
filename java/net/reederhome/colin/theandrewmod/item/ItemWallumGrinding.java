@@ -21,7 +21,7 @@ public class ItemWallumGrinding extends Item {
 	public ItemWallumGrinding() {
 		super();
 		setUnlocalizedName("wallumGrinding");
-		setMaxDamage(2000);
+		setMaxDamage(4200);
 		setMaxStackSize(1);
 		setTextureName(TheAndrewMod.MODID+":wallumGrinding");
 		setFull3D();

@@ -214,6 +214,8 @@ public class TheAndrewMod {
 			RecipeSorter.register("butterShell", RecipesButterShell.class, Category.SHAPELESS, "");
 			GameRegistry.addRecipe(new RecipesButterShell());
 		}
+		RecipeSorter.register("wallumGrinding", RecipesWallumGrinding.class, Category.SHAPELESS, "");
+		GameRegistry.addRecipe(new RecipesWallumGrinding());
 		GameRegistry.addRecipe(new ShapedOreRecipe(ItemsAndrew.itemWallum, "w", "s", "i", 'i', "ingotIron", 's', "stickWood", 'w', "plankWood"));
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.blockCactusGun), "rcr", "gig", "rcr", 'r', Items.redstone, 'c', Blocks.cobblestone, 'g', ItemsAndrew.cactusGun, 'i', Items.iron_ingot);
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.rainbowMachine), "scs", "crc", "scs", 's', Items.redstone, 'c', Blocks.cobblestone, 'r', ItemsAndrew.rainbowCoreAdvanced);
@@ -224,7 +226,7 @@ public class TheAndrewMod {
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.rainbowCoreBasic), dye("black"), dye("white"), dye("red"), dye("lime"), Items.redstone, dye("blue"), dye("yellow"), dye("cyan"), dye("magenta"));
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.rainbowCoreAdvanced), dye("brown"), dye("purple"), dye("silver"), dye("gray"), ItemsAndrew.rainbowCoreBasic, dye("pink"), dye("green"), dye("lightBlue"), dye("orange"));
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.bulbasauce), Items.wheat_seeds, Items.wheat_seeds, Items.wheat_seeds, Items.bowl);
-		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.wallumGrinding), Items.iron_ingot, ItemsAndrew.itemWallum, Blocks.redstone_block, Items.flint, Items.flint, Items.flint);
+		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.wallumGrinding, 1, 2100), Items.iron_ingot, ItemsAndrew.itemWallum, Blocks.redstone_block, Items.flint, Items.flint, Items.flint);
 		VillagerRegistry.instance().registerVillagerId(avid);
 		VillagerRegistry.instance().registerVillageTradeHandler(avid, new TradeHandlerAndrew());
 		BiomeDictionary.registerBiomeType(biomeDessert, BiomeDictionary.Type.WASTELAND);
