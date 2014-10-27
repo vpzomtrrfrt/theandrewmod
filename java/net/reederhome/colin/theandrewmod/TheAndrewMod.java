@@ -185,6 +185,7 @@ public class TheAndrewMod {
 		teid = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(EntityZombieCow.class, "ZombieCow", teid);
 		EntityRegistry.registerModEntity(EntityZombieCow.class, "ZombieCow", teid, MODID, 128, 1, true);
+		EntityRegistry.addSpawn(EntityZombieCow.class, 8, 1, 4, EnumCreatureType.monster, BiomeGenBase.plains);
 		GameRegistry.registerTileEntity(TileEntitySideSlab.class, "sideSlab");
 		GameRegistry.registerTileEntity(TileEntityJumpPad.class, "jumpPad");
 		GameRegistry.registerTileEntity(TileEntityTNTChest.class, "TNTChest");

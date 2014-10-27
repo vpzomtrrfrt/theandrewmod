@@ -3,6 +3,7 @@ package net.reederhome.colin.theandrewmod.entity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
+import net.minecraft.entity.ai.EntityAIBreakDoor;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
@@ -22,11 +23,21 @@ import net.minecraft.world.World;
 
 public class EntityZombieCow extends EntityCow {
 
+	
+	public void onUpdate() {
+		super.onUpdate();
+		if(worldObj.canBlockSeeTheSky((int)posX, (int)posY, (int)posZ)&&getBrightness(1)>0.5&&!worldObj.isRemote&&worldObj.isDaytime()&&!isChild()) {
+			this.setFire(6);
+		}
+	}
+	
 	public EntityZombieCow(World p_i1683_1_) {
 		super(p_i1683_1_);
 		this.tasks.taskEntries.clear();
+		getNavigator().setBreakDoors(true);
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIPanic(this, 2));
+		this.tasks.addTask(1, new EntityAIBreakDoor(this));
 		this.tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPlayer.class, 1, false));
 		this.tasks.addTask(3, new EntityAIMate(this, 1));
 		this.tasks.addTask(4, new EntityAIAttackOnCollide(this, EntityVillager.class, 1, true));
