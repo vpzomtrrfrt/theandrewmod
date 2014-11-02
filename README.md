@@ -1,7 +1,7 @@
 theandrewmod
 ============
 
-The Andrew Mod for Minecraft.
+The Andrew Mod for Minecraft (1.7.10).
 
 https://www.youtube.com/playlist?list=PLic4mtrLGKATr7iNojs7bVn2EOj8QqsQr
 
