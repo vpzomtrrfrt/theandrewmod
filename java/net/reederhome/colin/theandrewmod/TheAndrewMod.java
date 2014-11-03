@@ -178,14 +178,14 @@ public class TheAndrewMod {
 		EntityRegistry.registerGlobalEntityID(EntityItemButterDust.class, "ItemButterDust", teid);
 		EntityRegistry.registerModEntity(EntityItemButterDust.class, "ItemButterDust", teid, MODID, 128, 1, true);
 		teid = EntityRegistry.findGlobalUniqueEntityId();
-		EntityRegistry.registerGlobalEntityID(EntityHPCreeper.class, "HPCreeper", teid);
+		EntityRegistry.registerGlobalEntityID(EntityHPCreeper.class, "HPCreeper", teid, 0, 0x707070);
 		EntityRegistry.registerModEntity(EntityHPCreeper.class, "HPCreeper", teid, MODID, 128, 1, true);
 		EntityRegistry.addSpawn(EntityHPCreeper.class, 10, 1, 4, EnumCreatureType.monster, BiomeGenBase.plains);
 		teid = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(EntityCurveball.class, "Curveball", teid);
 		EntityRegistry.registerModEntity(EntityCurveball.class, "Curveball", teid, MODID, 128, 1, true);
 		teid = EntityRegistry.findGlobalUniqueEntityId();
-		EntityRegistry.registerGlobalEntityID(EntityZombieCow.class, "ZombieCow", teid);
+		EntityRegistry.registerGlobalEntityID(EntityZombieCow.class, "ZombieCow", teid, 4470310, 7969893);
 		EntityRegistry.registerModEntity(EntityZombieCow.class, "ZombieCow", teid, MODID, 128, 1, true);
 		EntityRegistry.addSpawn(EntityZombieCow.class, 8, 1, 4, EnumCreatureType.monster, BiomeGenBase.plains);
 		GameRegistry.registerTileEntity(TileEntitySideSlab.class, "sideSlab");
