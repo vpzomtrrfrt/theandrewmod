@@ -16,7 +16,7 @@ public class EntityHPCreeper extends EntityCreeper {
 	
 	public void onUpdate() {
 		super.onUpdate();
-		if(ticksExisted%20==0) {
+		if(ticksExisted%((this.dataWatcher.getWatchableObjectByte(17)==1)?5:20)==0) {
 			if(!worldObj.isRemote) {
 				worldObj.spawnEntityInWorld(new EntityPotion(worldObj, this, new ItemStack(Items.potionitem, 1, 16389)));
 			}
