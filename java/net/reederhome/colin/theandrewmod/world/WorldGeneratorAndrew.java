@@ -7,6 +7,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.reederhome.colin.theandrewmod.TheAndrewMod;
+import net.reederhome.colin.theandrewmod.block.BlocksAndrew;
 import cpw.mods.fml.common.IWorldGenerator;
 
 public class WorldGeneratorAndrew implements IWorldGenerator {
@@ -38,7 +39,7 @@ public class WorldGeneratorAndrew implements IWorldGenerator {
 								if(TheAndrewMod.debugMode) {
 									System.out.println("RUC at "+x+" "+y+" "+z);
 								}
-								arg3.setBlock(x, y, z, Blocks.cauldron);
+								arg3.setBlock(x, y, z, Math.random()<0.2?BlocksAndrew.lootCauldron:Blocks.cauldron);
 								arg3.setBlockMetadataWithNotify(x, y, z, 1, 3);
 							}
 							break;

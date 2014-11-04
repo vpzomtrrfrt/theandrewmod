@@ -21,6 +21,7 @@ public class BlocksAndrew {
 	public static Block tntChest = new BlockTNTChest();
 	public static Block pakistan = new BlockPakistan();
 	public static Block checkerboard = new BlockCheckerboard(Material.cloth);
+	public static Block lootCauldron = new BlockLootCauldron().setHardness(2.0F).setBlockName("cauldron").setBlockTextureName("cauldron");
 	
 	public static void registerBlocks() {
 		GameRegistry.registerBlock(decoyBed, "decoyBed");
@@ -38,5 +39,6 @@ public class BlocksAndrew {
 		GameRegistry.registerBlock(tntChest, "tntChest");
 		GameRegistry.registerBlock(pakistan, "pakistan");
 		GameRegistry.registerBlock(checkerboard, "checkerboard");
+		GameRegistry.registerBlock(lootCauldron, "lootCauldron");
 	}
 }
