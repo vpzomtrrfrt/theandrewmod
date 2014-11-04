@@ -445,6 +445,7 @@ public class TheAndrewMod {
 					if(stack.getItem().getMaxDamage()-stack.getItemDamage()<event.ammount+2) {
 						event.entityLiving.attackEntityFrom(deathByGlass, 100f);
 						event.setCanceled(true);
+						stack.stackSize=0;
 					}
 				}
 			}
