@@ -50,6 +50,10 @@ public class EntityZombieCow extends EntityCow {
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityVillager.class, 0, false));
 	}
+	public boolean getCanSpawnHere() {
+		if(super.getCanSpawnHere()&&!worldObj.isDaytime()) return true;
+		return false;
+	}
 	public boolean attackEntityAsMob(Entity e) {
 		e.attackEntityFrom(DamageSource.causeMobDamage(this), 4);
 		return true;
