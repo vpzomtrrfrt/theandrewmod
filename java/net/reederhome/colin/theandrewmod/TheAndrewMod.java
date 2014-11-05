@@ -82,6 +82,7 @@ import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntityJumpPad;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntitySideSlab;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntityTNTChest;
+import net.reederhome.colin.theandrewmod.tileentity.TileEntityWallumagicalChest;
 import net.reederhome.colin.theandrewmod.world.BiomeGenDessert;
 import net.reederhome.colin.theandrewmod.world.WorldGeneratorAndrew;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -191,6 +192,7 @@ public class TheAndrewMod {
 		GameRegistry.registerTileEntity(TileEntitySideSlab.class, "sideSlab");
 		GameRegistry.registerTileEntity(TileEntityJumpPad.class, "jumpPad");
 		GameRegistry.registerTileEntity(TileEntityTNTChest.class, "TNTChest");
+		GameRegistry.registerTileEntity(TileEntityWallumagicalChest.class, "WallumagicalChest");
 		deathByPotatoLiver.setDamageIsAbsolute();
 		deathByPotatoLiver.setDamageAllowedInCreativeMode();
 		System.out.println("Hello?");
@@ -250,6 +252,7 @@ public class TheAndrewMod {
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.checkerboard), "wbw", "brb", "wbw", 'w', new ItemStack(Blocks.wool, 1, 0), 'b', new ItemStack(Blocks.wool, 1, 15), 'r', Items.redstone);
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.curveball), Items.snowball, Items.snowball);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.networkBoots), "   ", "i l", "r p", 'i', Items.iron_ingot, 'l', Items.leather, 'r', Items.redstone, 'p', Items.repeater);
+		GameRegistry.addShapelessRecipe(new ItemStack(BlocksAndrew.wallumagicalChest), Blocks.chest, ItemsAndrew.itemWallum, Blocks.chest);
 		GameRegistry.addSmelting(BlocksAndrew.cactusOre, new ItemStack(Blocks.cactus), 22);
 		OreDictionary.registerOre("oreCactus", BlocksAndrew.cactusOre);
 		netWrap = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
