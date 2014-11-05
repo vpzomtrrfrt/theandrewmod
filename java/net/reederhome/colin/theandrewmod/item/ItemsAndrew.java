@@ -34,6 +34,7 @@ public class ItemsAndrew {
 	public static Item butterShellFull = new ItemButterShell();
 	public static Item curveball = new ItemCurveball();
 	public static Item networkBoots = new NetworkArmor(0, 3);
+	public static Item wallumStorage = new ItemWallumStorage(false);
 	
 	
 	public static Item.ToolMaterial[] t = new Item.ToolMaterial[]{Item.ToolMaterial.EMERALD,Item.ToolMaterial.GOLD,Item.ToolMaterial.IRON,Item.ToolMaterial.STONE,Item.ToolMaterial.WOOD};
@@ -63,6 +64,7 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(butterShellFull, "butterShellFull");
 		GameRegistry.registerItem(curveball, "curveball");
 		GameRegistry.registerItem(networkBoots, "networkBoots");
+		GameRegistry.registerItem(wallumStorage, "wallumStorage");
 		
 		
 		pickaxeCactusGun = new Item[t.length];
