@@ -81,6 +81,7 @@ import net.reederhome.colin.theandrewmod.item.ItemWallumDust;
 import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntityJumpPad;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntitySideSlab;
+import net.reederhome.colin.theandrewmod.tileentity.TileEntitySidedChest;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntityTNTChest;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntityWallumagicalChest;
 import net.reederhome.colin.theandrewmod.world.BiomeGenDessert;
@@ -193,6 +194,7 @@ public class TheAndrewMod {
 		GameRegistry.registerTileEntity(TileEntityJumpPad.class, "jumpPad");
 		GameRegistry.registerTileEntity(TileEntityTNTChest.class, "TNTChest");
 		GameRegistry.registerTileEntity(TileEntityWallumagicalChest.class, "WallumagicalChest");
+		GameRegistry.registerTileEntity(TileEntitySidedChest.class, "SidedChest");
 		deathByPotatoLiver.setDamageIsAbsolute();
 		deathByPotatoLiver.setDamageAllowedInCreativeMode();
 		System.out.println("Hello?");

@@ -69,6 +69,7 @@ tile.blockCactusGun.name=Cactus Gun Block
 tile.tntChest.name=TNT Chest
 tile.checkerboard.name=Checkerboard Block
 tile.pakistan.name=Pakistan Block
+tile.sidedChest.name=Sided Chest
 potion.cancerPotion=Cancer
 potion.clusterPotion=Clustering
 potion.spinningPotion=Spinning

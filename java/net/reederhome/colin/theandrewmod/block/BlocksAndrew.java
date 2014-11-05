@@ -23,6 +23,7 @@ public class BlocksAndrew {
 	public static Block checkerboard = new BlockCheckerboard(Material.cloth);
 	public static Block lootCauldron = new BlockLootCauldron().setHardness(2.0F).setBlockName("cauldron").setBlockTextureName("cauldron");
 	public static Block wallumagicalChest = new BlockWallumagicalChest().setHardness(2.5F).setStepSound(Block.soundTypeWood).setBlockName("chest");
+	public static Block sidedChest = new BlockSidedChest();
 	
 	public static void registerBlocks() {
 		GameRegistry.registerBlock(decoyBed, "decoyBed");
@@ -42,5 +43,6 @@ public class BlocksAndrew {
 		GameRegistry.registerBlock(checkerboard, "checkerboard");
 		GameRegistry.registerBlock(lootCauldron, "lootCauldron");
 		GameRegistry.registerBlock(wallumagicalChest, "wallumagicalChest");
+		GameRegistry.registerBlock(sidedChest, "sidedChest");
 	}
 }
