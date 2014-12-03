@@ -109,7 +109,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.12.0";
+	public static final String VERSION = "1.13.0";
 	public static final String NAME = "The Andrew Mod";
 	public static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
 		@Override
@@ -255,8 +255,10 @@ public class TheAndrewMod {
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.curveball), Items.snowball, Items.snowball);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.networkBoots), "   ", "i l", "r p", 'i', Items.iron_ingot, 'l', Items.leather, 'r', Items.redstone, 'p', Items.repeater);
 		GameRegistry.addShapelessRecipe(new ItemStack(BlocksAndrew.wallumagicalChest), Blocks.chest, ItemsAndrew.itemWallum, Blocks.chest);
-		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.wallumStorage), "c", "s", "w", 'c', Blocks.chest, 's', Items.stick, 'w', ItemsAndrew.itemWallum);
-		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.wallumStoraxe), "c", "s", "w", 'c', Blocks.chest, 's', Items.iron_axe, 'w', ItemsAndrew.itemWallum);
+		if(config.getBoolean("enableStorageWallum", "crafting", true, "Allow the storage wallum to be crafted.")) {
+			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.wallumStorage), "c", "s", "w", 'c', Blocks.chest, 's', Items.stick, 'w', ItemsAndrew.itemWallum);
+			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.wallumStoraxe), "c", "s", "w", 'c', Blocks.chest, 's', Items.iron_axe, 'w', ItemsAndrew.itemWallum);
+		}
 		GameRegistry.addSmelting(BlocksAndrew.cactusOre, new ItemStack(Blocks.cactus), 22);
 		OreDictionary.registerOre("oreCactus", BlocksAndrew.cactusOre);
 		netWrap = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);

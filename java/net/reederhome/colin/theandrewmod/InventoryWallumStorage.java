@@ -42,10 +42,15 @@ public class InventoryWallumStorage implements IInventory {
 		NBTTagList l = new NBTTagList();
 		for(int i = 0; i < ts.length; i++) {
 			if(ts[i]!=null) {
-				NBTTagCompound tag = new NBTTagCompound();
-				ts[i].writeToNBT(tag);
-				tag.setInteger("Slot", i);
-				l.appendTag(tag);
+				if(ts[i]!=stack) {
+					NBTTagCompound tag = new NBTTagCompound();
+					ts[i].writeToNBT(tag);
+					tag.setInteger("Slot", i);
+					l.appendTag(tag);
+				}
+				else {
+					user.attackEntityFrom(TheAndrewMod.deathByCrafting, 100);
+				}
 			}
 		}
 		NBTTagCompound nbt;
