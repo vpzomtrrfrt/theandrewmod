@@ -1,19 +1,17 @@
 package net.reederhome.colin.theandrewmod;
 
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.reederhome.colin.theandrewmod.item.ItemWallumStorage;
-import cpw.mods.fml.common.FMLCommonHandler;
 
 public class InventoryWallumStorage implements IInventory {
 
 	ItemStack stack;
-	EntityLivingBase user;
+	EntityPlayer user;
 	
 	public InventoryWallumStorage(ItemStack w, EntityPlayer p) {
 		stack=w;
@@ -21,10 +19,10 @@ public class InventoryWallumStorage implements IInventory {
 	}
 	
 	public ItemStack[] getItems() {
-		System.out.println("retrieval on "+FMLCommonHandler.instance().getEffectiveSide());
+		//System.out.println("retrieval on "+FMLCommonHandler.instance().getEffectiveSide());
 		ItemStack[] tr = new ItemStack[9];
 		if(stack.hasTagCompound()) {
-			System.out.println("there is a tag");
+			//System.out.println("there is a tag");
 			//System.out.println(stack.getTagCompound());
 			if(stack.getTagCompound().hasKey("Items")) {
 				NBTTagList l = (NBTTagList) stack.getTagCompound().getTag("Items");
@@ -40,7 +38,7 @@ public class InventoryWallumStorage implements IInventory {
 	}
 	
 	public void saveItems(ItemStack[] ts) {
-		System.out.println("saving on "+FMLCommonHandler.instance().getEffectiveSide());
+		//System.out.println("saving on "+FMLCommonHandler.instance().getEffectiveSide());
 		NBTTagList l = new NBTTagList();
 		for(int i = 0; i < ts.length; i++) {
 			if(ts[i]!=null) {
@@ -52,7 +50,7 @@ public class InventoryWallumStorage implements IInventory {
 		}
 		NBTTagCompound nbt;
 		if(stack.hasTagCompound()) {
-			System.out.println("saving to existing tag");
+			//System.out.println("saving to existing tag");
 			nbt=stack.getTagCompound();
 		}
 		else {
@@ -60,7 +58,7 @@ public class InventoryWallumStorage implements IInventory {
 		}
 		nbt.setTag("Items", l);
 		stack.setTagCompound(nbt);
-		System.out.println(stack.getTagCompound());
+		//System.out.println(stack.getTagCompound());
 	}
 	
 	@Override
