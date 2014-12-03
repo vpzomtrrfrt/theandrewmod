@@ -255,6 +255,8 @@ public class TheAndrewMod {
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.curveball), Items.snowball, Items.snowball);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.networkBoots), "   ", "i l", "r p", 'i', Items.iron_ingot, 'l', Items.leather, 'r', Items.redstone, 'p', Items.repeater);
 		GameRegistry.addShapelessRecipe(new ItemStack(BlocksAndrew.wallumagicalChest), Blocks.chest, ItemsAndrew.itemWallum, Blocks.chest);
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.wallumStorage), "c", "s", "w", 'c', Blocks.chest, 's', Items.stick, 'w', ItemsAndrew.itemWallum);
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.wallumStoraxe), "c", "s", "w", 'c', Blocks.chest, 's', Items.iron_axe, 'w', ItemsAndrew.itemWallum);
 		GameRegistry.addSmelting(BlocksAndrew.cactusOre, new ItemStack(Blocks.cactus), 22);
 		OreDictionary.registerOre("oreCactus", BlocksAndrew.cactusOre);
 		netWrap = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
