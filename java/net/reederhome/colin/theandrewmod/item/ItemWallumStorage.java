@@ -24,11 +24,12 @@ public class ItemWallumStorage extends Item {
 			setUnlocalizedName("wallumStorage");
 			setTextureName(TheAndrewMod.MODID+":wallumStorage");
 		}
+		setCreativeTab(TheAndrewMod.tabAndrew);
 	}
 	
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		if(!par2World.isRemote) {
-			par3EntityPlayer.displayGUIChest(new InventoryWallumStorage(par1ItemStack));
+			par3EntityPlayer.displayGUIChest(new InventoryWallumStorage(par1ItemStack,par3EntityPlayer));
 		}
 		return par1ItemStack;
 	}

@@ -1,29 +1,38 @@
 package net.reederhome.colin.theandrewmod;
 
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.reederhome.colin.theandrewmod.item.ItemWallumStorage;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 public class InventoryWallumStorage implements IInventory {
 
 	ItemStack stack;
+	EntityLivingBase user;
 	
-	public InventoryWallumStorage(ItemStack w) {
+	public InventoryWallumStorage(ItemStack w, EntityPlayer p) {
 		stack=w;
+		user=p;
 	}
 	
 	public ItemStack[] getItems() {
+		System.out.println("retrieval on "+FMLCommonHandler.instance().getEffectiveSide());
 		ItemStack[] tr = new ItemStack[9];
-		if(stack.stackTagCompound!=null) {
-			System.out.println(stack.stackTagCompound);
-			NBTTagList l = (NBTTagList) stack.stackTagCompound.getTag("Items");
-			if(l!=null) {
-				for(int i = 0; i < l.tagCount(); i++) {
-					NBTTagCompound tag = l.getCompoundTagAt(i);
-					tr[tag.getInteger("Slot")]=ItemStack.loadItemStackFromNBT(tag);
+		if(stack.hasTagCompound()) {
+			System.out.println("there is a tag");
+			//System.out.println(stack.getTagCompound());
+			if(stack.getTagCompound().hasKey("Items")) {
+				NBTTagList l = (NBTTagList) stack.getTagCompound().getTag("Items");
+				if(l!=null) {
+					for(int i = 0; i < l.tagCount(); i++) {
+						NBTTagCompound tag = l.getCompoundTagAt(i);
+						tr[tag.getInteger("Slot")]=ItemStack.loadItemStackFromNBT(tag);
+					}
 				}
 			}
 		}
@@ -31,6 +40,7 @@ public class InventoryWallumStorage implements IInventory {
 	}
 	
 	public void saveItems(ItemStack[] ts) {
+		System.out.println("saving on "+FMLCommonHandler.instance().getEffectiveSide());
 		NBTTagList l = new NBTTagList();
 		for(int i = 0; i < ts.length; i++) {
 			if(ts[i]!=null) {
@@ -42,13 +52,15 @@ public class InventoryWallumStorage implements IInventory {
 		}
 		NBTTagCompound nbt;
 		if(stack.hasTagCompound()) {
-			nbt=stack.stackTagCompound;
+			System.out.println("saving to existing tag");
+			nbt=stack.getTagCompound();
 		}
 		else {
 			nbt=new NBTTagCompound();
 		}
 		nbt.setTag("Items", l);
 		stack.setTagCompound(nbt);
+		System.out.println(stack.getTagCompound());
 	}
 	
 	@Override
@@ -108,7 +120,18 @@ public class InventoryWallumStorage implements IInventory {
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer arg0) {
-		return true;
+		if(arg0.equals(user)&&user.getHeldItem()!=null) {
+			if(user.getHeldItem().equals(stack)) {
+				return true;
+			}
+			else {
+				if(user.getHeldItem().getItem() instanceof ItemWallumStorage) {
+					stack=user.getHeldItem();
+					return isUseableByPlayer(arg0);
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override
