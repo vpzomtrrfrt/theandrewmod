@@ -22,10 +22,10 @@ public class ItemCactusGun extends Item {
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		if(player.inventory.hasItem(new ItemStack(Blocks.cactus).getItem())) {
 			world.playSoundAtEntity(player, "random.bow", 0.5f, (itemRand.nextFloat() * 0.4F + 0.8F));
-			if(Math.random()<0.3) {
-				player.inventory.consumeInventoryItem(new ItemStack(Blocks.cactus).getItem());
-			}
 			if(!world.isRemote) {
+				if(Math.random()<0.3) {
+					player.inventory.consumeInventoryItem(new ItemStack(Blocks.cactus).getItem());
+				}
 				EntityThrownCactus ent = new EntityThrownCactus(world, player);
 				if(player.inventory.hasItem(ItemsAndrew.rainbowCoreAdvanced)) {
 					ent.setClr(new Random().nextInt(16));
