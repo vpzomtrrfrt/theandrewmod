@@ -1,6 +1,5 @@
 package net.reederhome.colin.theandrewmod;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -88,7 +87,7 @@ public class InventoryWallumStorage implements IInventory {
 
 	@Override
 	public String getInventoryName() {
-		return I18n.format(stack.getUnlocalizedName()+".name");
+		return stack.getUnlocalizedName()+".name";
 	}
 
 	@Override
