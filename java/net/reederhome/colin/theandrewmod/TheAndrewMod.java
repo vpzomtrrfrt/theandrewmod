@@ -72,6 +72,7 @@ import net.reederhome.colin.theandrewmod.entity.EntityCurveball;
 import net.reederhome.colin.theandrewmod.entity.EntityHPCreeper;
 import net.reederhome.colin.theandrewmod.entity.EntityItemButterDust;
 import net.reederhome.colin.theandrewmod.entity.EntityJack;
+import net.reederhome.colin.theandrewmod.entity.EntityLuckEgg;
 import net.reederhome.colin.theandrewmod.entity.EntityThomas;
 import net.reederhome.colin.theandrewmod.entity.EntityThrownCactus;
 import net.reederhome.colin.theandrewmod.entity.EntityTrevor;
@@ -190,6 +191,9 @@ public class TheAndrewMod {
 		EntityRegistry.registerGlobalEntityID(EntityZombieCow.class, "ZombieCow", teid, 4470310, 7969893);
 		EntityRegistry.registerModEntity(EntityZombieCow.class, "ZombieCow", teid, MODID, 128, 1, true);
 		EntityRegistry.addSpawn(EntityZombieCow.class, 8, 1, 4, EnumCreatureType.monster, BiomeGenBase.plains);
+		teid = EntityRegistry.findGlobalUniqueEntityId();
+		EntityRegistry.registerGlobalEntityID(EntityLuckEgg.class, "LuckEgg", teid);
+		EntityRegistry.registerModEntity(EntityLuckEgg.class, "LuckEgg", teid, MODID, 128, 1, true);
 		GameRegistry.registerTileEntity(TileEntitySideSlab.class, "sideSlab");
 		GameRegistry.registerTileEntity(TileEntityJumpPad.class, "jumpPad");
 		GameRegistry.registerTileEntity(TileEntityTNTChest.class, "TNTChest");
@@ -264,6 +268,7 @@ public class TheAndrewMod {
 		netWrap = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
 		netWrap.registerMessage(CactusFireMessage.Handler.class, CactusFireMessage.class, 0, Side.SERVER);
 		netWrap.registerMessage(NetworkBootMessage.Handler.class, NetworkBootMessage.class, 1, Side.SERVER);
+		EntityLuckEgg.initActions();
 		config.save();
 	}
 	

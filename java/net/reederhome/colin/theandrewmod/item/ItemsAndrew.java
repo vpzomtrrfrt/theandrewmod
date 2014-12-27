@@ -36,6 +36,7 @@ public class ItemsAndrew {
 	public static Item networkBoots = new NetworkArmor(0, 3);
 	public static Item wallumStorage = new ItemWallumStorage(false);
 	public static Item wallumStoraxe = new ItemWallumStorage(true);
+	public static Item luckEgg = new ItemLuckEgg();
 	
 	
 	public static Item.ToolMaterial[] t = new Item.ToolMaterial[]{Item.ToolMaterial.EMERALD,Item.ToolMaterial.GOLD,Item.ToolMaterial.IRON,Item.ToolMaterial.STONE,Item.ToolMaterial.WOOD};
@@ -67,6 +68,7 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(networkBoots, "networkBoots");
 		GameRegistry.registerItem(wallumStorage, "wallumStorage");
 		GameRegistry.registerItem(wallumStoraxe, "wallumStoraxe");
+		GameRegistry.registerItem(luckEgg, "luckEgg");
 		
 		
 		pickaxeCactusGun = new Item[t.length];
