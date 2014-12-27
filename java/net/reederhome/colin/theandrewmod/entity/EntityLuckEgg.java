@@ -3,19 +3,29 @@ package net.reederhome.colin.theandrewmod.entity;
 import java.util.ArrayList;
 import java.util.Random;
 
+import cpw.mods.fml.common.registry.EntityRegistry;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityTNTPrimed;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.common.DungeonHooks;
 import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
 
 public class EntityLuckEgg extends EntityEgg {
@@ -37,13 +47,6 @@ public class EntityLuckEgg extends EntityEgg {
 	}
 	
 	public static void initActions() {
-		/*
-		new LuckEggAction() {
-			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
-				
-			}
-		};
-		 */
 		new LuckEggAction() {
 			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
 				EntityChicken var4 = new EntityChicken(w);
@@ -112,9 +115,48 @@ public class EntityLuckEgg extends EntityEgg {
 		};
 		new LuckEggAction() {
 			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
-				e.dropItem(ItemsAndrew.bulbasauce, 1);
+				e.dropItem(ItemsAndrew.multiplier, 1);
 			}
 		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				EntityZombie b = new EntityZombie(w);
+				b.setLocationAndAngles(x, y, z, 0, 0);
+				b.setCurrentItemOrArmor(4, new ItemStack(Items.diamond_helmet));
+				b.setCurrentItemOrArmor(1, new ItemStack(ItemsAndrew.networkBoots));
+				w.spawnEntityInWorld(b);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				w.createExplosion(e, x, y, z, 2, false);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				TileEntityChest inv = new TileEntityChest();
+				WeightedRandomChestContent.generateChestContents(new Random(), ChestGenHooks.getItems(ChestGenHooks.DUNGEON_CHEST, new Random()), inv, ChestGenHooks.getCount(ChestGenHooks.DUNGEON_CHEST, new Random()));
+				w.setBlock((int)x, (int)y, (int)z, Blocks.chest);
+				w.setTileEntity((int)x, (int)y, (int)z, inv);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				Entity d = EntityList.createEntityByName(DungeonHooks.getRandomDungeonMob(new Random()), w);
+				d.setLocationAndAngles(x, y, z, 0, 0);
+				if(d instanceof EntityLiving) {
+					((EntityLiving) d).onSpawnWithEgg(null);
+				}
+				w.spawnEntityInWorld(d);
+			}
+		};
+		/*
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				
+			}
+		};
+		 */
 	}
 	
 	public static abstract class LuckEggAction {

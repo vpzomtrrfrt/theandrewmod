@@ -18,6 +18,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.item.EntityMinecart;
+import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntitySheep;
@@ -423,6 +424,11 @@ public class TheAndrewMod {
 					if(var5.get(2)+1==2&&var5.get(5)==14&&Math.random()<0.5) {
 						event.target.dropItem(Items.cookie, new Random().nextInt(4)+1);
 					}
+				}
+				else if(stack.getItem().equals(ItemsAndrew.multiplier)&&(event.target instanceof EntityTNTPrimed)) {
+					event.target.setDead();
+					event.target.dropItem(Item.getItemFromBlock(Blocks.tnt), 1);
+					stack.damageItem(1, event.entityLiving);
 				}
 			}
 		}
