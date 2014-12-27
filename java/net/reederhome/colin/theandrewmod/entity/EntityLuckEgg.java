@@ -3,11 +3,14 @@ package net.reederhome.colin.theandrewmod.entity;
 import java.util.ArrayList;
 import java.util.Random;
 
-import cpw.mods.fml.common.registry.EntityRegistry;
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.dispenser.IPosition;
+import net.minecraft.dispenser.PositionImpl;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.monster.EntityZombie;
@@ -17,16 +20,22 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.DungeonHooks;
+import net.reederhome.colin.theandrewmod.block.BlockDyedCake;
+import net.reederhome.colin.theandrewmod.block.BlocksAndrew;
 import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
+import net.reederhome.colin.theandrewmod.tileentity.TileEntityTNTChest;
 
 public class EntityLuckEgg extends EntityEgg {
 	
@@ -134,10 +143,17 @@ public class EntityLuckEgg extends EntityEgg {
 		};
 		new LuckEggAction() {
 			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
-				TileEntityChest inv = new TileEntityChest();
+				boolean t = Math.random()<0.2;
+				IInventory inv;
+				if(!t) {
+					inv = new TileEntityChest();
+				}
+				else {
+					inv = new TileEntityTNTChest();
+				}
 				WeightedRandomChestContent.generateChestContents(new Random(), ChestGenHooks.getItems(ChestGenHooks.DUNGEON_CHEST, new Random()), inv, ChestGenHooks.getCount(ChestGenHooks.DUNGEON_CHEST, new Random()));
-				w.setBlock((int)x, (int)y, (int)z, Blocks.chest);
-				w.setTileEntity((int)x, (int)y, (int)z, inv);
+				w.setBlock((int)x, (int)y, (int)z, t?BlocksAndrew.tntChest:Blocks.chest);
+				w.setTileEntity((int)x, (int)y, (int)z, (TileEntity)inv);
 			}
 		};
 		new LuckEggAction() {
@@ -148,6 +164,36 @@ public class EntityLuckEgg extends EntityEgg {
 					((EntityLiving) d).onSpawnWithEgg(null);
 				}
 				w.spawnEntityInWorld(d);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				w.setBlock((int)x, (int)y, (int)z, BlockDyedCake.listDyedCake[new Random().nextInt(16)]);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				int n = new Random().nextInt(7)+2;
+				for(int i = 0; i < n; i++) {
+					IPosition var4 = new PositionImpl(x, y, z);
+					EnumFacing var5 = EnumFacing.UP;
+					EntityLuckEgg var6 = new EntityLuckEgg(w);
+					var6.setLocationAndAngles(x, y, z, 0, 0);
+					var6.setThrowableHeading((double)var5.getFrontOffsetX(), (double)((float)var5.getFrontOffsetY() + 0.1F), (double)var5.getFrontOffsetZ(), 1.1f, 6);
+					w.spawnEntityInWorld(var6);
+				}
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				w.setBlock((int)x, (int)Math.min(255, y+5), (int)z, Blocks.flowing_water);
+				w.setBlockMetadataWithNotify((int)x, (int)Math.min(255, y+5), (int)z, 0, 7);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				w.setBlock((int)x, (int)Math.min(255, y+25), (int)z, Blocks.anvil);
+				w.setBlockMetadataWithNotify((int)x, (int)Math.min(y+25,255), (int)z, 0, 7);
 			}
 		};
 		/*

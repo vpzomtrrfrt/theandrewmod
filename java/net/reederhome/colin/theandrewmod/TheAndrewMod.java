@@ -42,6 +42,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.common.DungeonHooks;
 import net.minecraftforge.common.FishingHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -192,6 +193,7 @@ public class TheAndrewMod {
 		EntityRegistry.registerGlobalEntityID(EntityZombieCow.class, "ZombieCow", teid, 4470310, 7969893);
 		EntityRegistry.registerModEntity(EntityZombieCow.class, "ZombieCow", teid, MODID, 128, 1, true);
 		EntityRegistry.addSpawn(EntityZombieCow.class, 8, 1, 4, EnumCreatureType.monster, BiomeGenBase.plains);
+		DungeonHooks.addDungeonMob("ZombieCow", 20);
 		teid = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(EntityLuckEgg.class, "LuckEgg", teid);
 		EntityRegistry.registerModEntity(EntityLuckEgg.class, "LuckEgg", teid, MODID, 128, 1, true);
@@ -260,6 +262,7 @@ public class TheAndrewMod {
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.curveball), Items.snowball, Items.snowball);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.networkBoots), "   ", "i l", "r p", 'i', Items.iron_ingot, 'l', Items.leather, 'r', Items.redstone, 'p', Items.repeater);
 		GameRegistry.addShapelessRecipe(new ItemStack(BlocksAndrew.wallumagicalChest), Blocks.chest, ItemsAndrew.itemWallum, Blocks.chest);
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.luckEgg), "rgr", "geg", "rgr", 'r', Items.redstone, 'g', Items.gold_nugget, 'e', Items.egg);
 		if(config.getBoolean("enableStorageWallum", "crafting", true, "Allow the storage wallum to be crafted.")) {
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.wallumStorage), "c", "s", "w", 'c', Blocks.chest, 's', Items.stick, 'w', ItemsAndrew.itemWallum);
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.wallumStoraxe), "c", "s", "w", 'c', Blocks.chest, 's', Items.iron_axe, 'w', ItemsAndrew.itemWallum);
@@ -270,6 +273,7 @@ public class TheAndrewMod {
 		netWrap.registerMessage(CactusFireMessage.Handler.class, CactusFireMessage.class, 0, Side.SERVER);
 		netWrap.registerMessage(NetworkBootMessage.Handler.class, NetworkBootMessage.class, 1, Side.SERVER);
 		EntityLuckEgg.initActions();
+		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ItemsAndrew.luckEgg), 1, 16, 3));
 		config.save();
 	}
 	
