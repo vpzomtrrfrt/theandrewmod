@@ -3,20 +3,20 @@ package net.reederhome.colin.theandrewmod.entity;
 import java.util.ArrayList;
 import java.util.Random;
 
-import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IPosition;
 import net.minecraft.dispenser.PositionImpl;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityTNTPrimed;
+import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -26,9 +26,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.DungeonHooks;
@@ -48,8 +50,11 @@ public class EntityLuckEgg extends EntityEgg {
 	}
 	
 	public void onImpact(MovingObjectPosition mop) {
+		if(mop.entityHit!=null) {
+			mop.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), 0);
+		}
+		LuckEggAction.run(this);
 		if(!worldObj.isRemote) {
-			LuckEggAction.run(this);
 			this.setDead();
 		}
 		worldObj.spawnParticle("snowballpoof", posX, posY, posZ, 0, 0, 0);
@@ -58,7 +63,7 @@ public class EntityLuckEgg extends EntityEgg {
 	public static void initActions() {
 		new LuckEggAction() {
 			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
-				EntityChicken var4 = new EntityChicken(w);
+				EntityChicken var4 = Math.random()<0.2?new EntityCharlie(w):new EntityChicken(w);
                 var4.setGrowingAge(-24000);
                 var4.setLocationAndAngles(x, y, z, 0f, 0f);
                 w.spawnEntityInWorld(var4);
@@ -117,8 +122,33 @@ public class EntityLuckEgg extends EntityEgg {
 		};
 		new LuckEggAction() {
 			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
-				if(e.getThrower() instanceof EntityPlayer) {
-					((EntityPlayer)e.getThrower()).addChatMessage(new ChatComponentText("Nothing happened?"));;
+				ChunkPosition c = w.findClosestStructure("Stronghold", (int)x, (int)y, (int)z);
+				if(c!=null&&Math.random()<0.1) {
+					System.out.println(c.chunkPosX+","+c.chunkPosZ);
+					double a = Math.atan2(c.chunkPosZ-z, c.chunkPosX-c.chunkPosX);
+					int dx = (int) (x+Math.cos(a)*10);
+					int dz = (int) (z+Math.sin(a)*10);
+					int dy = (int)y;
+					int trials = 0;
+					while(trials<255) {
+						if(w.isAirBlock(dx, dy-1, dz)) {
+							dy--;
+						}
+						else if(!w.isAirBlock(dx, dy+1, dz)) {
+							dy++;
+						}
+						else {
+							break;
+						}
+					}
+					if(trials<255) {
+						if(e.getThrower()!=null) {
+							e.getThrower().setPositionAndUpdate(dx, dy, dz);
+						}
+					}
+				}
+				else if(e.getThrower() instanceof EntityPlayer) {
+					((EntityPlayer)e.getThrower()).addChatMessage(new ChatComponentText("Nothing happened?"));
 				}
 			}
 		};
@@ -133,6 +163,7 @@ public class EntityLuckEgg extends EntityEgg {
 				b.setLocationAndAngles(x, y, z, 0, 0);
 				b.setCurrentItemOrArmor(4, new ItemStack(Items.diamond_helmet));
 				b.setCurrentItemOrArmor(1, new ItemStack(ItemsAndrew.networkBoots));
+				b.setCanPickUpLoot(true);
 				w.spawnEntityInWorld(b);
 			}
 		};
@@ -177,7 +208,7 @@ public class EntityLuckEgg extends EntityEgg {
 				for(int i = 0; i < n; i++) {
 					IPosition var4 = new PositionImpl(x, y, z);
 					EnumFacing var5 = EnumFacing.UP;
-					EntityLuckEgg var6 = new EntityLuckEgg(w);
+					EntityLuckEgg var6 = new EntityLuckEgg(w, e.getThrower());
 					var6.setLocationAndAngles(x, y, z, 0, 0);
 					var6.setThrowableHeading((double)var5.getFrontOffsetX(), (double)((float)var5.getFrontOffsetY() + 0.1F), (double)var5.getFrontOffsetZ(), 1.1f, 6);
 					w.spawnEntityInWorld(var6);
@@ -192,8 +223,58 @@ public class EntityLuckEgg extends EntityEgg {
 		};
 		new LuckEggAction() {
 			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
-				w.setBlock((int)x, (int)Math.min(255, y+25), (int)z, Blocks.anvil);
-				w.setBlockMetadataWithNotify((int)x, (int)Math.min(y+25,255), (int)z, 0, 7);
+				w.setBlock((int)x, (int)Math.min(255, y+15), (int)z, Blocks.anvil);
+				w.setBlockMetadataWithNotify((int)x, (int)Math.min(y+15,255), (int)z, 0, 7);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				w.setBlock((int)x, (int)y, (int)z, Blocks.glowstone);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				Entity b = new EntityPigZombie(w);
+				b.setLocationAndAngles(x, y, z, 0, 0);
+				w.spawnEntityInWorld(b);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				w.setBlock((int)x, (int)y, (int)z, Blocks.obsidian);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				w.setBlock((int)x, (int)y, (int)z, Blocks.fire);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				e.dropItem(Items.skull, 1).getEntityItem().setItemDamage(1);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				if(e.getThrower()!=null) {
+					if(e.getThrower() instanceof EntityPlayerMP) {
+						EntityPlayerMP p = (EntityPlayerMP) e.getThrower();
+						p.setPositionAndUpdate(x, y, z);
+						p.fallDistance=3;
+					}
+					//e.getThrower().setPosition(x, y, z);
+				}
+			}
+			public void dcs(World w, double x, double y, double z, EntityLuckEgg e) {
+				for (int var2 = 0; var2 < 32; ++var2)
+		        {
+		            w.spawnParticle("portal", x, y + e.rand.nextDouble() * 2.0D, z, e.rand.nextGaussian(), 0.0D, e.rand.nextGaussian());
+		        }
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				w.setBlock((int)x, (int)y, (int)z, Blocks.dirt);
 			}
 		};
 		/*
@@ -204,7 +285,7 @@ public class EntityLuckEgg extends EntityEgg {
 		};
 		 */
 	}
-	
+
 	public static abstract class LuckEggAction {
 		
 		public LuckEggAction() {
@@ -214,9 +295,16 @@ public class EntityLuckEgg extends EntityEgg {
 		private static ArrayList<LuckEggAction> listActions = new ArrayList<LuckEggAction>();
 		
 		public abstract void run(World w, double x, double y, double z, EntityLuckEgg e);
+		public void dcs(World w, double x, double y, double z, EntityLuckEgg e) {}
 		
 		public static void run(EntityLuckEgg e) {
-			listActions.get(e.rand.nextInt(listActions.size())).run(e.worldObj, e.posX, e.posY, e.posZ, e);
+			LuckEggAction a = listActions.get(e.rand.nextInt(listActions.size()));
+			if(e.worldObj.isRemote) {
+				a.dcs(e.worldObj, e.posX, e.posY, e.posZ, e);
+			}
+			else {
+				a.run(e.worldObj, e.posX, e.posY, e.posZ, e);
+			}
 		}
 	}
 }
