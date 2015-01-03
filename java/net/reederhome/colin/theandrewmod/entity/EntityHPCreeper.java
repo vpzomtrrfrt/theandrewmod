@@ -23,14 +23,10 @@ public class EntityHPCreeper extends EntityCreeper {
 		}
 	}
 	
-	public Item getDropItem() {
-		return Items.redstone;
-	}
-	
 	public void onDeath(DamageSource src) {
 		super.onDeath(src);
 		if(worldObj.isRemote) return;
-		dropItem(Items.redstone, rand.nextInt(16));
+		dropItem(Items.redstone, rand.nextInt(4));
 	}
 
 }
