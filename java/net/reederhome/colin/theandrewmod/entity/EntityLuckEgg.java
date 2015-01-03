@@ -10,7 +10,9 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityTNTPrimed;
+import net.minecraft.entity.monster.EntityGiantZombie;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityChicken;
@@ -21,6 +23,7 @@ import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -289,6 +292,20 @@ public class EntityLuckEgg extends EntityEgg {
 		new LuckEggAction() {
 			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
 				e.dropItem(Items.gold_ingot, 1);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				Entity g = new EntityGiantZombie(w);
+				g.setPosition(x, y, z);
+				w.spawnEntityInWorld(g);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				Item[] ti = {ItemsAndrew.glassBottleBoots, ItemsAndrew.glassBottleChestplate, ItemsAndrew.glassBottleHelmet, ItemsAndrew.glassBottleLeggings};
+				EntityItem ei = e.dropItem(ti[e.rand.nextInt(ti.length)], 1);
+				ei.getEntityItem().setItemDamage(new Random().nextInt(ei.getEntityItem().getMaxDamage()));
 			}
 		};
 		/*
