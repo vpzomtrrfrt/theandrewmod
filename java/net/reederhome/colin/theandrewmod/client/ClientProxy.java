@@ -12,6 +12,7 @@ import net.reederhome.colin.theandrewmod.TheAndrewMod;
 import net.reederhome.colin.theandrewmod.entity.EntityCharlie;
 import net.reederhome.colin.theandrewmod.entity.EntityHPCreeper;
 import net.reederhome.colin.theandrewmod.entity.EntityJack;
+import net.reederhome.colin.theandrewmod.entity.EntityKevin;
 import net.reederhome.colin.theandrewmod.entity.EntityLuckEgg;
 import net.reederhome.colin.theandrewmod.entity.EntityThomas;
 import net.reederhome.colin.theandrewmod.entity.EntityThrownCactus;
@@ -33,6 +34,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityThomas.class, renderThomas);
 		RenderingRegistry.registerEntityRenderingHandler(EntityJack.class, renderJack);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTrevor.class, new RenderTrevor(new ModelBiped(), 0.5f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKevin.class, new RenderKevin(0.5f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityThrownCactus.class, new RenderThrownCactus());
 		RenderingRegistry.registerEntityRenderingHandler(EntityCharlie.class, new RenderCharlie());
 		RenderingRegistry.registerEntityRenderingHandler(EntityHPCreeper.class, new RenderHPCreeper());

@@ -57,7 +57,7 @@ public class EntityTrevor extends EntityCreature {
 		if(this.onGround) {jump();}
 	}
 	public boolean attackEntityAsMob(Entity e) {
-		e.attackEntityFrom(DamageSource.generic, 4);
+		e.attackEntityFrom(DamageSource.causeMobDamage(this), 4);
 		this.swingItem();
 		super.attackEntityAsMob(e);
 		return true;
