@@ -12,6 +12,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.world.World;
 import net.reederhome.colin.theandrewmod.TheAndrewMod;
 
 public class RadiationCommand implements ICommand {
@@ -62,7 +63,11 @@ public class RadiationCommand implements ICommand {
 	@Override
 	public void processCommand(ICommandSender var1, String[] var2) {
 		ChunkCoordinates c = var1.getPlayerCoordinates();
-		List<EntityLivingBase> l = var1.getEntityWorld().getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(c.posX-10, c.posY-10, c.posZ-10, c.posX+10, c.posY+10, c.posZ+10));
+		doBomb(var1.getEntityWorld(),c,(var1 instanceof Entity)?((Entity)var1):null);
+	}
+	
+	public static void doBomb(World w, ChunkCoordinates c, Entity e) {
+		List<EntityLivingBase> l = w.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(c.posX-10, c.posY-10, c.posZ-10, c.posX+10, c.posY+10, c.posZ+10));
 		Iterator<EntityLivingBase> i = l.iterator();
 		while(i.hasNext()) {
 			EntityLivingBase t = i.next();
@@ -71,7 +76,7 @@ public class RadiationCommand implements ICommand {
 				((ICommandSender) t).addChatMessage(new ChatComponentText("[Atomic Bomb] BOOM!"));
 			}
 		}
-		var1.getEntityWorld().createExplosion((var1 instanceof Entity)?((Entity)var1):null, c.posX, c.posY, c.posZ, 2, true);
+		w.createExplosion(e, c.posX, c.posY, c.posZ, 2, true);
 	}
 
 }

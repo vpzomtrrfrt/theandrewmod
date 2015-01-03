@@ -26,6 +26,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
@@ -36,6 +37,7 @@ import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.DungeonHooks;
 import net.reederhome.colin.theandrewmod.block.BlockDyedCake;
 import net.reederhome.colin.theandrewmod.block.BlocksAndrew;
+import net.reederhome.colin.theandrewmod.command.RadiationCommand;
 import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntityTNTChest;
 
@@ -51,7 +53,7 @@ public class EntityLuckEgg extends EntityEgg {
 	
 	public void onImpact(MovingObjectPosition mop) {
 		if(mop.entityHit!=null) {
-			mop.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), 0);
+			mop.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), Math.random()<0.2?rand.nextInt(2):0);
 		}
 		LuckEggAction.run(this);
 		if(!worldObj.isRemote) {
@@ -125,9 +127,8 @@ public class EntityLuckEgg extends EntityEgg {
 				ChunkPosition c = w.findClosestStructure("Stronghold", (int)x, (int)y, (int)z);
 				if(c!=null&&Math.random()<0.1) {
 					System.out.println(c.chunkPosX+","+c.chunkPosZ);
-					double a = Math.atan2(c.chunkPosZ-z, c.chunkPosX-c.chunkPosX);
-					int dx = (int) (x+Math.cos(a)*10);
-					int dz = (int) (z+Math.sin(a)*10);
+					int dx = c.chunkPosX;
+					int dz = c.chunkPosY;
 					int dy = (int)y;
 					int trials = 0;
 					while(trials<255) {
@@ -234,8 +235,11 @@ public class EntityLuckEgg extends EntityEgg {
 		};
 		new LuckEggAction() {
 			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
-				Entity b = new EntityPigZombie(w);
+				EntityLiving b = new EntityPigZombie(w);
 				b.setLocationAndAngles(x, y, z, 0, 0);
+				if(Math.random()<0.1) {
+					b.setHealth(0);
+				}
 				w.spawnEntityInWorld(b);
 			}
 		};
@@ -275,6 +279,16 @@ public class EntityLuckEgg extends EntityEgg {
 		new LuckEggAction() {
 			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
 				w.setBlock((int)x, (int)y, (int)z, Blocks.dirt);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				RadiationCommand.doBomb(w, new ChunkCoordinates((int)x, (int)y, (int)z), e);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				e.dropItem(Items.gold_ingot, 1);
 			}
 		};
 		/*
