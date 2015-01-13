@@ -201,6 +201,7 @@ public class TheAndrewMod {
 		teid = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(EntityKevin.class, "Kevin", teid);
 		EntityRegistry.registerModEntity(EntityKevin.class, "Kevin", teid, MODID, 128, 1, true);
+		EntityRegistry.addSpawn(EntityKevin.class, 14, 1, 2, EnumCreatureType.creature, BiomeGenBase.desert, BiomeGenBase.swampland, BiomeGenBase.jungle, biomeDessert);
 		GameRegistry.registerTileEntity(TileEntitySideSlab.class, "sideSlab");
 		GameRegistry.registerTileEntity(TileEntityJumpPad.class, "jumpPad");
 		GameRegistry.registerTileEntity(TileEntityTNTChest.class, "TNTChest");

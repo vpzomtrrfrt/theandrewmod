@@ -21,11 +21,11 @@ import net.minecraft.world.World;
 public class EntityTrevor extends EntityCreature {
 	public EntityTrevor(World par1World) {
 		super(par1World);
-		this.tasks.addTask(0, new EntityAIAttackOnCollide(this, EntityThomas.class, 0.4d, true));
-		this.tasks.addTask(1, new EntityAIAttackOnCollide(this, EntityJack.class, 0.4d, true));
-		this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.5d, 30));
-		this.tasks.addTask(3, new EntityAILookIdle(this));
-		this.tasks.addTask(4, new EntityAIAvoidEntity(this, EntityTNTPrimed.class, 6, .25, .3));
+		this.tasks.addTask(0, new EntityAIAvoidEntity(this, EntityTNTPrimed.class, 6, .25, .3));
+		this.tasks.addTask(1, new EntityAIAttackOnCollide(this, EntityThomas.class, 0.4d, true));
+		this.tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityJack.class, 0.4d, true));
+		this.tasks.addTask(3, new EntityAIMoveTowardsTarget(this, 0.5d, 30));
+		this.tasks.addTask(4, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityJack.class, 2, false));
 		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityThomas.class, 2, false));
 		this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
