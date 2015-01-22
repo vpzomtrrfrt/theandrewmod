@@ -113,7 +113,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.13.2";
+	public static final String VERSION = "1.14.0";
 	public static final String NAME = "The Andrew Mod";
 	public static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
 		@Override
@@ -529,6 +529,10 @@ public class TheAndrewMod {
 			event.entity.worldObj.setBlock(event.x, event.y, event.z, BlockDyedCake.listDyedCake[item.getItemDamage()]);
 			event.entity.worldObj.setBlockMetadataWithNotify(event.x, event.y, event.z, meta, 3);
 			event.entity.worldObj.playSound(event.x, event.y, event.z, "mob.villager.death", 1f, 1f, true);
+		}
+		else if(block.equals(Blocks.ice)&&item!=null&&item.getItem().equals(Items.bucket)) {
+			event.entityPlayer.inventory.setInventorySlotContents(event.entityPlayer.inventory.currentItem, new ItemStack(ItemsAndrew.iceBucket));
+			event.world.setBlockToAir(event.x, event.y, event.z);
 		}
 	}
 	
