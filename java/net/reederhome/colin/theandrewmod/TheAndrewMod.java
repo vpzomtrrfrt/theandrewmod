@@ -267,6 +267,7 @@ public class TheAndrewMod {
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.curveball), Items.snowball, Items.snowball);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.networkBoots), "   ", "i l", "r p", 'i', Items.iron_ingot, 'l', Items.leather, 'r', Items.redstone, 'p', Items.repeater);
 		GameRegistry.addShapelessRecipe(new ItemStack(BlocksAndrew.wallumagicalChest), Blocks.chest, ItemsAndrew.itemWallum, Blocks.chest);
+		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.sidedChest), "crc", 'c', Blocks.chest, 'r', Blocks.redstone_block);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.luckEgg), "rgr", "geg", "rgr", 'r', Items.redstone, 'g', Items.gold_nugget, 'e', Items.egg);
 		if(config.getBoolean("enableStorageWallum", "crafting", true, "Allow the storage wallum to be crafted.")) {
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.wallumStorage), "c", "s", "w", 'c', Blocks.chest, 's', Items.stick, 'w', ItemsAndrew.itemWallum);
@@ -279,6 +280,7 @@ public class TheAndrewMod {
 		netWrap.registerMessage(NetworkBootMessage.Handler.class, NetworkBootMessage.class, 1, Side.SERVER);
 		EntityLuckEgg.initActions();
 		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ItemsAndrew.luckEgg), 1, 16, 3));
+		cactusGunArmorMaterial.customCraftingMaterial=Item.getItemFromBlock(Blocks.cactus);
 		config.save();
 	}
 	
