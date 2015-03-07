@@ -39,6 +39,7 @@ public class ItemsAndrew {
 	public static Item luckEgg = new ItemLuckEgg();
 	public static Item multiplier = new ItemMultiplier();
 	public static Item iceBucket = new ItemIceBucket();
+	public static Item wallumEating = new ItemWallumEating();
 	
 	
 	public static Item.ToolMaterial[] t = new Item.ToolMaterial[]{Item.ToolMaterial.EMERALD,Item.ToolMaterial.GOLD,Item.ToolMaterial.IRON,Item.ToolMaterial.STONE,Item.ToolMaterial.WOOD};
@@ -73,6 +74,7 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(luckEgg, "luckEgg");
 		GameRegistry.registerItem(multiplier, "multiplier");
 		GameRegistry.registerItem(iceBucket, "iceBucket");
+		GameRegistry.registerItem(wallumEating, "wallumEating");
 		
 		
 		pickaxeCactusGun = new Item[t.length];

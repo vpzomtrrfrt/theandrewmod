@@ -237,7 +237,9 @@ public class TheAndrewMod {
 			GameRegistry.addRecipe(new RecipesButterShell());
 		}
 		RecipeSorter.register("wallumGrinding", RecipesWallumGrinding.class, Category.SHAPELESS, "");
+		RecipeSorter.register("wallumEating", RecipesWallumEating.class, Category.SHAPELESS, "");
 		GameRegistry.addRecipe(new RecipesWallumGrinding());
+		GameRegistry.addRecipe(new RecipesWallumEating());
 		GameRegistry.addRecipe(new ShapedOreRecipe(ItemsAndrew.itemWallum, "w", "s", "i", 'i', "ingotIron", 's', "stickWood", 'w', "plankWood"));
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.blockCactusGun), "rcr", "gig", "rcr", 'r', Items.redstone, 'c', Blocks.cobblestone, 'g', ItemsAndrew.cactusGun, 'i', Items.iron_ingot);
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.rainbowMachine), "scs", "crc", "scs", 's', Items.redstone, 'c', Blocks.cobblestone, 'r', ItemsAndrew.rainbowCoreAdvanced);
