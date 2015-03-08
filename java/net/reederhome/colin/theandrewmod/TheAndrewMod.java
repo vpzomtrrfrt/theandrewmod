@@ -17,6 +17,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.passive.EntityBat;
@@ -50,6 +51,7 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.minecart.MinecartCollisionEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -404,6 +406,25 @@ public class TheAndrewMod {
 			event.entityLiving.attackEntityFrom(TheAndrewMod.deathByPotatoLiver, 100f);
 			event.setCanceled(true);
 			event.item.setDead();
+		}
+	}
+	
+	@SubscribeEvent
+	public void onMinecartCollide(MinecartCollisionEvent evt) {
+		double ydif = evt.collider.posY-evt.minecart.posY;
+		if(evt.collider instanceof EntityPlayer && ydif>-1) {
+			EntityPlayer p = (EntityPlayer) evt.collider;
+			if(p.inventory.hasItem(Item.getItemFromBlock(BlocksAndrew.sideSlab))) {
+				for(int i = 0; i < p.inventory.getSizeInventory(); i++) {
+					ItemStack it = p.inventory.getStackInSlot(i);
+					if(it!=null&&it.getItem().equals(Item.getItemFromBlock(BlocksAndrew.sideSlab)) && !it.hasDisplayName()) {
+						ItemStack ni = it.copy();
+						ni.setStackDisplayName("Knee Injury");
+						p.inventory.setInventorySlotContents(i, ni);
+						break;
+					}
+				}
+			}
 		}
 	}
 	
