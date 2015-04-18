@@ -17,7 +17,7 @@ public class AbilityThrowPotions extends Ability {
 
 	@Override
 	public void tick() {
-		if(getParent().ticksExisted%20==0) {
+		if(getParent().ticksExisted%20==0 && !getParent().worldObj.isRemote) {
 			getParent().worldObj.spawnEntityInWorld(new EntityPotion(getParent().worldObj, getParent(), new ItemStack(Items.potionitem, 1, 16389)));
 		}
 	}
@@ -41,7 +41,7 @@ public class AbilityThrowPotions extends Ability {
 
 	@Override
 	public ResourceLocation getIcon() {
-		return new ResourceLocation(TheAndrewMod.MODID+":textures/support/morph/throwpotion.png");
+		return new ResourceLocation(TheAndrewMod.MODID+":textures/support/morph/throwPotions.png");
 	}
 
 }

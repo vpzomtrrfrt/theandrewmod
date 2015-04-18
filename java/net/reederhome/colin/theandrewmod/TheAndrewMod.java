@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 import morph.api.Ability;
+import morph.api.Api;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
@@ -85,6 +86,7 @@ import net.reederhome.colin.theandrewmod.entity.EntityZombieCow;
 import net.reederhome.colin.theandrewmod.item.ItemGlassBottleArmor;
 import net.reederhome.colin.theandrewmod.item.ItemWallumDust;
 import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
+import net.reederhome.colin.theandrewmod.support.morph.AbilityExplodeOnDeath;
 import net.reederhome.colin.theandrewmod.support.morph.AbilityThrowPotions;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntityJumpPad;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntitySideSlab;
@@ -287,8 +289,11 @@ public class TheAndrewMod {
 		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ItemsAndrew.luckEgg), 1, 16, 3));
 		cactusGunArmorMaterial.customCraftingMaterial=Item.getItemFromBlock(Blocks.cactus);
 		
+		Ability.registerAbility("throwPotions", AbilityThrowPotions.class);
+		Ability.registerAbility("explodeOnDeath", AbilityExplodeOnDeath.class);
 		Ability.mapAbilities(EntityZombieCow.class, Ability.createNewAbilityByType("sunburn", null), Ability.createNewAbilityByType("hostile", null));
 		Ability.mapAbilities(EntityHPCreeper.class, new AbilityThrowPotions());
+		Ability.mapAbilities(EntityThomas.class, Ability.createNewAbilityByType("fireImmunity", null), new AbilityExplodeOnDeath());
 		
 		config.save();
 	}
@@ -540,6 +545,12 @@ public class TheAndrewMod {
 		if(event.entity instanceof EntityThomas) {
 			event.entity.worldObj.createExplosion(event.entity, event.entity.posX, event.entity.posY, event.entity.posZ, 5, event.entity.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"));
 			event.entity.dropItem(new ItemStack(BlocksAndrew.invasivePlant).getItem(), 1);
+		}
+		if(event.entity instanceof EntityPlayer) {
+			EntityLivingBase e = Api.getMorphEntity(event.entity.getCommandSenderName(), event.entity.worldObj.isRemote);
+			if(Ability.hasAbility(e.getClass(), "explodeOnDeath")) {
+				event.entity.worldObj.createExplosion(event.entity, event.entity.posX, event.entity.posY, event.entity.posZ, 5, false);
+			}
 		}
 	}
 	
