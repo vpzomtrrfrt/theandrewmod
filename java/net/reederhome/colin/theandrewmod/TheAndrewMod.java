@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import morph.api.Ability;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,7 +18,6 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.passive.EntityBat;
@@ -85,6 +85,7 @@ import net.reederhome.colin.theandrewmod.entity.EntityZombieCow;
 import net.reederhome.colin.theandrewmod.item.ItemGlassBottleArmor;
 import net.reederhome.colin.theandrewmod.item.ItemWallumDust;
 import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
+import net.reederhome.colin.theandrewmod.support.morph.AbilityThrowPotions;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntityJumpPad;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntitySideSlab;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntitySidedChest;
@@ -285,6 +286,10 @@ public class TheAndrewMod {
 		EntityLuckEgg.initActions();
 		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ItemsAndrew.luckEgg), 1, 16, 3));
 		cactusGunArmorMaterial.customCraftingMaterial=Item.getItemFromBlock(Blocks.cactus);
+		
+		Ability.mapAbilities(EntityZombieCow.class, Ability.createNewAbilityByType("sunburn", null), Ability.createNewAbilityByType("hostile", null));
+		Ability.mapAbilities(EntityHPCreeper.class, new AbilityThrowPotions());
+		
 		config.save();
 	}
 	
