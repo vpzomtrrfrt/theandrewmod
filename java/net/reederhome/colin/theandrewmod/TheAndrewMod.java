@@ -275,7 +275,7 @@ public class TheAndrewMod {
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.networkBoots), "   ", "i l", "r p", 'i', Items.iron_ingot, 'l', Items.leather, 'r', Items.redstone, 'p', Items.repeater);
 		GameRegistry.addShapelessRecipe(new ItemStack(BlocksAndrew.wallumagicalChest), Blocks.chest, ItemsAndrew.itemWallum, Blocks.chest);
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.sidedChest), "crc", 'c', Blocks.chest, 'r', Blocks.redstone_block);
-		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.luckEgg), "rgr", "geg", "rgr", 'r', Items.redstone, 'g', Items.gold_nugget, 'e', Items.egg);
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.luckEgg, 4), "rgr", "geg", "rgr", 'r', Items.redstone, 'g', Items.gold_nugget, 'e', Items.egg);
 		if(config.getBoolean("enableStorageWallum", "crafting", true, "Allow the storage wallum to be crafted.")) {
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.wallumStorage), "c", "s", "w", 'c', Blocks.chest, 's', Items.stick, 'w', ItemsAndrew.itemWallum);
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.wallumStoraxe), "c", "s", "w", 'c', Blocks.chest, 's', Items.iron_axe, 'w', ItemsAndrew.itemWallum);
@@ -289,11 +289,14 @@ public class TheAndrewMod {
 		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ItemsAndrew.luckEgg), 1, 16, 3));
 		cactusGunArmorMaterial.customCraftingMaterial=Item.getItemFromBlock(Blocks.cactus);
 		
+		/**Morph Compat*/
+		/***/
 		Ability.registerAbility("throwPotions", AbilityThrowPotions.class);
 		Ability.registerAbility("explodeOnDeath", AbilityExplodeOnDeath.class);
 		Ability.mapAbilities(EntityZombieCow.class, Ability.createNewAbilityByType("sunburn", null), Ability.createNewAbilityByType("hostile", null));
 		Ability.mapAbilities(EntityHPCreeper.class, new AbilityThrowPotions());
 		Ability.mapAbilities(EntityThomas.class, Ability.createNewAbilityByType("fireImmunity", null), new AbilityExplodeOnDeath());
+		/***/
 		
 		config.save();
 	}
