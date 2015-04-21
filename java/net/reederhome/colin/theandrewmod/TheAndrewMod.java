@@ -120,7 +120,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.14.0";
+	public static final String VERSION = "1.15.0";
 	public static final String NAME = "The Andrew Mod";
 	public static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
 		@Override
@@ -604,6 +604,7 @@ public class TheAndrewMod {
 				}
 				EntityItem e = new EntityItem(w, event.x, event.y, event.z, new ItemStack(Items.diamond, 1));
 				w.spawnEntityInWorld(e);
+				item.damageItem(1, event.entityLiving);
 			}
 		}
 	}
