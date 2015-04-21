@@ -19,6 +19,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.passive.EntityBat;
@@ -40,6 +41,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.util.WeightedRandomFishable;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
@@ -561,22 +563,48 @@ public class TheAndrewMod {
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		Block block = event.entity.worldObj.getBlock(event.x, event.y, event.z);
 		ItemStack item = event.entityPlayer.getCurrentEquippedItem();
+		World w = event.entity.worldObj;
 		if((block.equals(Blocks.cactus)||block.equals(BlocksAndrew.dyedCactus))&&item!=null&&item.getItem().equals(Items.dye)) {
 			item.stackSize--;
-			event.entity.worldObj.setBlock(event.x, event.y, event.z, BlocksAndrew.dyedCactus, item.getItemDamage(), 3);
-			event.entity.worldObj.playSound(event.x, event.y, event.z, "mob.villager.death", 1f, 1f, true);
+			w.setBlock(event.x, event.y, event.z, BlocksAndrew.dyedCactus, item.getItemDamage(), 3);
+			w.playSound(event.x, event.y, event.z, "mob.villager.death", 1f, 1f, true);
 			event.entityPlayer.addStat(AchievementsAndrew.dyeCactus, 1);
 		}
 		else if((block.equals(Blocks.cake)||block instanceof BlockDyedCake)&&item!=null&&item.getItem().equals(Items.dye)) {
 			item.stackSize--;
-			int meta = event.entity.worldObj.getBlockMetadata(event.x, event.y, event.z);
-			event.entity.worldObj.setBlock(event.x, event.y, event.z, BlockDyedCake.listDyedCake[item.getItemDamage()]);
-			event.entity.worldObj.setBlockMetadataWithNotify(event.x, event.y, event.z, meta, 3);
-			event.entity.worldObj.playSound(event.x, event.y, event.z, "mob.villager.death", 1f, 1f, true);
+			int meta = w.getBlockMetadata(event.x, event.y, event.z);
+			w.setBlock(event.x, event.y, event.z, BlockDyedCake.listDyedCake[item.getItemDamage()]);
+			w.setBlockMetadataWithNotify(event.x, event.y, event.z, meta, 3);
+			w.playSound(event.x, event.y, event.z, "mob.villager.death", 1f, 1f, true);
 		}
 		else if(block.equals(Blocks.ice)&&item!=null&&item.getItem().equals(Items.bucket)) {
 			event.entityPlayer.inventory.setInventorySlotContents(event.entityPlayer.inventory.currentItem, new ItemStack(ItemsAndrew.iceBucket));
 			event.world.setBlockToAir(event.x, event.y, event.z);
+		}
+		else if(item!=null && item.getItem().equals(ItemsAndrew.itemWallum) && !w.isRemote) {
+			boolean failed = false;
+			int[] coal = {
+					 0, 0,  0,
+					 0, 1,  0,
+					 0, 2,  0,
+					-1, 2,  0,
+					 1, 2,  0,
+					 0, 2, -1,
+					 0, 2,  1
+			};
+			for(int i = 0; i < coal.length; i+=3) {
+				if(!w.getBlock(event.x+coal[i], event.y+coal[i+1], event.z+coal[i+2]).equals(Blocks.coal_block)) {
+					failed = true;
+					break;
+				}
+			}
+			if(!failed) {
+				for(int i = 0; i < coal.length; i+=3) {
+					w.setBlockToAir(event.x+coal[i], event.y+coal[i+1], event.z+coal[i+2]);
+				}
+				EntityItem e = new EntityItem(w, event.x, event.y, event.z, new ItemStack(Items.diamond, 1));
+				w.spawnEntityInWorld(e);
+			}
 		}
 	}
 	
