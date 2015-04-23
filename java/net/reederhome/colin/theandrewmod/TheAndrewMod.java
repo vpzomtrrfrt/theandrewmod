@@ -120,7 +120,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.15.0";
+	public static final String VERSION = "1.15.1";
 	public static final String NAME = "The Andrew Mod";
 	public static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
 		@Override
@@ -553,7 +553,7 @@ public class TheAndrewMod {
 		}
 		if(event.entity instanceof EntityPlayer) {
 			EntityLivingBase e = Api.getMorphEntity(event.entity.getCommandSenderName(), event.entity.worldObj.isRemote);
-			if(Ability.hasAbility(e.getClass(), "explodeOnDeath")) {
+			if(e!=null && Ability.hasAbility(e.getClass(), "explodeOnDeath")) {
 				event.entity.worldObj.createExplosion(event.entity, event.entity.posX, event.entity.posY, event.entity.posZ, 5, false);
 			}
 		}
