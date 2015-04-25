@@ -6,6 +6,7 @@ import net.minecraft.item.ItemReed;
 import net.minecraft.item.ItemSoup;
 import net.reederhome.colin.theandrewmod.TheAndrewMod;
 import net.reederhome.colin.theandrewmod.block.BlocksAndrew;
+import net.reederhome.colin.theandrewmod.support.baubles.ItemCactusGunBelt;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ItemsAndrew {
@@ -27,6 +28,7 @@ public class ItemsAndrew {
 	public static Item decoyBed = new ItemDecoyBed();
 	public static Item[] pickaxeCactusGun;
 	public static Item cactusGunPants = new CactusGunArmor(0, 2);
+	public static Item cactusGunBelt = new ItemCactusGunBelt();
 	public static Item wallumGrinding = new ItemWallumGrinding();
 	public static Item wallumDust = new ItemWallumDust(new String[]{"Iron", "Gold", "Diamond", "Coal", "Emerald", "Quartz", "Cactus"});
 	public static Item butterCluster = new ItemButterCluster();
@@ -75,6 +77,10 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(multiplier, "multiplier");
 		GameRegistry.registerItem(iceBucket, "iceBucket");
 		GameRegistry.registerItem(wallumEating, "wallumEating");
+		try {
+			Class.forName("baubles.common.lib.PlayerHandler");
+			GameRegistry.registerItem(cactusGunBelt, "cactusGunBelt");
+		} catch(Exception e) {}
 		
 		
 		pickaxeCactusGun = new Item[t.length];
