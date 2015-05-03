@@ -81,6 +81,7 @@ import net.reederhome.colin.theandrewmod.entity.EntityItemButterDust;
 import net.reederhome.colin.theandrewmod.entity.EntityJack;
 import net.reederhome.colin.theandrewmod.entity.EntityKevin;
 import net.reederhome.colin.theandrewmod.entity.EntityLuckEgg;
+import net.reederhome.colin.theandrewmod.entity.EntityProjectileHorse;
 import net.reederhome.colin.theandrewmod.entity.EntityThomas;
 import net.reederhome.colin.theandrewmod.entity.EntityThrownCactus;
 import net.reederhome.colin.theandrewmod.entity.EntityTrevor;
@@ -209,6 +210,9 @@ public class TheAndrewMod {
 		EntityRegistry.registerGlobalEntityID(EntityKevin.class, "Kevin", teid);
 		EntityRegistry.registerModEntity(EntityKevin.class, "Kevin", teid, MODID, 128, 1, true);
 		EntityRegistry.addSpawn(EntityKevin.class, 14, 1, 2, EnumCreatureType.creature, BiomeGenBase.desert, BiomeGenBase.swampland, BiomeGenBase.jungle, biomeDessert);
+		teid = EntityRegistry.findGlobalUniqueEntityId();
+		EntityRegistry.registerGlobalEntityID(EntityProjectileHorse.class, "ProjectileHorse", teid);
+		EntityRegistry.registerModEntity(EntityProjectileHorse.class, "ProjectileHorse", teid, MODID, 128, 1, true);
 		GameRegistry.registerTileEntity(TileEntitySideSlab.class, "sideSlab");
 		GameRegistry.registerTileEntity(TileEntityJumpPad.class, "jumpPad");
 		GameRegistry.registerTileEntity(TileEntityTNTChest.class, "TNTChest");

@@ -3,7 +3,9 @@ package net.reederhome.colin.theandrewmod.client;
 import org.lwjgl.input.Keyboard;
 
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.model.ModelHorse;
 import net.minecraft.client.renderer.entity.RenderBiped;
+import net.minecraft.client.renderer.entity.RenderHorse;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.ResourceLocation;
@@ -14,6 +16,7 @@ import net.reederhome.colin.theandrewmod.entity.EntityHPCreeper;
 import net.reederhome.colin.theandrewmod.entity.EntityJack;
 import net.reederhome.colin.theandrewmod.entity.EntityKevin;
 import net.reederhome.colin.theandrewmod.entity.EntityLuckEgg;
+import net.reederhome.colin.theandrewmod.entity.EntityProjectileHorse;
 import net.reederhome.colin.theandrewmod.entity.EntityThomas;
 import net.reederhome.colin.theandrewmod.entity.EntityThrownCactus;
 import net.reederhome.colin.theandrewmod.entity.EntityTrevor;
@@ -40,6 +43,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityHPCreeper.class, new RenderHPCreeper());
 		RenderingRegistry.registerEntityRenderingHandler(EntityZombieCow.class, new RenderZombieCow());
 		RenderingRegistry.registerEntityRenderingHandler(EntityLuckEgg.class, new RenderSnowball(ItemsAndrew.luckEgg));
+		RenderingRegistry.registerEntityRenderingHandler(EntityProjectileHorse.class, new RenderHorse(new ModelHorse(), 0.5f));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySideSlab.class, new RenderSideSlab());
 		VillagerRegistry.instance().registerVillagerSkin(TheAndrewMod.avid, new ResourceLocation(TheAndrewMod.MODID+":/textures/models/andrew.png"));
 		ClientRegistry.registerKeyBinding(keyCactusFire);
