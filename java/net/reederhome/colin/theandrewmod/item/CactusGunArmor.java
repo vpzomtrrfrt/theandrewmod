@@ -9,7 +9,7 @@ import net.reederhome.colin.theandrewmod.TheAndrewMod;
 
 public class CactusGunArmor extends ItemArmor {
 
-	String[] names = {"Cap","Chestplate","Pants","Boots"};
+	String[] names = {"Cap","Jetpack","Pants","Boots"};
 	public CactusGunArmor(int p_i45325_2_,
 			int p_i45325_3_) {
 		super(TheAndrewMod.cactusGunArmorMaterial, p_i45325_2_, p_i45325_3_);

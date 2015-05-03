@@ -30,13 +30,8 @@ public class ItemProjectileHorse extends Item {
 			w.spawnEntityInWorld(horse);
 		}
 		if(!p.capabilities.isCreativeMode) {
-			if(stack.stackSize>1) {
-				stack.stackSize--;
-				return stack;
-			}
-			else {
-				return null;
-			}
+			stack.stackSize--;
+			return stack;
 		}
 		else {
 			return stack;

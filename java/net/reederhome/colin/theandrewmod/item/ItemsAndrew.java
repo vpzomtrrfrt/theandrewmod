@@ -28,6 +28,7 @@ public class ItemsAndrew {
 	public static Item decoyBed = new ItemDecoyBed();
 	public static Item[] pickaxeCactusGun;
 	public static Item cactusGunPants = new CactusGunArmor(0, 2);
+	public static Item cactusGunJetpack = new CactusGunArmor(0, 1).setMaxDamage(0);
 	public static Item cactusGunBelt = new ItemCactusGunBelt();
 	public static Item wallumGrinding = new ItemWallumGrinding();
 	public static Item wallumDust = new ItemWallumDust(new String[]{"Iron", "Gold", "Diamond", "Coal", "Emerald", "Quartz", "Cactus"});
@@ -79,6 +80,7 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(iceBucket, "iceBucket");
 		GameRegistry.registerItem(wallumEating, "wallumEating");
 		GameRegistry.registerItem(horseBomb, "horseBomb");
+		GameRegistry.registerItem(cactusGunJetpack, "cactusGunJetpack");
 		try {
 			Class.forName("baubles.common.lib.PlayerHandler");
 			GameRegistry.registerItem(cactusGunBelt, "cactusGunBelt");

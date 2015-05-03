@@ -131,7 +131,7 @@ public class TheAndrewMod {
 		}
 	};
 	public static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
-	public static ItemArmor.ArmorMaterial cactusGunArmorMaterial = EnumHelper.addArmorMaterial("cactusGun", 12, new int[]{1,3,2,1}, 20);
+	public static ItemArmor.ArmorMaterial cactusGunArmorMaterial = EnumHelper.addArmorMaterial("cactusGun", 12, new int[]{1,1,2,1}, 20);
 	public static ItemArmor.ArmorMaterial networkArmorMaterial = EnumHelper.addArmorMaterial("network", 12, new int[]{3,9,6,3}, 20);
 	public static DamageSource deathBy789 = new DamageSource(MODID+".deathBy789");
 	public static DamageSource deathByPotatoLiver = new DamageSource(MODID+".deathByPotatoLiver");
@@ -291,6 +291,7 @@ public class TheAndrewMod {
 		netWrap = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
 		netWrap.registerMessage(CactusFireMessage.Handler.class, CactusFireMessage.class, 0, Side.SERVER);
 		netWrap.registerMessage(NetworkBootMessage.Handler.class, NetworkBootMessage.class, 1, Side.SERVER);
+		netWrap.registerMessage(CactusJetpackMessage.Handler.class, CactusJetpackMessage.class, 2, Side.SERVER);
 		EntityLuckEgg.initActions();
 		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ItemsAndrew.luckEgg), 1, 16, 3));
 		cactusGunArmorMaterial.customCraftingMaterial=Item.getItemFromBlock(Blocks.cactus);
@@ -381,6 +382,8 @@ public class TheAndrewMod {
 		event.registerServerCommand(new BeCactusCommand());
 	}
 	
+	int lastJetpackFire = 0;
+	
 	@SubscribeEvent
 	public void onEntityUpdate(LivingUpdateEvent e) {
 		if(e.entityLiving.getEquipmentInSlot(4)!=null&&e.entityLiving.getEquipmentInSlot(4).getItem().getUnlocalizedName().equals(Blocks.command_block.getUnlocalizedName())) {
@@ -415,6 +418,17 @@ public class TheAndrewMod {
 		if(e.entityLiving.isPotionActive(spinningPotion)) {
 			e.entity.setAngles(e.entity.rotationPitch+5, e.entity.rotationYaw+5);
 			e.entityLiving.setRotationYawHead(e.entityLiving.rotationYawHead+5);
+		}
+		if(Minecraft.getMinecraft().thePlayer==e.entity && proxy instanceof ClientProxy) {
+			if(((ClientProxy)proxy).keyCactusJetpack.getIsKeyPressed()) {
+				if(lastJetpackFire+5<e.entity.ticksExisted) {
+					lastJetpackFire = e.entity.ticksExisted;
+					netWrap.sendToServer(new CactusJetpackMessage());
+				}
+			}
+			else {
+				lastJetpackFire=0;
+			}
 		}
 	}
 	

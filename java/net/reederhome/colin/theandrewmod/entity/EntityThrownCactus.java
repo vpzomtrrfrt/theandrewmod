@@ -25,6 +25,7 @@ public class EntityThrownCactus extends EntityThrowable {
 	int power=0;
 	int cactus=0;
 	boolean silkTouch=false;
+	boolean harmless = false;
 	EntityLivingBase user;
 	
 	public int getClr() {
@@ -63,6 +64,7 @@ public class EntityThrownCactus extends EntityThrowable {
 		nbt.setIntArray("Ench", new int[]{fortune,power,cactus});
 		nbt.setBoolean("Silk", silkTouch);
 		nbt.setInteger("Color", getClr());
+		nbt.setBoolean("Harmless", harmless);
 	}
 	
 	public boolean hk(NBTTagCompound nbt, String tag) {
@@ -86,16 +88,24 @@ public class EntityThrownCactus extends EntityThrowable {
 		if(hk(nbt,"Color")) {
 			setClr(nbt.getInteger("Color"));
 		}
+		if(hk(nbt,"Harmless")) {
+			harmless = nbt.getBoolean("Harmless");
+		}
 	}
 	
 	public EntityThrownCactus(World world) {
 		super(world);
 	}
 
+	public EntityThrownCactus(World worldObj, boolean b) {
+		super(worldObj);
+		harmless = b;
+	}
 	@Override
 	protected void onImpact(MovingObjectPosition var1) {
 		if(worldObj.isRemote) return;
-		if(var1.entityHit!=null) {
+		if(harmless) {}
+		else if(var1.entityHit!=null) {
 			if(var1.entityHit.isEntityInvulnerable()||(var1.entityHit instanceof EntityPlayer&&((EntityPlayer)var1.entityHit).capabilities.isCreativeMode)) return;
 			var1.entityHit.attackEntityFrom(DamageSource.cactus, 4+power);
 			var1.entityHit.dropItem(new ItemStack(Blocks.cactus).getItem(), cactus);
