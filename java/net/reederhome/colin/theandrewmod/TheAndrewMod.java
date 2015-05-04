@@ -43,6 +43,8 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.util.WeightedRandomFishable;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.BiomeGenBeach;
+import net.minecraft.world.biome.BiomeGenDesert;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.ChestGenHooks;
@@ -58,6 +60,7 @@ import net.minecraftforge.event.entity.minecart.MinecartCollisionEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
@@ -286,6 +289,8 @@ public class TheAndrewMod {
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.wallumStorage), "c", "s", "w", 'c', Blocks.chest, 's', Items.stick, 'w', ItemsAndrew.itemWallum);
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.wallumStoraxe), "c", "s", "w", 'c', Blocks.chest, 's', Items.iron_axe, 'w', ItemsAndrew.itemWallum);
 		}
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.fireDonut, 4), "wsw", "shs", "wsw", 'w', Items.wheat, 's', Items.sugar, 'h', ItemsAndrew.horseBomb);
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.cactusGunJetpack), "c c", "lll", "g g", 'c', Blocks.cactus, 'l', Items.leather, 'g', ItemsAndrew.cactusGun);
 		GameRegistry.addSmelting(BlocksAndrew.cactusOre, new ItemStack(Blocks.cactus), 22);
 		OreDictionary.registerOre("oreCactus", BlocksAndrew.cactusOre);
 		netWrap = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
@@ -456,6 +461,33 @@ public class TheAndrewMod {
 						p.inventory.setInventorySlotContents(i, ni);
 						break;
 					}
+				}
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onBlockDrops(HarvestDropsEvent event) {
+		Iterator<ItemStack> it = event.drops.iterator();
+		boolean dropsItself = false;
+		while(it.hasNext()) {
+			ItemStack stack = it.next();
+			if(stack.getItem().equals(Item.getItemFromBlock(event.block))) {
+				dropsItself = true;
+			}
+		}
+		if(event.block==Blocks.leaves || event.block==Blocks.leaves2) {
+			if(!dropsItself) {
+				BiomeGenBase biome = event.world.getBiomeGenForCoords(event.x, event.z);
+				if(biome instanceof BiomeGenDesert || biome instanceof BiomeGenBeach) {
+					double r = Math.random();
+					System.out.println(r);
+					if(r<0.01) {
+						event.drops.add(new ItemStack(ItemsAndrew.horseBomb));
+					}
+				}
+				else {
+					System.out.println(biome.getClass());
 				}
 			}
 		}

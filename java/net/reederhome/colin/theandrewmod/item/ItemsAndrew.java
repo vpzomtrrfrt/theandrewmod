@@ -2,6 +2,7 @@ package net.reederhome.colin.theandrewmod.item;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemReed;
 import net.minecraft.item.ItemSoup;
 import net.reederhome.colin.theandrewmod.TheAndrewMod;
@@ -44,6 +45,7 @@ public class ItemsAndrew {
 	public static Item iceBucket = new ItemIceBucket();
 	public static Item wallumEating = new ItemWallumEating();
 	public static Item horseBomb = new ItemProjectileHorse();
+	public static Item fireDonut = new ItemFood(2, 0.2f, false).setUnlocalizedName("fireDonut").setTextureName(TheAndrewMod.MODID+":fireDonut");
 	
 	
 	public static Item.ToolMaterial[] t = new Item.ToolMaterial[]{Item.ToolMaterial.EMERALD,Item.ToolMaterial.GOLD,Item.ToolMaterial.IRON,Item.ToolMaterial.STONE,Item.ToolMaterial.WOOD};
@@ -81,6 +83,8 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(wallumEating, "wallumEating");
 		GameRegistry.registerItem(horseBomb, "horseBomb");
 		GameRegistry.registerItem(cactusGunJetpack, "cactusGunJetpack");
+		GameRegistry.registerItem(fireDonut, "fireDonut");
+		
 		try {
 			Class.forName("baubles.common.lib.PlayerHandler");
 			GameRegistry.registerItem(cactusGunBelt, "cactusGunBelt");
