@@ -25,11 +25,11 @@ public class CactusJetpackMessage implements IMessage {
 			EntityPlayer e = arg1.getServerHandler().playerEntity;
 			if(e.getCurrentArmor(2)!=null && e.getCurrentArmor(2).getItem().equals(ItemsAndrew.cactusGunJetpack)) {
 				e.addPotionEffect(new PotionEffect(Potion.resistance.id,1,4));
-				e.worldObj.createExplosion(null, e.posX, e.posY, e.posZ, 0.2f, false);
 				EntityThrownCactus cac = new EntityThrownCactus(e.worldObj, true);
 				cac.setPosition(e.posX, e.posY-0.1, e.posZ);
 				cac.motionY=1;
 				e.worldObj.spawnEntityInWorld(cac);
+				e.worldObj.createExplosion(cac, e.posX, e.posY, e.posZ, 0.2f, false);
 			}
 			return null;
 		}
