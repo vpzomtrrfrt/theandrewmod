@@ -79,7 +79,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TheAndrewMod {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.16.1";
+	public static final String VERSION = "1.16.2";
 	public static final String NAME = "The Andrew Mod";
 	public static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
 		@Override
@@ -108,6 +108,7 @@ public class TheAndrewMod {
 	public static int teidJack;
 	public static BiomeGenBase biomeDessert;
 	public static SimpleNetworkWrapper netWrap;
+	public static boolean baublesDetected = false;
 	
 	public static int avid;
 	public static boolean debugMode;
@@ -125,6 +126,10 @@ public class TheAndrewMod {
 		avid = config.getInt("villagerId", "ids", 24, 0, 4096, "id for Andrew");
 		biomeDessert = new BiomeGenDessert(config.getInt("dessertBiomeId", "ids", 24, 0, 4096, "id for Dessert Biome"));
 		teidThomas = EntityRegistry.findGlobalUniqueEntityId();
+		try {
+			Class.forName("baubles.common.lib.PlayerHandler");
+			baublesDetected = true;
+		} catch(Exception e) {}
 		EntityRegistry.registerGlobalEntityID(EntityThomas.class, "Thomas", teidThomas, Color.black.getRGB(), Color.cyan.getRGB());
 		EntityRegistry.registerModEntity(EntityThomas.class, "Thomas", teidThomas, MODID, 128, 1, true);
 		WeightedRandomChestContent wrcct = new WeightedRandomChestContent(new ItemStack(Items.spawn_egg, 1, teidThomas), 0, 10, 4);
@@ -234,7 +239,7 @@ public class TheAndrewMod {
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.pickaxeCactusGun[m]), "mmm", "lsr", "csr", 'm', ItemsAndrew.t[m].func_150995_f(), 'c', ItemsAndrew.cactusGun, 's', Items.stick, 'l', Items.slime_ball, 'r', Items.redstone);
 		}
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.pakistan), " rc", " mr", "cr ", 'r', Items.redstone, 'm', Items.map, 'c', Blocks.cactus);
-		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.checkerboard), "wbw", "brb", "wbw", 'w', new ItemStack(Blocks.wool, 1, 0), 'b', new ItemStack(Blocks.wool, 1, 15), 'r', Items.redstone);
+		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.checkerboard, 8), "wbw", "brb", "wbw", 'w', new ItemStack(Blocks.wool, 1, 0), 'b', new ItemStack(Blocks.wool, 1, 15), 'r', Items.redstone);
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.curveball), Items.snowball, Items.snowball);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.networkBoots), "   ", "i l", "r p", 'i', Items.iron_ingot, 'l', Items.leather, 'r', Items.redstone, 'p', Items.repeater);
 		GameRegistry.addShapelessRecipe(new ItemStack(BlocksAndrew.wallumagicalChest), Blocks.chest, ItemsAndrew.itemWallum, Blocks.chest);
@@ -246,6 +251,9 @@ public class TheAndrewMod {
 		}
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.fireDonut, 4), "wsw", "shs", "wsw", 'w', Items.wheat, 's', Items.sugar, 'h', ItemsAndrew.horseBomb);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.cactusGunJetpack), "c c", "lll", "g g", 'c', Blocks.cactus, 'l', Items.leather, 'g', ItemsAndrew.cactusGun);
+		if(baublesDetected) {
+			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.cactusGunBelt), " l ", "lsl", "ylg", 'l', Items.leather, 's', Items.string, 'y', Items.slime_ball, 'g', ItemsAndrew.cactusGun);
+		}
 		GameRegistry.addSmelting(BlocksAndrew.cactusOre, new ItemStack(Blocks.cactus), 22);
 		OreDictionary.registerOre("oreCactus", BlocksAndrew.cactusOre);
 		netWrap = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
@@ -370,7 +378,6 @@ public class TheAndrewMod {
 					}
 					if(c.getEquipmentInSlot(3)==null||EnchantmentHelper.getEnchantmentLevel(clusterProtection.effectId, c.getEquipmentInSlot(3))==0) {
 						c.attackEntityFrom(TheAndrewMod.deathByCluster, (float)r-c.getDistanceToEntity(e.entity));
-						System.out.println(c.getEquipmentInSlot(3));
 					}
 				}
 			}
@@ -395,7 +402,6 @@ public class TheAndrewMod {
 	@SubscribeEvent
 	public void onItemPickup(EntityItemPickupEvent event) {
 		if(event.item.getEntityItem().getItem().equals(ItemsAndrew.potatoLiver)&&!(event.entityPlayer!=null&&event.item.func_145798_i()==event.entityPlayer.getCommandSenderName())) {
-			System.out.println("potatoLiver pickup");
 			event.entityLiving.attackEntityFrom(TheAndrewMod.deathByPotatoLiver, 100f);
 			event.setCanceled(true);
 			event.item.setDead();
@@ -436,13 +442,9 @@ public class TheAndrewMod {
 				BiomeGenBase biome = event.world.getBiomeGenForCoords(event.x, event.z);
 				if(biome instanceof BiomeGenDesert || biome instanceof BiomeGenBeach) {
 					double r = Math.random();
-					System.out.println(r);
 					if(r<0.01) {
 						event.drops.add(new ItemStack(ItemsAndrew.horseBomb));
 					}
-				}
-				else {
-					System.out.println(biome.getClass());
 				}
 			}
 		}
@@ -618,7 +620,6 @@ public class TheAndrewMod {
 	public void onPlayerCraft(ItemCraftedEvent ev) {
 		System.out.println(ev.player.getCommandSenderName()+" crafted something");
 		if(ev.crafting.getItem().equals(ItemsAndrew.butterDust)) {
-			//System.out.println("butter dust crafted");
 			ev.player.addStat(AchievementsAndrew.butterDust, 1);
 			if(Math.random()<0.9) {
 				if(!ev.player.inventory.addItemStackToInventory(new ItemStack(ItemsAndrew.plasticUtensils, 1))) {

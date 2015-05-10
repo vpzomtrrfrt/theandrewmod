@@ -85,10 +85,9 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(cactusGunJetpack, "cactusGunJetpack");
 		GameRegistry.registerItem(fireDonut, "fireDonut");
 		
-		try {
-			Class.forName("baubles.common.lib.PlayerHandler");
+		if(TheAndrewMod.baublesDetected) {
 			GameRegistry.registerItem(cactusGunBelt, "cactusGunBelt");
-		} catch(Exception e) {}
+		}
 		
 		
 		pickaxeCactusGun = new Item[t.length];
