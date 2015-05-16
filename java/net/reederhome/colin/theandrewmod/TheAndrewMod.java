@@ -3,7 +3,11 @@ package net.reederhome.colin.theandrewmod;
 import java.awt.Color;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 import morph.api.Ability;
 import morph.api.Api;
@@ -18,22 +22,36 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.item.EntityTNTPrimed;
+import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemDye;
+import net.minecraft.item.ItemMinecart;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
+import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.util.WeightedRandomFishable;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeGenBeach;
 import net.minecraft.world.biome.BiomeGenDesert;
-import net.minecraftforge.common.*;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.common.DungeonHooks;
+import net.minecraftforge.common.FishingHooks;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -42,28 +60,59 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.minecart.MinecartCollisionEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
-import net.minecraftforge.oredict.*;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.reederhome.colin.theandrewmod.block.BlockDyedCake;
 import net.reederhome.colin.theandrewmod.block.BlocksAndrew;
 import net.reederhome.colin.theandrewmod.client.ClientProxy;
-import net.reederhome.colin.theandrewmod.command.*;
+import net.reederhome.colin.theandrewmod.command.BeCactusCommand;
+import net.reederhome.colin.theandrewmod.command.BeCommandBlockCommand;
+import net.reederhome.colin.theandrewmod.command.FirmMatressCommand;
+import net.reederhome.colin.theandrewmod.command.RadiationCommand;
+import net.reederhome.colin.theandrewmod.command.SevenEightNineCommand;
+import net.reederhome.colin.theandrewmod.command.SnorlaxCommand;
+import net.reederhome.colin.theandrewmod.command.YesCommand;
 import net.reederhome.colin.theandrewmod.enchantment.CactusEnchantment;
 import net.reederhome.colin.theandrewmod.enchantment.ClusterProtectionEnchantment;
-import net.reederhome.colin.theandrewmod.entity.*;
+import net.reederhome.colin.theandrewmod.entity.EntityCharlie;
+import net.reederhome.colin.theandrewmod.entity.EntityCurveball;
+import net.reederhome.colin.theandrewmod.entity.EntityHPCreeper;
+import net.reederhome.colin.theandrewmod.entity.EntityItemButterDust;
+import net.reederhome.colin.theandrewmod.entity.EntityJack;
+import net.reederhome.colin.theandrewmod.entity.EntityKevin;
+import net.reederhome.colin.theandrewmod.entity.EntityLuckEgg;
+import net.reederhome.colin.theandrewmod.entity.EntityProjectileHorse;
+import net.reederhome.colin.theandrewmod.entity.EntityThomas;
+import net.reederhome.colin.theandrewmod.entity.EntityThrownCactus;
+import net.reederhome.colin.theandrewmod.entity.EntityTrevor;
+import net.reederhome.colin.theandrewmod.entity.EntityZombieCow;
 import net.reederhome.colin.theandrewmod.item.ItemGlassBottleArmor;
 import net.reederhome.colin.theandrewmod.item.ItemWallumDust;
 import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
 import net.reederhome.colin.theandrewmod.support.morph.AbilityExplodeOnDeath;
 import net.reederhome.colin.theandrewmod.support.morph.AbilityThrowPotions;
-import net.reederhome.colin.theandrewmod.tileentity.*;
+import net.reederhome.colin.theandrewmod.tileentity.TileEntityJumpPad;
+import net.reederhome.colin.theandrewmod.tileentity.TileEntitySideSlab;
+import net.reederhome.colin.theandrewmod.tileentity.TileEntitySidedChest;
+import net.reederhome.colin.theandrewmod.tileentity.TileEntityTNTChest;
+import net.reederhome.colin.theandrewmod.tileentity.TileEntityWallumagicalChest;
 import net.reederhome.colin.theandrewmod.world.BiomeGenDessert;
 import net.reederhome.colin.theandrewmod.world.WorldGeneratorAndrew;
-import cpw.mods.fml.common.*;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
@@ -191,8 +240,8 @@ public class TheAndrewMod {
 		clusterPotion = new PotionAndrew(lpi, false, new Color(0, 32, 32).getRGB()).setPotionName("potion.clusterPotion");
 		int spi = registerPotion();
 		spinningPotion = new PotionAndrew(spi, false, new Color(55, 200, 200).getRGB()).setPotionName("potion.spinningPotion"); 
-		ItemsAndrew.registerItems();
 		BlocksAndrew.registerBlocks();
+		ItemsAndrew.registerItems();
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.sideSlab), "s", "s", "s", 's', Blocks.stone_slab);
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.potatoLiver), Items.bone, Items.potato, Items.wooden_sword);
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.butterDust, 4), Items.gold_nugget, Items.milk_bucket, ItemsAndrew.plasticUtensils, BlocksAndrew.invasivePlant);
@@ -272,6 +321,8 @@ public class TheAndrewMod {
 		Ability.mapAbilities(EntityHPCreeper.class, new AbilityThrowPotions());
 		Ability.mapAbilities(EntityThomas.class, Ability.createNewAbilityByType("fireImmunity", null), new AbilityExplodeOnDeath());
 		/***/
+		
+		FluidContainerRegistry.registerFluidContainer(BlocksAndrew.liquidGunpower, new ItemStack(ItemsAndrew.liquidGunpowderBucket), new ItemStack(Items.bucket));
 		
 		config.save();
 	}
@@ -664,6 +715,15 @@ public class TheAndrewMod {
 		}
 		if(((ClientProxy)proxy).keyNetworkBoot.isPressed()) {
 			netWrap.sendToServer(new NetworkBootMessage());
+		}
+	}
+	
+	@SubscribeEvent
+	public void onBucketFill(FillBucketEvent e) {
+		if(e.world.getBlock(e.target.blockX, e.target.blockY, e.target.blockZ).equals(BlocksAndrew.blockLiquidGunpowder) && e.world.getBlockMetadata(e.target.blockX, e.target.blockY, e.target.blockZ)==0) {
+			e.world.setBlockToAir(e.target.blockX, e.target.blockY, e.target.blockZ);
+			e.result = new ItemStack(ItemsAndrew.liquidGunpowderBucket);
+			e.setResult(Result.ALLOW);
 		}
 	}
 }

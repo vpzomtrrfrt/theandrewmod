@@ -5,10 +5,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlockWithMetadata;
 import net.minecraft.item.ItemDye;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.reederhome.colin.theandrewmod.item.ItemBlockDyedCactus;
 
 public class BlocksAndrew {
 
+	public static Fluid liquidGunpower = new Fluid("liquidGunpowder");
+	
 	public static Block decoyBed = new BlockDecoyBed().setBlockTextureName("bed");
 	public static Block sideSlab = new BlockSideSlab().setBlockTextureName("stone_slab_top");
 	public static Block jumpPad = new BlockJumpPad();
@@ -24,8 +28,11 @@ public class BlocksAndrew {
 	public static Block lootCauldron = new BlockLootCauldron().setHardness(2.0F).setBlockName("cauldron").setBlockTextureName("cauldron");
 	public static Block wallumagicalChest = new BlockWallumagicalChest().setHardness(2.5F).setStepSound(Block.soundTypeWood).setBlockName("chest");
 	public static Block sidedChest = new BlockSidedChest();
+	public static Block blockLiquidGunpowder;
 	
 	public static void registerBlocks() {
+		FluidRegistry.registerFluid(liquidGunpower);
+		blockLiquidGunpowder = new BlockLiquidGunpowder();
 		GameRegistry.registerBlock(decoyBed, "decoyBed");
 		GameRegistry.registerBlock(sideSlab, "sideSlab");
 		GameRegistry.registerBlock(jumpPad, "jumpPad");
@@ -44,5 +51,6 @@ public class BlocksAndrew {
 		GameRegistry.registerBlock(lootCauldron, "lootCauldron");
 		GameRegistry.registerBlock(wallumagicalChest, "wallumagicalChest");
 		GameRegistry.registerBlock(sidedChest, "sidedChest");
+		GameRegistry.registerBlock(blockLiquidGunpowder, "liquidGunpowder");
 	}
 }

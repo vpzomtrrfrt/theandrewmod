@@ -2,6 +2,7 @@ package net.reederhome.colin.theandrewmod.item;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemReed;
 import net.minecraft.item.ItemSoup;
@@ -46,11 +47,14 @@ public class ItemsAndrew {
 	public static Item wallumEating = new ItemWallumEating();
 	public static Item horseBomb = new ItemProjectileHorse();
 	public static Item fireDonut = new ItemFood(2, 0.2f, false).setUnlocalizedName("fireDonut").setTextureName(TheAndrewMod.MODID+":fireDonut");
+	public static Item liquidGunpowderBucket;
 	
 	
 	public static Item.ToolMaterial[] t = new Item.ToolMaterial[]{Item.ToolMaterial.EMERALD,Item.ToolMaterial.GOLD,Item.ToolMaterial.IRON,Item.ToolMaterial.STONE,Item.ToolMaterial.WOOD};
 	
 	public static void registerItems() {
+		liquidGunpowderBucket = new ItemBucket(BlocksAndrew.blockLiquidGunpowder).setCreativeTab(TheAndrewMod.tabAndrew).setTextureName(TheAndrewMod.MODID+":bucket_liquidGunpowder");
+		
 		GameRegistry.registerItem(potatoLiver, "potatoLiver");
 		GameRegistry.registerItem(plasticUtensils, "plasticUtensils");
 		GameRegistry.registerItem(butterDust, "butterDust");
@@ -84,6 +88,7 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(horseBomb, "horseBomb");
 		GameRegistry.registerItem(cactusGunJetpack, "cactusGunJetpack");
 		GameRegistry.registerItem(fireDonut, "fireDonut");
+		GameRegistry.registerItem(liquidGunpowderBucket, "liquidGunpowderBucket");
 		
 		if(TheAndrewMod.baublesDetected) {
 			GameRegistry.registerItem(cactusGunBelt, "cactusGunBelt");
