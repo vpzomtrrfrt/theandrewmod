@@ -22,7 +22,6 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.item.EntityTNTPrimed;
-import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntitySheep;
@@ -140,6 +139,7 @@ public class TheAndrewMod {
 	public static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
 	public static ItemArmor.ArmorMaterial cactusGunArmorMaterial = EnumHelper.addArmorMaterial("cactusGun", 12, new int[]{1,1,2,1}, 20);
 	public static ItemArmor.ArmorMaterial networkArmorMaterial = EnumHelper.addArmorMaterial("network", 12, new int[]{3,9,6,3}, 20);
+	public static Item.ToolMaterial diamondBlockMaterial = EnumHelper.addToolMaterial("diamondBlock", 9, 4683, 24, 9, 30);
 	public static DamageSource deathBy789 = new DamageSource(MODID+".deathBy789");
 	public static DamageSource deathByPotatoLiver = new DamageSource(MODID+".deathByPotatoLiver");
 	public static DamageSource deathByCancer = new DamageSource(MODID+".deathByCancer");
@@ -303,6 +303,7 @@ public class TheAndrewMod {
 		if(baublesDetected) {
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.cactusGunBelt), " l ", "lsl", "ylg", 'l', Items.leather, 's', Items.string, 'y', Items.slime_ball, 'g', ItemsAndrew.cactusGun);
 		}
+		GameRegistry.addRecipe(new ShapedOreRecipe(ItemsAndrew.diamondBlockSword, " d ", " d ", " s ", 'd', "blockDiamond", 's', "stickWood"));
 		GameRegistry.addSmelting(BlocksAndrew.cactusOre, new ItemStack(Blocks.cactus), 22);
 		OreDictionary.registerOre("oreCactus", BlocksAndrew.cactusOre);
 		netWrap = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
@@ -312,6 +313,7 @@ public class TheAndrewMod {
 		EntityLuckEgg.initActions();
 		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ItemsAndrew.luckEgg), 1, 16, 3));
 		cactusGunArmorMaterial.customCraftingMaterial=Item.getItemFromBlock(Blocks.cactus);
+		diamondBlockMaterial.setRepairItem(new ItemStack(Blocks.diamond_block));
 		
 		/**Morph Compat*/
 		/***/

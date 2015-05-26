@@ -1,11 +1,11 @@
 package net.reederhome.colin.theandrewmod.item;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemReed;
 import net.minecraft.item.ItemSoup;
+import net.minecraft.item.ItemSword;
 import net.reederhome.colin.theandrewmod.TheAndrewMod;
 import net.reederhome.colin.theandrewmod.block.BlocksAndrew;
 import net.reederhome.colin.theandrewmod.support.baubles.ItemCactusGunBelt;
@@ -23,7 +23,7 @@ public class ItemsAndrew {
 	public static Item glassBottleBoots = new ItemGlassBottleArmor(0,3).setUnlocalizedName("glassBottleBoots");
 	public static Item itemRedstoneCake = new ItemReed(BlocksAndrew.redstoneCake).setTextureName("cake").setUnlocalizedName("redstoneCake").setCreativeTab(TheAndrewMod.tabAndrew);
 	public static Item itemWallumCooking = new ItemWallumCooking();
-	public static Item itemWallum = new Item().setUnlocalizedName("wallum").setTextureName(TheAndrewMod.MODID+":wallum").setFull3D().setCreativeTab(TheAndrewMod.tabAndrew).setMaxDamage(7);
+	public static Item itemWallum = new Item().setUnlocalizedName("wallum").setTextureName(TheAndrewMod.MODID+":wallum").setFull3D().setCreativeTab(TheAndrewMod.tabAndrew).setMaxDamage(7).setMaxStackSize(1);
 	public static Item rainbowCoreBasic = new Item().setUnlocalizedName("rainbowCoreBasic").setTextureName(TheAndrewMod.MODID+":rainbowCoreBasic").setCreativeTab(TheAndrewMod.tabAndrew);
 	public static Item rainbowCoreAdvanced = new Item().setUnlocalizedName("rainbowCoreAdvanced").setTextureName(TheAndrewMod.MODID+":rainbowCoreAdvanced").setCreativeTab(TheAndrewMod.tabAndrew);
 	public static Item bulbasauce = new ItemSoup(4).setUnlocalizedName("bulbasauce").setTextureName(TheAndrewMod.MODID+":bulbasauce").setCreativeTab(TheAndrewMod.tabAndrew);
@@ -47,6 +47,7 @@ public class ItemsAndrew {
 	public static Item wallumEating = new ItemWallumEating();
 	public static Item horseBomb = new ItemProjectileHorse();
 	public static Item fireDonut = new ItemFood(2, 0.2f, false).setUnlocalizedName("fireDonut").setTextureName(TheAndrewMod.MODID+":fireDonut");
+	public static Item diamondBlockSword = new ItemSword(TheAndrewMod.diamondBlockMaterial);
 	public static Item liquidGunpowderBucket;
 	
 	
@@ -89,6 +90,7 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(cactusGunJetpack, "cactusGunJetpack");
 		GameRegistry.registerItem(fireDonut, "fireDonut");
 		GameRegistry.registerItem(liquidGunpowderBucket, "liquidGunpowderBucket");
+		GameRegistry.registerItem(diamondBlockSword, "diamondBlockSword");
 		
 		if(TheAndrewMod.baublesDetected) {
 			GameRegistry.registerItem(cactusGunBelt, "cactusGunBelt");

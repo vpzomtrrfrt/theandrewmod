@@ -4,8 +4,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,6 +15,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.reederhome.colin.theandrewmod.TheAndrewMod;
+import net.reederhome.colin.theandrewmod.block.BlocksAndrew;
 
 public class ItemWallumCooking extends Item {
 
@@ -61,6 +64,11 @@ public class ItemWallumCooking extends Item {
 						tm.stackSize=stack.stackSize;
 						it.setEntityItemStack(tm);
 						par1ItemStack.damageItem(200*stack.stackSize, par3EntityPlayer);
+					}
+					else if(stack.getItem().equals(Items.gunpowder) && stack.stackSize == 16) {
+						it.setDead();
+						
+						par2World.setBlock((int)it.posX, (int)Math.ceil(it.posY), (int)it.posZ, BlocksAndrew.blockLiquidGunpowder);
 					}
 				}
 			}
