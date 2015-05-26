@@ -28,10 +28,12 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemMinecart;
+import net.minecraft.item.ItemSoup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.potion.Potion;
@@ -704,6 +706,19 @@ public class TheAndrewMod {
 			}
 			else {
 				ev.player.attackEntityFrom(deathByCrafting, 100f);
+			}
+		}
+		else if(ev.crafting.getItem().equals(ItemsAndrew.wallumEating)) {
+			IInventory inv = ev.craftMatrix;
+			for(int i = 0; i < inv.getSizeInventory(); i++) {
+				ItemStack st = inv.getStackInSlot(i);
+				if(st != null) {
+					if(st.getItem() instanceof ItemSoup) {
+						if(!ev.player.inventory.addItemStackToInventory(new ItemStack(Items.bowl))) {
+							ev.player.dropItem(Items.bowl, 1);
+						}
+					}
+				}
 			}
 		}
 	}
