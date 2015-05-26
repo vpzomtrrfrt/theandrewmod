@@ -47,14 +47,14 @@ public class ItemsAndrew {
 	public static Item wallumEating = new ItemWallumEating();
 	public static Item horseBomb = new ItemProjectileHorse();
 	public static Item fireDonut = new ItemFood(2, 0.2f, false).setUnlocalizedName("fireDonut").setTextureName(TheAndrewMod.MODID+":fireDonut");
-	public static Item diamondBlockSword = new ItemSword(TheAndrewMod.diamondBlockMaterial);
+	public static Item diamondBlockSword = new ItemSword(TheAndrewMod.diamondBlockMaterial).setUnlocalizedName("diamondBlockSword").setTextureName(TheAndrewMod.MODID+":diamondBlockSword");
 	public static Item liquidGunpowderBucket;
 	
 	
 	public static Item.ToolMaterial[] t = new Item.ToolMaterial[]{Item.ToolMaterial.EMERALD,Item.ToolMaterial.GOLD,Item.ToolMaterial.IRON,Item.ToolMaterial.STONE,Item.ToolMaterial.WOOD};
 	
 	public static void registerItems() {
-		liquidGunpowderBucket = new ItemBucket(BlocksAndrew.blockLiquidGunpowder).setCreativeTab(TheAndrewMod.tabAndrew).setTextureName(TheAndrewMod.MODID+":bucket_liquidGunpowder");
+		liquidGunpowderBucket = new ItemBucket(BlocksAndrew.blockLiquidGunpowder).setCreativeTab(TheAndrewMod.tabAndrew).setTextureName(TheAndrewMod.MODID+":bucket_liquidGunpowder").setUnlocalizedName("liquidGunpowderBucket");
 		
 		GameRegistry.registerItem(potatoLiver, "potatoLiver");
 		GameRegistry.registerItem(plasticUtensils, "plasticUtensils");

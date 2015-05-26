@@ -139,7 +139,7 @@ public class TheAndrewMod {
 	public static ItemArmor.ArmorMaterial glassBottleArmorMaterial = EnumHelper.addArmorMaterial("glassBottle", 8, new int[]{1, 3, 3, 1}, 16);
 	public static ItemArmor.ArmorMaterial cactusGunArmorMaterial = EnumHelper.addArmorMaterial("cactusGun", 12, new int[]{1,1,2,1}, 20);
 	public static ItemArmor.ArmorMaterial networkArmorMaterial = EnumHelper.addArmorMaterial("network", 12, new int[]{3,9,6,3}, 20);
-	public static Item.ToolMaterial diamondBlockMaterial = EnumHelper.addToolMaterial("diamondBlock", 9, 4683, 24, 9, 30);
+	public static Item.ToolMaterial diamondBlockMaterial = EnumHelper.addToolMaterial("diamondBlock", 18, 9366, 48, 18, 60);
 	public static DamageSource deathBy789 = new DamageSource(MODID+".deathBy789");
 	public static DamageSource deathByPotatoLiver = new DamageSource(MODID+".deathByPotatoLiver");
 	public static DamageSource deathByCancer = new DamageSource(MODID+".deathByCancer");
