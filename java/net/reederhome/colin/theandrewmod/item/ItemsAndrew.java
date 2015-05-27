@@ -1,5 +1,6 @@
 package net.reederhome.colin.theandrewmod.item;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemFood;
@@ -54,7 +55,7 @@ public class ItemsAndrew {
 	public static Item.ToolMaterial[] t = new Item.ToolMaterial[]{Item.ToolMaterial.EMERALD,Item.ToolMaterial.GOLD,Item.ToolMaterial.IRON,Item.ToolMaterial.STONE,Item.ToolMaterial.WOOD};
 	
 	public static void registerItems() {
-		liquidGunpowderBucket = new ItemBucket(BlocksAndrew.blockLiquidGunpowder).setCreativeTab(TheAndrewMod.tabAndrew).setTextureName(TheAndrewMod.MODID+":bucket_liquidGunpowder").setUnlocalizedName("liquidGunpowderBucket");
+		liquidGunpowderBucket = new ItemBucket(BlocksAndrew.blockLiquidGunpowder).setCreativeTab(TheAndrewMod.tabAndrew).setTextureName(TheAndrewMod.MODID+":bucket_liquidGunpowder").setUnlocalizedName("liquidGunpowderBucket").setContainerItem(Items.bucket);
 		
 		GameRegistry.registerItem(potatoLiver, "potatoLiver");
 		GameRegistry.registerItem(plasticUtensils, "plasticUtensils");

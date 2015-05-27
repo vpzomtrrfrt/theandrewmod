@@ -106,6 +106,7 @@ import net.reederhome.colin.theandrewmod.tileentity.TileEntityWallumagicalChest;
 import net.reederhome.colin.theandrewmod.world.BiomeGenDessert;
 import net.reederhome.colin.theandrewmod.world.WorldGeneratorAndrew;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -126,7 +127,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @Mod(modid = TheAndrewMod.MODID, version = TheAndrewMod.VERSION, name = TheAndrewMod.NAME)
-public class TheAndrewMod {
+public class TheAndrewMod implements IFuelHandler {
 
 	public static final String MODID = "theandrewmod";
 	public static final String VERSION = "1.16.2";
@@ -392,6 +393,7 @@ public class TheAndrewMod {
 		proxy.registerRenderers();
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLCommonHandler.instance().bus().register(this);
+		GameRegistry.registerFuelHandler(this);
 	}
 	
 	@EventHandler
@@ -742,5 +744,13 @@ public class TheAndrewMod {
 			e.result = new ItemStack(ItemsAndrew.liquidGunpowderBucket);
 			e.setResult(Result.ALLOW);
 		}
+	}
+
+	@Override
+	public int getBurnTime(ItemStack fuel) {
+		if(fuel.getItem().equals(ItemsAndrew.liquidGunpowderBucket)) {
+			return 5000;
+		}
+		return 0;
 	}
 }
