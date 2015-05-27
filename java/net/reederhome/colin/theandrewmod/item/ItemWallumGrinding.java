@@ -14,6 +14,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
@@ -65,11 +66,20 @@ public class ItemWallumGrinding extends Item {
 						String key = sit.next();
 						//System.out.println("=="+key);
 						ArrayList<ItemStack> ores = OreDictionary.getOres("ore"+key);
+						ArrayList<ItemStack> ingots = new ArrayList<ItemStack>();
 						for(int o = 0; o < ores.size(); o++) {
+							ItemStack ingot = FurnaceRecipes.smelting().getSmeltingResult(ores.get(o));
+							if(ingot != null) {
+								ingots.add(ingot);
+							}
 							//System.out.println(ores.get(o));
 							if(ores.get(o).getItem().equals(stack.getItem())) {
 								res = ItemWallumDust.listWallumDust.get(key).copy();
-								res.stackSize*=2;
+							}
+						}
+						for(int o = 0; o < ingots.size(); o++) {
+							if(ingots.get(o).getItem().equals(stack.getItem())) {
+								res = ItemWallumDust.listWallumDust.get(key).copy();
 							}
 						}
 					}
@@ -85,7 +95,7 @@ public class ItemWallumGrinding extends Item {
 						ItemStack tm = res.copy();
 						tm.stackSize*=stack.stackSize;
 						it.setEntityItemStack(tm);
-						par1ItemStack.damageItem(200*stack.stackSize, par3EntityPlayer);
+						par1ItemStack.damageItem(20*stack.stackSize, par3EntityPlayer);
 					}
 				}
 			}

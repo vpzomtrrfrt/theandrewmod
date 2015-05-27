@@ -315,6 +315,7 @@ public class TheAndrewMod implements IFuelHandler {
 		netWrap.registerMessage(CactusJetpackMessage.Handler.class, CactusJetpackMessage.class, 2, Side.SERVER);
 		EntityLuckEgg.initActions();
 		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ItemsAndrew.luckEgg), 1, 16, 3));
+		FishingHooks.addTreasure(new WeightedRandomFishable(new ItemStack(ItemsAndrew.luckEgg), 1));
 		cactusGunArmorMaterial.customCraftingMaterial=Item.getItemFromBlock(Blocks.cactus);
 		diamondBlockMaterial.setRepairItem(new ItemStack(Blocks.diamond_block));
 		
@@ -543,6 +544,9 @@ public class TheAndrewMod implements IFuelHandler {
 					event.target.dropItem(Item.getItemFromBlock(Blocks.tnt), 1);
 					stack.damageItem(1, event.entityLiving);
 				}
+				else if(stack.getItem().equals(ItemsAndrew.pickerupper)) {
+					event.target.mountEntity(event.entity);
+				}
 			}
 		}
 	}
@@ -601,6 +605,11 @@ public class TheAndrewMod implements IFuelHandler {
 						player.addStat(AchievementsAndrew.glassBottleArmorFill, 1);
 					}
 				}
+			}
+		}
+		if(event.source instanceof EntityDamageSource) {
+			if(((EntityDamageSource)event.source).getSourceOfDamage().riddenByEntity==event.entity) {
+				event.entity.mountEntity(null);
 			}
 		}
 	}

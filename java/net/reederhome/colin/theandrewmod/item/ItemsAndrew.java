@@ -48,8 +48,9 @@ public class ItemsAndrew {
 	public static Item wallumEating = new ItemWallumEating();
 	public static Item horseBomb = new ItemProjectileHorse();
 	public static Item fireDonut = new ItemFood(2, 0.2f, false).setUnlocalizedName("fireDonut").setTextureName(TheAndrewMod.MODID+":fireDonut");
-	public static Item diamondBlockSword = new ItemSword(TheAndrewMod.diamondBlockMaterial).setUnlocalizedName("diamondBlockSword").setTextureName(TheAndrewMod.MODID+":diamondBlockSword");
+	public static Item diamondBlockSword = new ItemSword(TheAndrewMod.diamondBlockMaterial).setUnlocalizedName("diamondBlockSword").setTextureName(TheAndrewMod.MODID+":diamondBlockSword").setCreativeTab(TheAndrewMod.tabAndrew);
 	public static Item liquidGunpowderBucket;
+	public static Item pickerupper = new Item().setMaxStackSize(1).setTextureName(TheAndrewMod.MODID+":pickerupper").setUnlocalizedName("pickerupper").setCreativeTab(TheAndrewMod.tabAndrew);
 	
 	
 	public static Item.ToolMaterial[] t = new Item.ToolMaterial[]{Item.ToolMaterial.EMERALD,Item.ToolMaterial.GOLD,Item.ToolMaterial.IRON,Item.ToolMaterial.STONE,Item.ToolMaterial.WOOD};
@@ -92,6 +93,7 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(fireDonut, "fireDonut");
 		GameRegistry.registerItem(liquidGunpowderBucket, "liquidGunpowderBucket");
 		GameRegistry.registerItem(diamondBlockSword, "diamondBlockSword");
+		GameRegistry.registerItem(pickerupper, "pickerupper");
 		
 		if(TheAndrewMod.baublesDetected) {
 			GameRegistry.registerItem(cactusGunBelt, "cactusGunBelt");
