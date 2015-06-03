@@ -39,6 +39,8 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenBigMushroom;
+import net.minecraft.world.gen.feature.WorldGenBlockBlob;
+import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.DungeonHooks;
 import net.reederhome.colin.theandrewmod.block.BlockDyedCake;
@@ -353,6 +355,16 @@ public class EntityLuckEgg extends EntityEgg {
 				EntityVillager ent = new EntityVillager(w);
 				ent.setPosition(x, y, z);
 				w.spawnEntityInWorld(ent);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				w.setBlock((int)x, (int)y, (int)z, Blocks.iron_block);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				new WorldGenTrees(true).generate(w, new Random(), (int)x, (int)y, (int)z);
 			}
 		};
 		/*
