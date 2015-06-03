@@ -543,6 +543,7 @@ public class TheAndrewMod implements IFuelHandler {
 					event.target.setDead();
 					event.target.dropItem(Item.getItemFromBlock(Blocks.tnt), 1);
 					stack.damageItem(1, event.entityLiving);
+					event.entityPlayer.addStat(AchievementsAndrew.multiplier, 1);
 				}
 				else if(stack.getItem().equals(ItemsAndrew.pickerupper)) {
 					event.target.mountEntity(event.entity);
@@ -710,6 +711,9 @@ public class TheAndrewMod implements IFuelHandler {
 		}
 		else if(ev.crafting.getItem().equals(ItemsAndrew.cactusGunPants)) {
 			ev.player.addStat(AchievementsAndrew.cactusPants, 1);
+		}
+		else if(ev.crafting.getItem().equals(ItemsAndrew.cactusGunJetpack)) {
+			ev.player.addStat(AchievementsAndrew.cactusJetpack, 1);
 		}
 		else if(ev.crafting.getItem().equals(ItemsAndrew.curveball)) {
 			if(ev.player.experienceLevel>1) {

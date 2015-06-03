@@ -17,8 +17,10 @@ import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityOcelot;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -36,6 +38,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenBigMushroom;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.DungeonHooks;
 import net.reederhome.colin.theandrewmod.block.BlockDyedCake;
@@ -306,6 +309,50 @@ public class EntityLuckEgg extends EntityEgg {
 				Item[] ti = {ItemsAndrew.glassBottleBoots, ItemsAndrew.glassBottleChestplate, ItemsAndrew.glassBottleHelmet, ItemsAndrew.glassBottleLeggings};
 				EntityItem ei = e.dropItem(ti[e.rand.nextInt(ti.length)], 1);
 				ei.getEntityItem().setItemDamage(new Random().nextInt(ei.getEntityItem().getMaxDamage()));
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				e.dropItem(ItemsAndrew.pickerupper, 1);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				int n = new Random().nextInt(7)+2;
+				for(int i = 0; i < n; i++) {
+					EnumFacing var5 = EnumFacing.UP;
+					EntityArrow var6 = new EntityArrow(w, e.getThrower(), 1);
+					var6.setLocationAndAngles(x, y, z, 0, 0);
+					var6.setThrowableHeading((double)var5.getFrontOffsetX(), (double)((float)var5.getFrontOffsetY() + 0.1F), (double)var5.getFrontOffsetZ(), 1.1f, 6);
+					w.spawnEntityInWorld(var6);
+				}
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				w.setBlock((int)x, (int)y, (int)z, Math.random()<0.4?BlocksAndrew.lootCauldron:Blocks.cauldron);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				e.dropItem(ItemsAndrew.itemWallum, 1);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				e.dropItem(Items.golden_apple, 1);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				new WorldGenBigMushroom().generate(w, new Random(), (int)x, (int)y, (int)z);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				EntityVillager ent = new EntityVillager(w);
+				ent.setPosition(x, y, z);
+				w.spawnEntityInWorld(ent);
 			}
 		};
 		/*

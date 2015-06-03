@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemEgg;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.reederhome.colin.theandrewmod.AchievementsAndrew;
 import net.reederhome.colin.theandrewmod.TheAndrewMod;
 import net.reederhome.colin.theandrewmod.entity.EntityLuckEgg;
 
@@ -37,6 +38,7 @@ public class ItemLuckEgg extends ItemEgg {
 		if(!world.isRemote) {
 			world.spawnEntityInWorld(new EntityLuckEgg(world, player));
 		}
+		player.addStat(AchievementsAndrew.luckEgg, 1);
 		return stack;
 	}
 }

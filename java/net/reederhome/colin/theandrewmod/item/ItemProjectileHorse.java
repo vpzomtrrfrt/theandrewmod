@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.reederhome.colin.theandrewmod.AchievementsAndrew;
 import net.reederhome.colin.theandrewmod.TheAndrewMod;
 import net.reederhome.colin.theandrewmod.entity.EntityProjectileHorse;
 
@@ -28,6 +29,7 @@ public class ItemProjectileHorse extends Item {
 			horse.setThrowableHeading(mx, my, mz);
 			horse.setPosition(p.posX, p.posY, p.posZ);
 			w.spawnEntityInWorld(horse);
+			p.addStat(AchievementsAndrew.horseBomb, 1);
 		}
 		if(!p.capabilities.isCreativeMode) {
 			stack.stackSize--;
