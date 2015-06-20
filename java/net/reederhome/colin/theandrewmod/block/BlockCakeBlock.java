@@ -3,8 +3,10 @@ package net.reederhome.colin.theandrewmod.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.reederhome.colin.theandrewmod.TheAndrewMod;
 
 public class BlockCakeBlock extends Block {
@@ -12,6 +14,7 @@ public class BlockCakeBlock extends Block {
 	public BlockCakeBlock() {
 		super(Material.cake);
 		setBlockTextureName(TheAndrewMod.MODID+":cakeblock_side");
+		setBlockName("cakeBlock");
 	}
 	
 	public void setBlockBoundsBasedOnState(IBlockAccess w, int x, int y, int z) {
@@ -33,5 +36,11 @@ public class BlockCakeBlock extends Block {
     {
         return false;
     }
+	
+	public boolean renderAsNormalBlock()
+    {
+        return false;
+    }
+
 
 }

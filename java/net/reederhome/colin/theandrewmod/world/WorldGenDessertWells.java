@@ -19,7 +19,6 @@ public class WorldGenDessertWells extends WorldGenerator {
 		for(var6 = -2; var6 <= 2; var6++) {
 			for(var7 = -2; var7 <= 2; var7++) {
 				if(w.isAirBlock(x+var6, y-1, z+var7)) {
-					System.out.println("NO WELL HERE");
 					return false;
 				}
 			}
