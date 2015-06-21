@@ -6,6 +6,7 @@ import net.minecraft.entity.passive.EntityMooshroom;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.reederhome.colin.theandrewmod.TheAndrewMod;
 
 public class BiomeGenDessert extends BiomeGenBase {
 
@@ -32,9 +33,10 @@ public class BiomeGenDessert extends BiomeGenBase {
             int var6 = par4 + par2Random.nextInt(16) + 8;
             WorldGenDessertWells var7 = new WorldGenDessertWells();
             var7.generate(par1World, par2Random, var5, par1World.getHeightValue(var5, var6) + 1, var6);
-            System.out.println("WELL at "+var5+","+var6);
+            if(TheAndrewMod.logWells) {
+            	System.out.println("WELL at "+var5+","+var6);
+            }
         }
-        System.out.println("decorate");
     }
 
 }

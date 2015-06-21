@@ -3,6 +3,7 @@ package net.reederhome.colin.theandrewmod.entity;
 import java.util.ArrayList;
 import java.util.Random;
 
+import scala.actors.threadpool.Arrays;
 import net.minecraft.dispenser.IPosition;
 import net.minecraft.dispenser.PositionImpl;
 import net.minecraft.entity.Entity;
@@ -12,6 +13,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityTNTPrimed;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityGiantZombie;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntityZombie;
@@ -28,6 +30,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagString;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ChatComponentText;
@@ -134,7 +138,6 @@ public class EntityLuckEgg extends EntityEgg {
 			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
 				ChunkPosition c = w.findClosestStructure("Stronghold", (int)x, (int)y, (int)z);
 				if(c!=null&&Math.random()<0.1) {
-					System.out.println(c.chunkPosX+","+c.chunkPosZ);
 					int dx = c.chunkPosX;
 					int dz = c.chunkPosY;
 					int dy = (int)y;
@@ -353,6 +356,7 @@ public class EntityLuckEgg extends EntityEgg {
 		new LuckEggAction() {
 			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
 				EntityVillager ent = new EntityVillager(w);
+				ent.onSpawnWithEgg(null);
 				ent.setPosition(x, y, z);
 				w.spawnEntityInWorld(ent);
 			}
@@ -365,6 +369,28 @@ public class EntityLuckEgg extends EntityEgg {
 		new LuckEggAction() {
 			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
 				new WorldGenTrees(true).generate(w, new Random(), (int)x, (int)y, (int)z);
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				ArrayList<String> names = new ArrayList<String>();
+				names.add("vpzom");
+				names.add("poposor");
+				names.addAll(Arrays.asList(MinecraftServer.getServer().getAllUsernames()));
+				EntityItem ei = e.dropItem(Items.skull, 1);
+				ItemStack stack = ei.getEntityItem();
+				stack.setItemDamage(3);
+				stack.setTagInfo("SkullOwner", new NBTTagString(names.get(e.rand.nextInt(names.size()))));
+				
+			}
+		};
+		new LuckEggAction() {
+			public void run(World w, double x, double y, double z, EntityLuckEgg e) {
+				int n = e.rand.nextInt(20)+2;
+				for(int i = 0; i < n; i++) {
+					EntityXPOrb ent = new EntityXPOrb(w, x, y, z, e.rand.nextInt(17));
+					w.spawnEntityInWorld(ent);
+				}
 			}
 		};
 		/*

@@ -90,7 +90,6 @@ public class EntityThomas extends EntityTameable implements IRangedAttackMob {
 			this.worldObj.setBlock((int)g.xCoord, (int)g.yCoord, (int)g.zCoord, Blocks.lava);
 		}
 		if(Math.random()<0.2&&this.isEnderThomas()) {
-			System.out.println("Teleporting");
 			int maxDist = 10;
 			double newX = posX+(Math.random()-0.5)*maxDist;
 			double newZ = posZ+(Math.random()-0.5)*maxDist;
@@ -173,7 +172,6 @@ public class EntityThomas extends EntityTameable implements IRangedAttackMob {
 				}
 			}
 		}
-		System.out.println(this.func_152113_b());
 		return false;
 	}
 	public void setChild(boolean child) {

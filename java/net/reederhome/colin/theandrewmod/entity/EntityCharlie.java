@@ -83,7 +83,6 @@ public class EntityCharlie extends EntityChicken {
 	public void onDeath(DamageSource source) {
 		super.onDeath(source);
 		if(this.worldObj.isRemote) return;
-		System.out.println(source.damageType);
 		EntityItem item = this.dropItem(Items.command_block_minecart, 1);
 		item.setEntityItemStack(new ItemStack(Items.dye, new Random().nextInt(4), this.getDataWatcher().getWatchableObjectInt(16)));
 	}

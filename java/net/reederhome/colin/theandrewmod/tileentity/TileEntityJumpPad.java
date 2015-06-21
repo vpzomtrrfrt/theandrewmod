@@ -26,7 +26,7 @@ public class TileEntityJumpPad extends TileEntity {
 			EntityPlayerMP e = (EntityPlayerMP) i.next();
 			//System.out.println(e.getCommandSenderName());
 			if(!(e.getCommandSenderName().equals(owner)&&e.isSneaking())) {
-				if(worldObj.getBlockMetadata(xCoord, yCoord, zCoord)==5) {System.out.println("resist"); e.addPotionEffect(new PotionEffect(Potion.resistance.id, 5, 2));}
+				if(worldObj.getBlockMetadata(xCoord, yCoord, zCoord)==5) {e.addPotionEffect(new PotionEffect(Potion.resistance.id, 5, 2));}
 				e.addPotionEffect(new PotionEffect(8, 5, 40));
 			}
 		}
@@ -35,7 +35,7 @@ public class TileEntityJumpPad extends TileEntity {
 		while(i2.hasNext()) {
 			EntityLiving e = (EntityLiving) i2.next();
 			//System.out.println(e.getCommandSenderName());
-			if(worldObj.getBlockMetadata(xCoord, yCoord, zCoord)==5) {System.out.println("resist"); e.addPotionEffect(new PotionEffect(Potion.resistance.id, 5, 2));}
+			if(worldObj.getBlockMetadata(xCoord, yCoord, zCoord)==5) {e.addPotionEffect(new PotionEffect(Potion.resistance.id, 5, 2));}
 			e.addPotionEffect(new PotionEffect(8, 5, 40));
 		}
 	}

@@ -163,7 +163,9 @@ public class TheAndrewMod implements IFuelHandler {
 	public static boolean baublesDetected = false;
 	
 	public static int avid;
-	public static boolean debugMode;
+	public static boolean logRUC;
+	public static boolean logWells;
+	public static boolean logCraft;
 	
 	static Configuration config;
 	
@@ -174,7 +176,10 @@ public class TheAndrewMod implements IFuelHandler {
 	public void preInit(FMLPreInitializationEvent event) {
 		config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
-		debugMode = config.getBoolean("debugMode", "misc", false, "Some extra logging for debugging and showcases");
+		config.addCustomCategoryComment("logging", "Console messages for certain things, because maybe someone wants them!");
+		logRUC = config.getBoolean("randomUndergroundCauldrons", "logging", false, "");
+		logCraft = config.getBoolean("crafting", "logging", false, "");
+		logWells = config.getBoolean("dessertWells", "logging", false, "");
 		avid = config.getInt("villagerId", "ids", 24, 0, 4096, "id for Andrew");
 		biomeDessert = new BiomeGenDessert(config.getInt("dessertBiomeId", "ids", 24, 0, 4096, "id for Dessert Biome"));
 		teidThomas = EntityRegistry.findGlobalUniqueEntityId();
@@ -307,6 +312,7 @@ public class TheAndrewMod implements IFuelHandler {
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.cactusGunBelt), " l ", "lsl", "ylg", 'l', Items.leather, 's', Items.string, 'y', Items.slime_ball, 'g', ItemsAndrew.cactusGun);
 		}
 		GameRegistry.addRecipe(new ShapedOreRecipe(ItemsAndrew.diamondBlockSword, " d ", " d ", " s ", 'd', "blockDiamond", 's', "stickWood"));
+		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.cakeBlock), "cc", "cc", 'c', Items.cake);
 		GameRegistry.addSmelting(BlocksAndrew.cactusOre, new ItemStack(Blocks.cactus), 22);
 		OreDictionary.registerOre("oreCactus", BlocksAndrew.cactusOre);
 		netWrap = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
@@ -500,7 +506,7 @@ public class TheAndrewMod implements IFuelHandler {
 				BiomeGenBase biome = event.world.getBiomeGenForCoords(event.x, event.z);
 				if(biome instanceof BiomeGenDesert || biome instanceof BiomeGenBeach) {
 					double r = Math.random();
-					if(r<0.01) {
+					if(r<0.005) {
 						event.drops.add(new ItemStack(ItemsAndrew.horseBomb));
 					}
 				}
@@ -685,7 +691,9 @@ public class TheAndrewMod implements IFuelHandler {
 	
 	@SubscribeEvent
 	public void onPlayerCraft(ItemCraftedEvent ev) {
-		System.out.println(ev.player.getCommandSenderName()+" crafted something");
+		if(logCraft) {
+			System.out.println(ev.player.getCommandSenderName()+" crafted something");
+		}
 		if(ev.crafting.getItem().equals(ItemsAndrew.butterDust)) {
 			ev.player.addStat(AchievementsAndrew.butterDust, 1);
 			if(Math.random()<0.9) {

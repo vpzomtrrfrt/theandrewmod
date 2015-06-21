@@ -45,7 +45,6 @@ public class BlockJumpPad extends Block implements ITileEntityProvider {
 		ItemStack hi = p.getHeldItem();
 		if(hi!=null) {
 			if(hi.getItem().equals(ItemsAndrew.itemWallum)) {
-				System.out.println("wallum");
 				if(world.getBlockMetadata(x, y, z)==0) {
 					if(((TileEntityJumpPad)world.getTileEntity(x, y, z)).owner.equals(p.getCommandSenderName())) {
 						hi.damageItem(1, p);

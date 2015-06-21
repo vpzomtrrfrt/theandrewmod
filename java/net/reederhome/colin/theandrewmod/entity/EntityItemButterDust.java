@@ -23,7 +23,6 @@ public class EntityItemButterDust extends EntityItem {
 	public void onUpdate() {
 		super.onUpdate();
 		if(this.isBurning()) {
-			System.out.println("I'm burning!");
 			this.setDead();
 			int bdr = 10;
 			List<EntityLivingBase> l = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(posX-bdr, posY-bdr, posZ-bdr, posX+bdr, posY+bdr, posZ+bdr));

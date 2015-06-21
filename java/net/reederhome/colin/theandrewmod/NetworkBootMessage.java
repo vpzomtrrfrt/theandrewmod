@@ -51,13 +51,6 @@ public class NetworkBootMessage implements IMessage {
 					if(t!=null) {
 						player.displayGUIChest(new NetworkBootInventory(player,t));
 					}
-					else {
-						System.out.println(t);
-					}
-				}
-				else {
-					System.out.println("not got the boots!");
-					System.out.println(player.getCurrentArmor(0).getItem());
 				}
 			} catch(Exception e) {
 				e.printStackTrace();

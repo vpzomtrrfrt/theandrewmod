@@ -64,7 +64,6 @@ public class FirmMatressCommand implements ICommand {
 			world.setBlock(x, coords.posY, coords.posZ, x==decoy?BlocksAndrew.decoyBed:Blocks.bed);
 			world.setBlock(x, coords.posY, coords.posZ+1, x==decoy?BlocksAndrew.decoyBed:Blocks.bed, 8, 3);
 		}
-		System.out.println("Decoy: "+decoy);
 	}
 
 }

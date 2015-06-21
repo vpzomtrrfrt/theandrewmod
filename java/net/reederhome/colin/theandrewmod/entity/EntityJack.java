@@ -53,7 +53,6 @@ public class EntityJack extends EntityCreature implements IRangedAttackMob {
 		List<EntityThomas> th = worldObj.getEntitiesWithinAABB(EntityThomas.class, AxisAlignedBB.getBoundingBox(posX-10, posY-10, posZ-10, posX+10, posY+10, posZ+10));
 		if(Math.random()<0.1&&th.size()>0) {
 			Vec3 t = RandomPositionGenerator.findRandomTargetBlockTowards(this, 2, 10, Vec3.createVectorHelper(th.get(0).posX, th.get(0).posY, th.get(0).posZ));
-			System.out.println(t);
 			int x = (int)t.xCoord;
 			int y = (int)t.yCoord;
 			int z = (int)t.zCoord;

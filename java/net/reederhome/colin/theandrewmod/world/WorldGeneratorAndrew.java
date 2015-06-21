@@ -36,7 +36,7 @@ public class WorldGeneratorAndrew implements IWorldGenerator {
 					for(y=1;y<256;y++) {
 						if(arg3.isAirBlock(x, y, z)&&arg3.isSideSolid(x, y-1, z, ForgeDirection.UP)) {
 							if(!arg3.canBlockSeeTheSky(x, y, z)) {
-								if(TheAndrewMod.debugMode) {
+								if(TheAndrewMod.logRUC) {
 									System.out.println("RUC at "+x+" "+y+" "+z);
 								}
 								arg3.setBlock(x, y, z, Math.random()<0.2?BlocksAndrew.lootCauldron:Blocks.cauldron);
