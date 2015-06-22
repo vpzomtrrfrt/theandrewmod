@@ -83,6 +83,7 @@ tile.tntChest.name=TNT Chest
 tile.checkerboard.name=Checkerboard Block
 tile.pakistan.name=Pakistan Block
 tile.sidedChest.name=Sided Chest
+tile.cakeBlock.name=Cakestone
 potion.cancerPotion=Cancer
 potion.clusterPotion=Clustering
 potion.spinningPotion=Spinning

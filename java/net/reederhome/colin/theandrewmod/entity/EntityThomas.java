@@ -18,6 +18,7 @@ import net.minecraft.entity.ai.EntityAIOwnerHurtByTarget;
 import net.minecraft.entity.ai.EntityAIOwnerHurtTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.RandomPositionGenerator;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -39,7 +40,7 @@ public class EntityThomas extends EntityTameable implements IRangedAttackMob {
 		super(par1World);
 		this.tasks.addTask(0, new EntityAIMoveRandomly(this));
 		this.tasks.addTask(1, new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F));
-		this.tasks.addTask(2, new EntityAIRideHorses(this));
+		this.tasks.addTask(2, new EntityAIRideEntity(this, EntityHorse.class));
 		this.tasks.addTask(3, new EntityAIFollowOwner(this, 1, 10, 2));
 		this.tasks.addTask(4, new EntityAIMoveTowardsTarget(this, 0.9, 32));
 		this.tasks.addTask(5, this.aiSit);
