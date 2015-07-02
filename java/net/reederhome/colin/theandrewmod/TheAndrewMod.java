@@ -88,6 +88,7 @@ import net.reederhome.colin.theandrewmod.entity.EntityItemButterDust;
 import net.reederhome.colin.theandrewmod.entity.EntityJack;
 import net.reederhome.colin.theandrewmod.entity.EntityKevin;
 import net.reederhome.colin.theandrewmod.entity.EntityLuckEgg;
+import net.reederhome.colin.theandrewmod.entity.EntityMooshboom;
 import net.reederhome.colin.theandrewmod.entity.EntityProjectileHorse;
 import net.reederhome.colin.theandrewmod.entity.EntityThomas;
 import net.reederhome.colin.theandrewmod.entity.EntityThrownCactus;
@@ -233,6 +234,9 @@ public class TheAndrewMod implements IFuelHandler {
 		teid = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(EntityProjectileHorse.class, "ProjectileHorse", teid);
 		EntityRegistry.registerModEntity(EntityProjectileHorse.class, "ProjectileHorse", teid, MODID, 128, 1, true);
+		teid = EntityRegistry.findGlobalUniqueEntityId();
+		EntityRegistry.registerGlobalEntityID(EntityMooshboom.class, "Mooshboom", teid);
+		EntityRegistry.registerModEntity(EntityMooshboom.class, "Mooshboom", teid, MODID, 128, 1, true);
 		GameRegistry.registerTileEntity(TileEntitySideSlab.class, "sideSlab");
 		GameRegistry.registerTileEntity(TileEntityJumpPad.class, "jumpPad");
 		GameRegistry.registerTileEntity(TileEntityTNTChest.class, "TNTChest");
