@@ -2,6 +2,7 @@ package net.reederhome.colin.theandrewmod.item;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemReed;
@@ -49,6 +50,7 @@ public class ItemsAndrew {
 	public static Item horseBomb = new ItemProjectileHorse();
 	public static Item fireDonut = new ItemFood(2, 0.2f, false).setUnlocalizedName("fireDonut").setTextureName(TheAndrewMod.MODID+":fireDonut");
 	public static Item diamondBlockSword = new ItemSword(TheAndrewMod.diamondBlockMaterial).setUnlocalizedName("diamondBlockSword").setTextureName(TheAndrewMod.MODID+":diamondBlockSword").setCreativeTab(TheAndrewMod.tabAndrew);
+	public static Item diamondBlockChestplate = new DiamondBlockArmor(0, 1);
 	public static Item liquidGunpowderBucket;
 	public static Item pickerupper = new Item().setMaxStackSize(1).setTextureName(TheAndrewMod.MODID+":pickerupper").setUnlocalizedName("pickerupper").setCreativeTab(TheAndrewMod.tabAndrew);
 	
@@ -93,6 +95,7 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(fireDonut, "fireDonut");
 		GameRegistry.registerItem(liquidGunpowderBucket, "liquidGunpowderBucket");
 		GameRegistry.registerItem(diamondBlockSword, "diamondBlockSword");
+		GameRegistry.registerItem(diamondBlockChestplate, "diamondBlockChestplate");
 		GameRegistry.registerItem(pickerupper, "pickerupper");
 		
 		if(TheAndrewMod.baublesDetected) {
