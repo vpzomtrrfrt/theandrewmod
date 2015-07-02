@@ -131,7 +131,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TheAndrewMod implements IFuelHandler {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.17.0";
+	public static final String VERSION = "1.18.0";
 	public static final String NAME = "The Andrew Mod";
 	public static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
 		@Override
@@ -317,6 +317,10 @@ public class TheAndrewMod implements IFuelHandler {
 			GameRegistry.addRecipe(new ItemStack(ItemsAndrew.cactusGunBelt), " l ", "lsl", "ylg", 'l', Items.leather, 's', Items.string, 'y', Items.slime_ball, 'g', ItemsAndrew.cactusGun);
 		}
 		GameRegistry.addRecipe(new ShapedOreRecipe(ItemsAndrew.diamondBlockSword, " d ", " d ", " s ", 'd', "blockDiamond", 's', "stickWood"));
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.diamondBlockBoots), "d d", "d d", 'd', Blocks.diamond_block);
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.diamondBlockHelmet), "ddd", "d d", 'd', Blocks.diamond_block);
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.diamondBlockLeggings), "ddd", "d d", "d d", 'd', Blocks.diamond_block);
+		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.diamondBlockChestplate), "d d", "ddd", "ddd", 'd', Blocks.diamond_block);
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.cakeBlock), "cc", "cc", 'c', Items.cake);
 		GameRegistry.addSmelting(BlocksAndrew.cactusOre, new ItemStack(Blocks.cactus), 22);
 		OreDictionary.registerOre("oreCactus", BlocksAndrew.cactusOre);
