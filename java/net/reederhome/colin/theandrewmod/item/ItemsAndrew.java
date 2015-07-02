@@ -51,6 +51,9 @@ public class ItemsAndrew {
 	public static Item fireDonut = new ItemFood(2, 0.2f, false).setUnlocalizedName("fireDonut").setTextureName(TheAndrewMod.MODID+":fireDonut");
 	public static Item diamondBlockSword = new ItemSword(TheAndrewMod.diamondBlockMaterial).setUnlocalizedName("diamondBlockSword").setTextureName(TheAndrewMod.MODID+":diamondBlockSword").setCreativeTab(TheAndrewMod.tabAndrew);
 	public static Item diamondBlockChestplate = new DiamondBlockArmor(0, 1);
+	public static Item diamondBlockHelmet = new DiamondBlockArmor(0, 0);
+	public static Item diamondBlockLeggings = new DiamondBlockArmor(0, 2);
+	public static Item diamondBlockBoots = new DiamondBlockArmor(0, 3);
 	public static Item liquidGunpowderBucket;
 	public static Item pickerupper = new Item().setMaxStackSize(1).setTextureName(TheAndrewMod.MODID+":pickerupper").setUnlocalizedName("pickerupper").setCreativeTab(TheAndrewMod.tabAndrew);
 	
@@ -96,6 +99,9 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(liquidGunpowderBucket, "liquidGunpowderBucket");
 		GameRegistry.registerItem(diamondBlockSword, "diamondBlockSword");
 		GameRegistry.registerItem(diamondBlockChestplate, "diamondBlockChestplate");
+		GameRegistry.registerItem(diamondBlockHelmet, "diamondBlockHelmet");
+		GameRegistry.registerItem(diamondBlockLeggings, "diamondBlockLeggings");
+		GameRegistry.registerItem(diamondBlockBoots, "diamondBlockBoots");
 		GameRegistry.registerItem(pickerupper, "pickerupper");
 		
 		if(TheAndrewMod.baublesDetected) {
