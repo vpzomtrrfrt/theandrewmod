@@ -45,6 +45,7 @@ public class EntityTrevor extends EntityCreature {
 	}
 	public void onUpdate() {
 		super.onUpdate();
+		if(worldObj.isRemote) return;
 		Vec3 pos = RandomPositionGenerator.findRandomTarget(this, 4, 20);
 		if(pos!=null) {
 			int x = (int)pos.xCoord;
