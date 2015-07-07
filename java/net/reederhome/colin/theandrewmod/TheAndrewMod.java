@@ -17,8 +17,10 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.item.EntityEnderEye;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.item.EntityTNTPrimed;
@@ -41,8 +43,10 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.util.WeightedRandomFishable;
+import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeGenBeach;
@@ -55,6 +59,7 @@ import net.minecraftforge.common.FishingHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -131,7 +136,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TheAndrewMod implements IFuelHandler {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.18.1";
+	public static final String VERSION = "1.19.0";
 	public static final String NAME = "The Andrew Mod";
 	public static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
 		@Override
@@ -569,7 +574,8 @@ public class TheAndrewMod implements IFuelHandler {
 	
 	@SubscribeEvent
 	public void onLivingHurt(LivingHurtEvent event) {
-		if(event.entityLiving.worldObj.isRemote) return;
+		World world = event.entityLiving.worldObj;
+		if(world.isRemote) return;
 		if(event.entity instanceof EntityThomas&&event.source.isProjectile()) {
 			event.entityLiving.attackEntityFrom(DamageSource.cactus, 1.0F);
 		}
@@ -624,10 +630,78 @@ public class TheAndrewMod implements IFuelHandler {
 			}
 		}
 		if(event.source instanceof EntityDamageSource) {
+			ItemStack held = null;
+			Entity src = event.source.getSourceOfDamage();
+			EntityLivingBase srcLiving = null;
+			EntityPlayer srcPlayer = null;
+			if(src instanceof EntityLivingBase) {
+				srcLiving = (EntityLivingBase) src;
+				held = srcLiving.getHeldItem();
+			}
+			if(src instanceof EntityPlayer) {
+				srcPlayer = (EntityPlayer) src;
+			}
 			if(((EntityDamageSource)event.source).getSourceOfDamage().riddenByEntity==event.entity) {
 				event.entity.mountEntity(null);
 			}
+			if(held!=null) {
+				System.out.println(held);
+				if(held.getItem().equals(Items.ender_eye) && srcPlayer != null) {
+					System.out.println("spooky");
+					if (!world.isRemote)
+					{
+						ChunkPosition var5 = world.findClosestStructure("Stronghold", (int)srcPlayer.posX, (int)srcPlayer.posY, (int)srcPlayer.posZ);
+
+						if (var5 != null)
+						{
+							EntityEnderEye var6 = new EntityEnderEye(world, srcPlayer.posX, srcPlayer.posY + 1.62D - (double)srcPlayer.yOffset, srcPlayer.posZ);
+							var6.moveTowards((double)var5.chunkPosX, var5.chunkPosY, (double)var5.chunkPosZ);
+							world.spawnEntityInWorld(var6);
+							event.entity.mountEntity(var6);
+							world.playSoundAtEntity(srcPlayer, "random.bow", 0.5F, 0.4F / (new Random().nextFloat() * 0.4F + 0.8F));
+							world.playAuxSFXAtEntity((EntityPlayer)null, 1002, (int)srcPlayer.posX, (int)srcPlayer.posY, (int)srcPlayer.posZ, 0);
+
+							if (!srcPlayer.capabilities.isCreativeMode)
+							{
+								--held.stackSize;
+							}
+						}
+					}
+				}
+			}
 		}
+	}
+	
+	@SubscribeEvent
+	public void onAttackEntity(LivingAttackEvent event) {
+		Entity src = event.source.getSourceOfDamage();
+		EntityLivingBase srcLiving = (src instanceof EntityLivingBase)?((EntityLivingBase) src):null;
+		EntityPlayer srcPlayer = (src instanceof EntityPlayer)?((EntityPlayer) src):null;
+		ItemStack held = srcLiving!=null?srcLiving.getHeldItem():null;
+		World world = event.entity.worldObj;
+		/*if(held!=null) {
+			if(held.getItem().equals(Items.ender_eye) && srcPlayer != null) {				
+				if (!world.isRemote)
+				{
+					ChunkPosition var5 = world.findClosestStructure("Stronghold", (int)srcPlayer.posX, (int)srcPlayer.posY, (int)srcPlayer.posZ);
+
+					if (var5 != null)
+					{
+						EntityEnderEye var6 = new EntityEnderEye(world, srcPlayer.posX, srcPlayer.posY + 1.62D - (double)srcPlayer.yOffset, srcPlayer.posZ);
+						var6.moveTowards((double)var5.chunkPosX, var5.chunkPosY, (double)var5.chunkPosZ);
+						world.spawnEntityInWorld(var6);
+						event.entity.mountEntity(var6);
+						world.playSoundAtEntity(srcPlayer, "random.bow", 0.5F, 0.4F / (new Random().nextFloat() * 0.4F + 0.8F));
+						world.playAuxSFXAtEntity((EntityPlayer)null, 1002, (int)srcPlayer.posX, (int)srcPlayer.posY, (int)srcPlayer.posZ, 0);
+
+						if (srcPlayer.capabilities.isCreativeMode)
+						{
+							--held.stackSize;
+						}
+					}
+				}
+			}
+		}*/
 	}
 	
 	@SubscribeEvent
