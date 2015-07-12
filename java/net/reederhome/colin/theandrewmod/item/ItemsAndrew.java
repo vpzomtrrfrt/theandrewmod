@@ -56,6 +56,7 @@ public class ItemsAndrew {
 	public static Item diamondBlockBoots = new DiamondBlockArmor(0, 3);
 	public static Item liquidGunpowderBucket;
 	public static Item pickerupper = new Item().setMaxStackSize(1).setTextureName(TheAndrewMod.MODID+":pickerupper").setUnlocalizedName("pickerupper").setCreativeTab(TheAndrewMod.tabAndrew);
+	public static Item wallumTeleport = new ItemWallumTeleport();
 	
 	
 	public static Item.ToolMaterial[] t = new Item.ToolMaterial[]{Item.ToolMaterial.EMERALD,Item.ToolMaterial.GOLD,Item.ToolMaterial.IRON,Item.ToolMaterial.STONE,Item.ToolMaterial.WOOD};
@@ -103,6 +104,7 @@ public class ItemsAndrew {
 		GameRegistry.registerItem(diamondBlockLeggings, "diamondBlockLeggings");
 		GameRegistry.registerItem(diamondBlockBoots, "diamondBlockBoots");
 		GameRegistry.registerItem(pickerupper, "pickerupper");
+		GameRegistry.registerItem(wallumTeleport, "wallumTeleport");
 		
 		if(TheAndrewMod.baublesDetected) {
 			GameRegistry.registerItem(cactusGunBelt, "cactusGunBelt");

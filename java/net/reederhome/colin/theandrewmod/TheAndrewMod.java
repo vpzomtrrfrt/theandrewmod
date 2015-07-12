@@ -17,7 +17,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.item.EntityEnderEye;
@@ -38,12 +37,12 @@ import net.minecraft.item.ItemMinecart;
 import net.minecraft.item.ItemSoup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.util.WeightedRandomFishable;
 import net.minecraft.world.ChunkPosition;
@@ -101,6 +100,7 @@ import net.reederhome.colin.theandrewmod.entity.EntityTrevor;
 import net.reederhome.colin.theandrewmod.entity.EntityZombieCow;
 import net.reederhome.colin.theandrewmod.item.ItemGlassBottleArmor;
 import net.reederhome.colin.theandrewmod.item.ItemWallumDust;
+import net.reederhome.colin.theandrewmod.item.ItemWallumTeleport;
 import net.reederhome.colin.theandrewmod.item.ItemsAndrew;
 import net.reederhome.colin.theandrewmod.support.morph.AbilityExplodeOnDeath;
 import net.reederhome.colin.theandrewmod.support.morph.AbilityThrowPotions;
@@ -277,10 +277,17 @@ public class TheAndrewMod implements IFuelHandler {
 			RecipeSorter.register("butterShell", RecipesButterShell.class, Category.SHAPELESS, "");
 			GameRegistry.addRecipe(new RecipesButterShell());
 		}
+		ItemStack tpw = new ItemStack(ItemsAndrew.wallumTeleport);
+		NBTTagCompound tpwt = new NBTTagCompound();
+		tpwt.setBoolean("CRAFTWAT", true);
+		tpw.setTagCompound(tpwt);
+		GameRegistry.addShapelessRecipe(tpw, ItemsAndrew.itemWallum, Items.ender_pearl);
 		RecipeSorter.register("wallumGrinding", RecipesWallumGrinding.class, Category.SHAPELESS, "");
 		RecipeSorter.register("wallumEating", RecipesWallumEating.class, Category.SHAPELESS, "");
+		RecipeSorter.register("wallumTeleport", RecipesWallumTeleport.class, Category.SHAPELESS, "");
 		GameRegistry.addRecipe(new RecipesWallumGrinding());
 		GameRegistry.addRecipe(new RecipesWallumEating());
+		GameRegistry.addRecipe(new RecipesWallumTeleport());
 		GameRegistry.addRecipe(new ShapedOreRecipe(ItemsAndrew.itemWallum, "w", "s", "i", 'i', "ingotIron", 's', "stickWood", 'w', "plankWood"));
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.blockCactusGun), "rcr", "gig", "rcr", 'r', Items.redstone, 'c', Blocks.cobblestone, 'g', ItemsAndrew.cactusGun, 'i', Items.iron_ingot);
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.rainbowMachine), "scs", "crc", "scs", 's', Items.redstone, 'c', Blocks.cobblestone, 'r', ItemsAndrew.rainbowCoreAdvanced);
@@ -827,6 +834,12 @@ public class TheAndrewMod implements IFuelHandler {
 				}
 			}
 		}
+		else if(ev.crafting.getItem().equals(ItemsAndrew.wallumTeleport)) {
+			NBTTagCompound tag = ev.crafting.getTagCompound();
+			if(tag==null || !tag.hasKey("Pos")) {
+				((ItemWallumTeleport)ItemsAndrew.wallumTeleport).getIt(ev.crafting, ev.player);
+			}
+		}
 	}
 	
 	@SubscribeEvent
@@ -854,6 +867,9 @@ public class TheAndrewMod implements IFuelHandler {
 	public int getBurnTime(ItemStack fuel) {
 		if(fuel.getItem().equals(ItemsAndrew.liquidGunpowderBucket)) {
 			return 5000;
+		}
+		else if(fuel.getItem().equals(ItemsAndrew.itemWallumCooking)) {
+			return 300+(fuel.getMaxDamage()-fuel.getItemDamage());
 		}
 		return 0;
 	}
