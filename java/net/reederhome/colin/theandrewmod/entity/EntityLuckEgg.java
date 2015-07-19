@@ -1,9 +1,9 @@
 package net.reederhome.colin.theandrewmod.entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
-import scala.actors.threadpool.Arrays;
 import net.minecraft.dispenser.IPosition;
 import net.minecraft.dispenser.PositionImpl;
 import net.minecraft.entity.Entity;
@@ -43,7 +43,6 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenBigMushroom;
-import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.DungeonHooks;
