@@ -292,6 +292,8 @@ public class TheAndrewMod implements IFuelHandler {
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.blockCactusGun), "rcr", "gig", "rcr", 'r', Items.redstone, 'c', Blocks.cobblestone, 'g', ItemsAndrew.cactusGun, 'i', Items.iron_ingot);
 		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.rainbowMachine), "scs", "crc", "scs", 's', Items.redstone, 'c', Blocks.cobblestone, 'r', ItemsAndrew.rainbowCoreAdvanced);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.cactusGunPants), "lgl", "c c", "c c", 'l', Items.leather, 'g', ItemsAndrew.cactusGun, 'c', Blocks.cactus);
+		GameRegistry.addRecipe(new ItemStack(BlocksAndrew.compressedCactus), "ccc", "ccc", "ccc", 'c', Blocks.cactus);
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.cactus, 9), BlocksAndrew.compressedCactus);
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.decoyBed), Items.bed, Items.gunpowder, Blocks.stone_button, Items.redstone);
 		GameRegistry.addShapelessRecipe(new ItemStack(BlocksAndrew.tntChest), Blocks.tnt, Blocks.chest, Items.gunpowder, dye("green"));
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemsAndrew.itemRedstoneCake), Items.cake, Items.redstone, Blocks.stone_stairs, Blocks.stone_pressure_plate, Blocks.wooden_button);
@@ -734,13 +736,28 @@ public class TheAndrewMod implements IFuelHandler {
 		Block block = event.entity.worldObj.getBlock(event.x, event.y, event.z);
 		ItemStack item = event.entityPlayer.getCurrentEquippedItem();
 		World w = event.entity.worldObj;
-		if((block.equals(Blocks.cactus)||block.equals(BlocksAndrew.dyedCactus))&&item!=null&&item.getItem().equals(Items.dye)) {
-			item.stackSize--;
-			w.setBlock(event.x, event.y, event.z, BlocksAndrew.dyedCactus, item.getItemDamage(), 3);
-			w.playSound(event.x, event.y, event.z, "mob.villager.death", 1f, 1f, true);
-			event.entityPlayer.addStat(AchievementsAndrew.dyeCactus, 1);
+		if((block.equals(Blocks.cactus)||block.equals(BlocksAndrew.dyedCactus))&&item!=null) {
+			int dye = -1;
+			String[] dyes = {"Black","Red","Green","Brown","Blue","Purple","Cyan","LightGray","Gray","Pink","Lime","Yellow","LightBlue","Magenta","Orange","White"};
+			for(int d = 0; d < dyes.length; d++) {
+				List<ItemStack> l = OreDictionary.getOres("dye"+dyes[d]);
+				Iterator<ItemStack> it = l.iterator();
+				while(it.hasNext()) {
+					if(OreDictionary.itemMatches(it.next(), item, false)) {
+						dye = d;
+					}
+				}
+			}
+			if(dye>-1) {
+				if(!event.entityPlayer.capabilities.isCreativeMode) {
+					item.stackSize--;
+				}
+				w.setBlock(event.x, event.y, event.z, BlocksAndrew.dyedCactus, dye, 3);
+				w.playSound(event.x, event.y, event.z, "mob.villager.death", 1f, 1f, true);
+				event.entityPlayer.addStat(AchievementsAndrew.dyeCactus, 1);
+			}
 		}
-		else if((block.equals(Blocks.cake)||block instanceof BlockDyedCake)&&item!=null&&item.getItem().equals(Items.dye)) {
+		if((block.equals(Blocks.cake)||block instanceof BlockDyedCake)&&item!=null&&item.getItem().equals(Items.dye)) {
 			item.stackSize--;
 			int meta = w.getBlockMetadata(event.x, event.y, event.z);
 			w.setBlock(event.x, event.y, event.z, BlockDyedCake.listDyedCake[item.getItemDamage()]);

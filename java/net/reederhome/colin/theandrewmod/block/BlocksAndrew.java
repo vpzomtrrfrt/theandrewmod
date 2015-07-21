@@ -29,6 +29,7 @@ public class BlocksAndrew {
 	public static Block wallumagicalChest = new BlockWallumagicalChest().setHardness(2.5F).setStepSound(Block.soundTypeWood).setBlockName("chest");
 	public static Block sidedChest = new BlockSidedChest();
 	public static Block cakeBlock = new BlockCakeBlock();
+	public static Block compressedCactus = new BlockCompressedCactus();
 	public static Block blockLiquidGunpowder;
 	
 	public static void registerBlocks() {
@@ -54,5 +55,6 @@ public class BlocksAndrew {
 		GameRegistry.registerBlock(sidedChest, "sidedChest");
 		GameRegistry.registerBlock(blockLiquidGunpowder, "liquidGunpowder");
 		GameRegistry.registerBlock(cakeBlock, "cakeBlock");
+		GameRegistry.registerBlock(compressedCactus, "compressedCactus");
 	}
 }

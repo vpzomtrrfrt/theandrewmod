@@ -89,6 +89,7 @@ tile.checkerboard.name=Checkerboard Block
 tile.pakistan.name=Pakistan Block
 tile.sidedChest.name=Sided Chest
 tile.cakeBlock.name=Cakestone
+tile.compressedCactus.name=Compressed Cactus
 potion.cancerPotion=Cancer
 potion.clusterPotion=Clustering
 potion.spinningPotion=Spinning
