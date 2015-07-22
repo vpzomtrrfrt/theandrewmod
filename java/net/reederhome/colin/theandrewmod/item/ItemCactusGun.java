@@ -35,7 +35,6 @@ public class ItemCactusGun extends Item {
 			}
 		}
 		player.inventoryContainer.detectAndSendChanges();
-		System.out.println((world.isRemote?"Client":"Server")+" "+(hasCactus?"has":"does not have")+" cactus");
 		if(hasCactus) {
 			world.playSoundAtEntity(player, "random.bow", 0.5f, (itemRand.nextFloat() * 0.4F + 0.8F));
 			if(!world.isRemote) {

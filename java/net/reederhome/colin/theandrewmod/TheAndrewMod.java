@@ -136,7 +136,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TheAndrewMod implements IFuelHandler {
 
 	public static final String MODID = "theandrewmod";
-	public static final String VERSION = "1.19.0";
+	public static final String VERSION = "1.19.1";
 	public static final String NAME = "The Andrew Mod";
 	public static CreativeTabs tabAndrew = new CreativeTabs(CreativeTabs.getNextID(), "theandrewmod") {	
 		@Override
@@ -654,9 +654,7 @@ public class TheAndrewMod implements IFuelHandler {
 				event.entity.mountEntity(null);
 			}
 			if(held!=null) {
-				System.out.println(held);
 				if(held.getItem().equals(Items.ender_eye) && srcPlayer != null) {
-					System.out.println("spooky");
 					if (!world.isRemote)
 					{
 						ChunkPosition var5 = world.findClosestStructure("Stronghold", (int)srcPlayer.posX, (int)srcPlayer.posY, (int)srcPlayer.posZ);
