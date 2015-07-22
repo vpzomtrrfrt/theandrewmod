@@ -42,22 +42,22 @@ public class ItemWallumTeleport extends Item {
     }
 	
 	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer p) {
-		NBTTagCompound tag = stack.getTagCompound();
-		boolean success = false;
-		if(tag!=null && tag.hasKey("Pos")) {
-			int[] pos = tag.getIntArray("Pos");
-			if(pos.length==4) {
-				if(pos[0] != world.provider.dimensionId) {
-					p.travelToDimension(pos[0]);
+		if(!world.isRemote) {
+			NBTTagCompound tag = stack.getTagCompound();
+			boolean success = false;
+			if(tag!=null && tag.hasKey("Pos")) {
+				int[] pos = tag.getIntArray("Pos");
+				if(pos.length==4) {
+					if(pos[0] != world.provider.dimensionId) {
+						p.travelToDimension(pos[0]);
+					}
+					p.setPositionAndUpdate(pos[1]+0.5, pos[2], pos[3]+0.5);
+					success = true;
 				}
-				p.setPosition(pos[1]+0.5, pos[2], pos[3]+0.5);
-				success = true;
 			}
-		}
-		if(!success) {
-			p.addChatMessage(new ChatComponentText("This Teleport Wallum is invalid."));
-		}
-		else if(!p.capabilities.isCreativeMode) {
+			if(!success) {
+				p.addChatMessage(new ChatComponentText("This Teleport Wallum is invalid."));
+			}
 			stack.damageItem(1, p);
 		}
 		return stack;

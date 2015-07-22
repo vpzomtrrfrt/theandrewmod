@@ -281,6 +281,7 @@ public class TheAndrewMod implements IFuelHandler {
 		NBTTagCompound tpwt = new NBTTagCompound();
 		tpwt.setBoolean("CRAFTWAT", true);
 		tpw.setTagCompound(tpwt);
+		tpw.setItemDamage(tpw.getMaxDamage()-3);
 		GameRegistry.addShapelessRecipe(tpw, ItemsAndrew.itemWallum, Items.ender_pearl);
 		RecipeSorter.register("wallumGrinding", RecipesWallumGrinding.class, Category.SHAPELESS, "");
 		RecipeSorter.register("wallumEating", RecipesWallumEating.class, Category.SHAPELESS, "");
