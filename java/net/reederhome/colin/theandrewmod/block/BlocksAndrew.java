@@ -30,6 +30,7 @@ public class BlocksAndrew {
 	public static Block sidedChest = new BlockSidedChest();
 	public static Block cakeBlock = new BlockCakeBlock();
 	public static Block compressedCactus = new BlockCompressedCactus();
+	public static Block minesweeper = new BlockMinesweeper();
 	public static Block blockLiquidGunpowder;
 	
 	public static void registerBlocks() {
@@ -56,5 +57,6 @@ public class BlocksAndrew {
 		GameRegistry.registerBlock(blockLiquidGunpowder, "liquidGunpowder");
 		GameRegistry.registerBlock(cakeBlock, "cakeBlock");
 		GameRegistry.registerBlock(compressedCactus, "compressedCactus");
+		GameRegistry.registerBlock(minesweeper, "minesweeper");
 	}
 }
