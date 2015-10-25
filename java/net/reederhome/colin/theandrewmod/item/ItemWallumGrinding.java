@@ -75,6 +75,7 @@ public class ItemWallumGrinding extends Item {
 							//System.out.println(ores.get(o));
 							if(ores.get(o).getItem().equals(stack.getItem())) {
 								res = ItemWallumDust.listWallumDust.get(key).copy();
+								res.stackSize*=2;
 							}
 						}
 						for(int o = 0; o < ingots.size(); o++) {
