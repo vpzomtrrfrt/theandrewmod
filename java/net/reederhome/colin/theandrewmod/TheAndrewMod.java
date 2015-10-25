@@ -9,6 +9,26 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.IFuelHandler;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.VillagerRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import morph.api.Ability;
 import morph.api.Api;
 import net.minecraft.block.Block;
@@ -85,6 +105,7 @@ import net.reederhome.colin.theandrewmod.command.SnorlaxCommand;
 import net.reederhome.colin.theandrewmod.command.YesCommand;
 import net.reederhome.colin.theandrewmod.enchantment.CactusEnchantment;
 import net.reederhome.colin.theandrewmod.enchantment.ClusterProtectionEnchantment;
+import net.reederhome.colin.theandrewmod.enchantment.EnchantmentSpainbom;
 import net.reederhome.colin.theandrewmod.entity.EntityCharlie;
 import net.reederhome.colin.theandrewmod.entity.EntityCurveball;
 import net.reederhome.colin.theandrewmod.entity.EntityHPCreeper;
@@ -111,26 +132,6 @@ import net.reederhome.colin.theandrewmod.tileentity.TileEntityTNTChest;
 import net.reederhome.colin.theandrewmod.tileentity.TileEntityWallumagicalChest;
 import net.reederhome.colin.theandrewmod.world.BiomeGenDessert;
 import net.reederhome.colin.theandrewmod.world.WorldGeneratorAndrew;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.IFuelHandler;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.VillagerRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @Mod(modid = TheAndrewMod.MODID, version = TheAndrewMod.VERSION, name = TheAndrewMod.NAME)
 public class TheAndrewMod implements IFuelHandler {
@@ -160,6 +161,7 @@ public class TheAndrewMod implements IFuelHandler {
 	public static DamageSource deathByCrafting = new DamageSource(MODID+".deathByCrafting");
 	public static Enchantment cactusEnchantment;
 	public static Enchantment clusterProtection;
+	public static Enchantment spainbom;
 	public static Potion cancerPotion;
 	public static Potion clusterPotion;
 	public static Potion spinningPotion;
@@ -266,7 +268,8 @@ public class TheAndrewMod implements IFuelHandler {
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.blastingDevice), "ttt", "ttt", "stt", 't', Blocks.tnt, 's', Blocks.lever);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.cactusGun), "cbc", "coc", "c  ", 'c', Blocks.cactus, 'b', Items.bow, 'o', Blocks.obsidian);
 		cactusEnchantment = new CactusEnchantment(config.getInt("enchantmentCactus", "ids", 24, 0, 4096, "id for Cactus Enchantment"));
-		clusterProtection = new ClusterProtectionEnchantment(config.getInt("enchantmentClusterProtection", "ids", 25, 0, 4096, "id for Cluster Protection Enchantment")); 
+		clusterProtection = new ClusterProtectionEnchantment(config.getInt("enchantmentClusterProtection", "ids", 25, 0, 4096, "id for Cluster Protection Enchantment"));
+		spainbom = new EnchantmentSpainbom(config.getInt("enchantmentSpainbom", "ids", 26, 0, 4096, "id for Spainbom Enchantment"));
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleHelmet), "bbb", "b b", "   ", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleChestplate), "b b", "bbb", "bbb", 'b', Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemsAndrew.glassBottleLeggings), "bbb", "b b", "b b", 'b', Items.glass_bottle);
@@ -592,10 +595,17 @@ public class TheAndrewMod implements IFuelHandler {
 		if(event.entity instanceof EntityLivingBase) {
 			EntityLivingBase ent = (EntityLivingBase) event.entity;
 			int lvl = 0;
+			int sbl = 0;
 			for(int i = 1; i < 5; i++) {
-				lvl+=EnchantmentHelper.getEnchantmentLevel(cactusEnchantment.effectId, ent.getEquipmentInSlot(i));
+				try {
+					lvl+=EnchantmentHelper.getEnchantmentLevel(cactusEnchantment.effectId, ent.getEquipmentInSlot(i));
+					sbl+=EnchantmentHelper.getEnchantmentLevel(spainbom.effectId, ent.getEquipmentInSlot(i));
+				} catch(NullPointerException e) {
+					
+				}
 			}
 			ent.dropItem(new ItemStack(Blocks.cactus).getItem(), lvl);
+			world.createExplosion(ent, ent.posX, ent.posY, ent.posZ, sbl, true);
 		}
 		if(event.source instanceof EntityDamageSource) {
 			Entity srcE = event.source.getSourceOfDamage();
@@ -604,6 +614,8 @@ public class TheAndrewMod implements IFuelHandler {
 				if(stack!=null) {
 					int lvl = EnchantmentHelper.getEnchantmentLevel(cactusEnchantment.effectId, stack);
 					event.entity.dropItem(new ItemStack(Blocks.cactus).getItem(), lvl);
+					int sbl = EnchantmentHelper.getEnchantmentLevel(spainbom.effectId, stack);
+					world.createExplosion(srcE, srcE.posX, srcE.posY, srcE.posZ, sbl, true);
 				}
 			}
 		}
